@@ -1,0 +1,21 @@
+# components-template-split
+
+> Источник: `docs/doc-architect.md` (раздел "Вынос x-template шаблонов")
+
+## Принцип
+
+Все `x-template` вынесены в отдельные файлы и вставляются в DOM при загрузке модуля.
+
+## Структура
+
+- `shared/templates/{component-name}-template.js` — переиспользуемые компоненты
+- `app/templates/{component-name}-template.js` — компоненты приложения
+- `features/<feature>/templates/` — зарезервировано
+
+## Формат
+
+Каждый файл содержит константу `TEMPLATE` со строкой шаблона и регистрацию `<script type="text/x-template">` в DOM.
+
+## Порядок загрузки
+
+Шаблоны должны быть загружены **до** Vue и компонентов. Загрузка через `core/module-loader.js`.
