@@ -11,6 +11,12 @@ def generate_index(base_path, index_file_path, repo_root_path):
     index_content.append("# Index: MBB-specific Skills\n")
     index_content.append("> Навигационный индекс по MBB-специфичным skills\n")
 
+    category_titles = {
+        "core-systems": "Core Systems",
+        "ux": "UX",
+        "libs": "Libraries",
+    }
+
     # Исключаем директорию 'index' из списка сканируемых
     for root, dirs, files in os.walk(base_path):
         if 'index' in dirs:
@@ -21,20 +27,29 @@ def generate_index(base_path, index_file_path, repo_root_path):
 
         for subdir in subdirectories:
             category_path = os.path.join(root, subdir)
-            category_name = subdir.replace('-', ' ').title() # Форматируем заголовок
-            index_content.append(f"\n## {category_name}\n")
-
             skill_files = []
             for file_name in sorted(os.listdir(category_path)):
                 if file_name.endswith(".md") and not file_name.startswith("index-"):
                     skill_files.append(file_name)
+
+            if not skill_files:
+                continue
+
+            category_name = category_titles.get(
+                subdir,
+                subdir.replace('-', ' ').title()
+            )
+            index_content.append(f"\n## {category_name}\n\n")
 
             for skill_file in skill_files:
                 # Относительный путь от index-mbb.md до файла skill
                 # Пример: skills-mbb/skills/architecture/architecture-client-vs-cloud.md
                 # index-mbb.md находится в skills-mbb/skills/index/index-mbb.md
                 # Значит, relative_path должен быть ../category_name/skill_file
-                relative_path = os.path.relpath(os.path.join(category_path, skill_file), os.path.dirname(index_file_path))
+                relative_path = os.path.relpath(
+                    os.path.join(category_path, skill_file),
+                    os.path.dirname(index_file_path)
+                ).replace(os.sep, "/")
                 # Удаляем расширение .md для более чистого отображения
                 skill_id = os.path.splitext(skill_file)[0]
                 index_content.append(f"- [`{skill_id}`]({relative_path})\n")
@@ -57,7 +72,7 @@ def generate_index(base_path, index_file_path, repo_root_path):
     # 2. Получаем путь до skills репозитория
     skills_repo_path = os.path.join(repo_root_path, 'skills')
     # 3. Вычисляем относительный путь от директории index-mbb.md до skills репозитория
-    relative_to_skills = os.path.relpath(skills_repo_path, dir_of_index)
+    relative_to_skills = os.path.relpath(skills_repo_path, dir_of_index).replace(os.sep, "/")
 
     index_content.append(f"- Общие skills: [`../skills/`]({relative_to_skills}/)\n")
 
