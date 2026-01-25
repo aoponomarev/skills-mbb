@@ -13,11 +13,11 @@
 
 ## 🚀 Candidates (Pending Review)
 
-_Пока пусто. Добавляйте новых кандидатов здесь._
+- [status=pending] title="skills-mcp basic smoke test" | scope="Проверка записи в BACKLOG через MCP" | tags=[mcp, skills] | source="manual-test" | priority="low" | timestamp=2026-01-25T13:03:37.046Z
+- [status=pending] title="skills-mcp final test" | scope="Финальная проверка записи в BACKLOG через MCP" | tags=[mcp, skills] | source="final-test" | priority="low" | timestamp=2026-01-25T13:18:12.535Z
 
 ---
 
 ## ✅ Archive (Recently Promoted)
 
 _Список недавно перенесенных в основной реестр skills._
-[status=pending] title="skills-mcp basic smoke test" | scope="Проверка записи в BACKLOG через MCP" | tags=[mcp, skills] | source="manual-test" | priority="low" | timestamp=2026-01-25T13:03:37.046Z
