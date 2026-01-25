@@ -1,6 +1,10 @@
 ---
 title: messages-translator
-tags: [#mbb-spec, #core-systems, #messages, #i18n]
+tags:
+  - "#mbb-spec"
+  - "#core-systems"
+  - "#messages"
+  - "#i18n"
 dependencies: [messages-keys-and-config]
 mcp_resource: true
 updated_at: 2026-01-24

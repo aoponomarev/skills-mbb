@@ -1,6 +1,10 @@
 ---
 title: cloud-yandex-cloud-function-steps-guide
-tags: [#mbb-spec, #cloud, #yandex-cloud, #serverless]
+tags:
+  - "#mbb-spec"
+  - "#cloud"
+  - "#yandex-cloud"
+  - "#serverless"
 dependencies: [cloud-yandex-cloud-function-code, troubleshooting-yandex-cors-troubleshooting, cloud-yandex-get-api-key]
 mcp_resource: true
 updated_at: 2026-01-24

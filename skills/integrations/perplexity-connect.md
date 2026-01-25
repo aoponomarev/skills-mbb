@@ -1,6 +1,10 @@
 ---
 title: integrations-perplexity-connect
-tags: [#mbb-spec, #integrations, #ai, #perplexity]
+tags:
+  - "#mbb-spec"
+  - "#integrations"
+  - "#ai"
+  - "#perplexity"
 dependencies: [integrations-ai-core]
 mcp_resource: true
 updated_at: 2026-01-24

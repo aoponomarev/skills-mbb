@@ -1,6 +1,9 @@
 ---
 title: ux-interface-terms
-tags: [#mbb-spec, #ux, #glossary]
+tags:
+  - "#mbb-spec"
+  - "#ux"
+  - "#glossary"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

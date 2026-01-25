@@ -1,6 +1,9 @@
 ---
 title: components-responsive-visibility
-tags: [#mbb-spec, #components, #responsive]
+tags:
+  - "#mbb-spec"
+  - "#components"
+  - "#responsive"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

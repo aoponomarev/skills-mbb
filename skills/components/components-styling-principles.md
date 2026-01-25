@@ -1,6 +1,10 @@
 ---
 title: components-styling-principles
-tags: [#mbb-spec, #components, #ui, #css]
+tags:
+  - "#mbb-spec"
+  - "#components"
+  - "#ui"
+  - "#css"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

@@ -1,6 +1,8 @@
 ---
 title: architecture-dom-markup
-tags: [#mbb-spec, #architecture]
+tags:
+  - "#mbb-spec"
+  - "#architecture"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

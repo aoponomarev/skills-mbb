@@ -1,6 +1,8 @@
 ---
 title: integrations-strategy
-tags: [#mbb-spec, #integrations]
+tags:
+  - "#mbb-spec"
+  - "#integrations"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

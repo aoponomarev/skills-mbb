@@ -1,6 +1,8 @@
 ---
 title: metrics-portfolio-structure
-tags: [#mbb-spec, #metrics]
+tags:
+  - "#mbb-spec"
+  - "#metrics"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

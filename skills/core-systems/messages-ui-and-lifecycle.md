@@ -1,6 +1,10 @@
 ---
 title: messages-ui-and-lifecycle
-tags: [#mbb-spec, #core-systems, #messages, #ui]
+tags:
+  - "#mbb-spec"
+  - "#core-systems"
+  - "#messages"
+  - "#ui"
 dependencies: [messages-keys-and-config, messages-translator]
 mcp_resource: true
 updated_at: 2026-01-24

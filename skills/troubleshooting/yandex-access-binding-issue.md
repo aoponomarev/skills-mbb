@@ -1,6 +1,10 @@
 ---
 title: troubleshooting-yandex-access-binding-issue
-tags: [#mbb-spec, #troubleshooting, #yandex-cloud, #iam]
+tags:
+  - "#mbb-spec"
+  - "#troubleshooting"
+  - "#yandex-cloud"
+  - "#iam"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

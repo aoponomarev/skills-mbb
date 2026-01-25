@@ -1,6 +1,8 @@
 ---
 title: libs-mbb-auto-activation
-tags: [#mbb-spec, #libs]
+tags:
+  - "#mbb-spec"
+  - "#libs"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

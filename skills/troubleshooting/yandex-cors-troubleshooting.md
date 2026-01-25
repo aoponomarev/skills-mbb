@@ -1,6 +1,10 @@
 ---
 title: troubleshooting-yandex-cors-troubleshooting
-tags: [#mbb-spec, #troubleshooting, #yandex-cloud, #cors]
+tags:
+  - "#mbb-spec"
+  - "#troubleshooting"
+  - "#yandex-cloud"
+  - "#cors"
 dependencies: [cloud-yandex-cloud-function-code, cloud-yandex-cloud-function-steps-guide, cloud-yandex-get-api-key]
 mcp_resource: true
 updated_at: 2026-01-24

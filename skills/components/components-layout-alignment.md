@@ -1,6 +1,9 @@
 ---
 title: components-layout-alignment
-tags: [#mbb-spec, #components, #layout]
+tags:
+  - "#mbb-spec"
+  - "#components"
+  - "#layout"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

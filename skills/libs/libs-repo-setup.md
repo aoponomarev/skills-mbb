@@ -1,6 +1,10 @@
 ---
 title: libs-repo-setup
-tags: [#mbb-spec, #libs, #github-pages, #cdn]
+tags:
+  - "#mbb-spec"
+  - "#libs"
+  - "#github-pages"
+  - "#cdn"
 dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24

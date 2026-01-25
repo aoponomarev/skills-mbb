@@ -20,3 +20,4 @@ _Пока пусто. Добавляйте новых кандидатов зд�
 ## ✅ Archive (Recently Promoted)
 
 _Список недавно перенесенных в основной реестр skills._
+[status=pending] title="skills-mcp basic smoke test" | scope="Проверка записи в BACKLOG через MCP" | tags=[mcp, skills] | source="manual-test" | priority="low" | timestamp=2026-01-25T13:03:37.046Z

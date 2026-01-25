@@ -1,6 +1,11 @@
 ---
 title: integrations-oauth-file-protocol
-tags: [#mbb-spec, #integrations, #auth, #oauth, #file-protocol]
+tags:
+  - "#mbb-spec"
+  - "#integrations"
+  - "#auth"
+  - "#oauth"
+  - "#file-protocol"
 dependencies: [integrations-auth-worker-restore]
 mcp_resource: true
 updated_at: 2026-01-24

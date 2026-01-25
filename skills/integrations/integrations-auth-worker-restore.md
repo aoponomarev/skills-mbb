@@ -1,6 +1,10 @@
 ---
 title: integrations-auth-worker-restore
-tags: [#mbb-spec, #integrations, #cloudflare, #auth]
+tags:
+  - "#mbb-spec"
+  - "#integrations"
+  - "#cloudflare"
+  - "#auth"
 dependencies: [integrations-cloudflare-core, integrations-api-proxy]
 mcp_resource: true
 updated_at: 2026-01-24
