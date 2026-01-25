@@ -37,12 +37,15 @@
 - [`components-styling-principles`](../components/components-styling-principles.md)
 - [`components-template-split`](../components/components-template-split.md)
 - [`components-tooltips`](../components/components-tooltips.md)
+- [`components-icon-manager`](../components/components-icon-manager.md)
 
 ## Core Systems
 
 - [`messages-keys-and-config`](../core-systems/messages-keys-and-config.md)
 - [`messages-translator`](../core-systems/messages-translator.md)
 - [`messages-ui-and-lifecycle`](../core-systems/messages-ui-and-lifecycle.md)
+- [`core-systems-auto-coin-sets`](../core-systems/auto-coin-sets.md)
+- [`core-systems-workspace-config`](../core-systems/workspace-config.md)
 
 ## Integrations
 
@@ -52,7 +55,10 @@
 - [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
+- [`integrations-data-providers`](../integrations/integrations-data-providers.md)
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
+- [`integrations-postgres`](../integrations/integrations-postgres.md)
+- [`integrations-rate-limiting`](../integrations/integrations-rate-limiting.md)
 - [`integrations-status`](../integrations/integrations-status.md)
 - [`integrations-strategy`](../integrations/integrations-strategy.md)
 - [`perplexity-connect`](../integrations/perplexity-connect.md)
@@ -61,6 +67,7 @@
 
 - [`libs-mbb-auto-activation`](../libs/libs-mbb-auto-activation.md)
 - [`libs-mbb-config`](../libs/libs-mbb-config.md)
+- [`libs-metadata-generation`](../libs/libs-metadata-generation.md)
 - [`libs-repo-setup`](../libs/libs-repo-setup.md)
 
 ## Metrics

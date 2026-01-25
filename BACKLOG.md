@@ -14,10 +14,16 @@
 ## 🚀 Candidates (Pending Review)
 
 - [status=pending] title="skills-mcp basic smoke test" | scope="Проверка записи в BACKLOG через MCP" | tags=[mcp, skills] | source="manual-test" | priority="low" | timestamp=2026-01-25T13:03:37.046Z
-- [status=pending] title="skills-mcp final test" | scope="Финальная проверка записи в BACKLOG через MCP" | tags=[mcp, skills] | source="final-test" | priority="low" | timestamp=2026-01-25T13:18:12.535Z
 
 ---
 
 ## ✅ Archive (Recently Promoted)
 
 _Список недавно перенесенных в основной реестр skills._
+- [status=promoted] title="integrations-data-providers" | scope="Единый интерфейс и конфигурация провайдеров данных (CoinGecko и др.)" | tags=[integrations, data, providers] | source="header-audit" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
+- [status=promoted] title="integrations-rate-limiting" | scope="Централизованное ограничение запросов к API" | tags=[integrations, api, rate-limit] | source="header-audit" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
+- [status=promoted] title="integrations-postgres" | scope="Интеграция и синхронизация с PostgreSQL (Yandex Cloud)" | tags=[integrations, postgres, cloud] | source="header-audit" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
+- [status=promoted] title="libs-metadata-generation" | scope="Генерация и загрузка метаданных монет (coins.json и пр.)" | tags=[libs, metadata, data] | source="header-audit" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
+- [status=promoted] title="components-icon-manager" | scope="Единый источник URL иконок с приоритетом CDN и fallback" | tags=[components, icons, cdn] | source="header-audit" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
+- [status=promoted] title="core-systems-auto-coin-sets" | scope="Автоматическое формирование и обновление наборов монет" | tags=[core-systems, data, automation] | source="header-audit" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
+- [status=promoted] title="core-systems-workspace-config" | scope="ЕИП для настроек рабочей зоны" | tags=[core-systems, config] | source="header-audit" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
