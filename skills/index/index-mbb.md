@@ -11,12 +11,6 @@
 - [`architecture-ssot`](../architecture/architecture-ssot.md)
 - [`architecture-versioning`](../architecture/architecture-versioning.md)
 
-## Core Systems
-
-- [`messages-keys-and-config`](../core-systems/messages-keys-and-config.md)
-- [`messages-translator`](../core-systems/messages-translator.md)
-- [`messages-ui-and-lifecycle`](../core-systems/messages-ui-and-lifecycle.md)
-
 ## Components
 
 - [`components-bootstrap`](../components/components-bootstrap.md)
@@ -59,20 +53,9 @@
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
-- [`integrations-perplexity-connect`](../integrations/perplexity-connect.md)
 - [`integrations-status`](../integrations/integrations-status.md)
 - [`integrations-strategy`](../integrations/integrations-strategy.md)
-
-## Troubleshooting
-
-- [`troubleshooting-yandex-access-binding-issue`](../troubleshooting/yandex-access-binding-issue.md)
-- [`troubleshooting-yandex-cors-troubleshooting`](../troubleshooting/yandex-cors-troubleshooting.md)
-
-## Cloud
-
-- [`cloud-yandex-cloud-function-code`](../cloud/yandex-cloud-function-code.md)
-- [`cloud-yandex-cloud-function-steps-guide`](../cloud/yandex-cloud-function-steps-guide.md)
-- [`cloud-yandex-get-api-key`](../cloud/yandex-get-api-key.md)
+- [`integrations-perplexity-connect`](../integrations/perplexity-connect.md)
 
 ## Libraries
 
