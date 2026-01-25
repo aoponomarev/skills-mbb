@@ -57,9 +57,13 @@ updated_at: 2026-01-24
 ## Integrations
 
 - [`integrations-ai-core`](../integrations/integrations-ai-core.md)
+<<<<<<< HEAD
 - [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
+=======
+>>>>>>> 5528cf0aed757285ce5a04ff9509612727bcbac4
 - [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
+- [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
