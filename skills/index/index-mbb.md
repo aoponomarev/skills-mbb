@@ -1,11 +1,3 @@
----
-title: index-mbb
-tags: [#index, #mbb-spec]
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
----
-
 # Index: MBB-specific Skills
 
 > Навигационный индекс по MBB-специфичным skills
