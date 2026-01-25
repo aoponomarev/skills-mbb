@@ -1,11 +1,3 @@
----
-title: index-mbb
-tags: [#index, #mbb-spec]
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
----
-
 # Index: MBB-specific Skills
 
 > Навигационный индекс по MBB-специфичным skills
@@ -34,12 +26,6 @@ updated_at: 2026-01-24
 - [`components-tooltips`](../components/components-tooltips.md)
 - [`components-layout-alignment`](../components/components-layout-alignment.md)
 - [`components-responsive-visibility`](../components/components-responsive-visibility.md)
-
-## Core Systems
-
-- [`messages-keys-and-config`](../core-systems/messages-keys-and-config.md)
-- [`messages-translator`](../core-systems/messages-translator.md)
-- [`messages-ui-and-lifecycle`](../core-systems/messages-ui-and-lifecycle.md)
 
 ## UX
 
