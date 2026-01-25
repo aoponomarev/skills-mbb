@@ -17,15 +17,15 @@
 - [`components-boundaries`](../components/components-boundaries.md)
 - [`components-class-manager`](../components/components-class-manager.md)
 - [`components-column-visibility`](../components/components-column-visibility.md)
+- [`components-layout-alignment`](../components/components-layout-alignment.md)
 - [`components-localization`](../components/components-localization.md)
 - [`components-modal-buttons`](../components/components-modal-buttons.md)
 - [`components-overview`](../components/components-overview.md)
+- [`components-responsive-visibility`](../components/components-responsive-visibility.md)
 - [`components-ssot`](../components/components-ssot.md)
 - [`components-styling-principles`](../components/components-styling-principles.md)
 - [`components-template-split`](../components/components-template-split.md)
 - [`components-tooltips`](../components/components-tooltips.md)
-- [`components-layout-alignment`](../components/components-layout-alignment.md)
-- [`components-responsive-visibility`](../components/components-responsive-visibility.md)
 
 ## UX
 
@@ -47,12 +47,12 @@
 ## Integrations
 
 - [`integrations-ai-core`](../integrations/integrations-ai-core.md)
-- [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
-- [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
 - [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
+- [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
+- [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
 - [`integrations-status`](../integrations/integrations-status.md)
 - [`integrations-strategy`](../integrations/integrations-strategy.md)
 
