@@ -29,8 +29,11 @@ updated_at: 2026-01-24
 - [`components-modal-buttons`](../components/components-modal-buttons.md)
 - [`components-overview`](../components/components-overview.md)
 - [`components-ssot`](../components/components-ssot.md)
+- [`components-styling-principles`](../components/components-styling-principles.md)
 - [`components-template-split`](../components/components-template-split.md)
 - [`components-tooltips`](../components/components-tooltips.md)
+- [`components-layout-alignment`](../components/components-layout-alignment.md)
+- [`components-responsive-visibility`](../components/components-responsive-visibility.md)
 
 ## Core Systems
 
@@ -40,6 +43,7 @@ updated_at: 2026-01-24
 
 ## UX
 
+- [`ux-interface-terms`](../ux/ux-interface-terms.md)
 - [`ux-principles`](../ux/ux-principles.md)
 
 ## Cache
@@ -57,13 +61,9 @@ updated_at: 2026-01-24
 ## Integrations
 
 - [`integrations-ai-core`](../integrations/integrations-ai-core.md)
-<<<<<<< HEAD
 - [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
-=======
->>>>>>> 5528cf0aed757285ce5a04ff9509612727bcbac4
 - [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
-- [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
