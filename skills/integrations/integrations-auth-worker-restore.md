@@ -22,6 +22,7 @@ updated_at: 2026-01-24
 - **API токены и Client Secret** должны быть в защищенном хранилище.
 - Все значения идентификаторов (Account ID, Database ID, Client ID) берутся из вашего аккаунта, не из кода.
 - **KV `API_CACHE` обязателен** для прокси‑кеша внешних API (CoinGecko/Yahoo/Stooq).
+- **Секреты** для восстановления брать из `MBB/secrets-backup.txt` (локально, без коммита).
 
 ## Workflow
 1) **Cloudflare**: убедиться, что аккаунт и Worker созданы.
