@@ -60,6 +60,7 @@
 
 - [`libs-mbb-auto-activation`](../libs/libs-mbb-auto-activation.md)
 - [`libs-mbb-config`](../libs/libs-mbb-config.md)
+- [`libs-repo-setup`](../libs/libs-repo-setup.md)
 
 ## Related
 
