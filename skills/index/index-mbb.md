@@ -1,3 +1,11 @@
+---
+title: index-mbb
+tags: [#index, #mbb-spec]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # Index: MBB-specific Skills
 
 > Навигационный индекс по MBB-специфичным skills
@@ -24,6 +32,12 @@
 - [`components-template-split`](../components/components-template-split.md)
 - [`components-tooltips`](../components/components-tooltips.md)
 
+## Core Systems
+
+- [`messages-keys-and-config`](../core-systems/messages-keys-and-config.md)
+- [`messages-translator`](../core-systems/messages-translator.md)
+- [`messages-ui-and-lifecycle`](../core-systems/messages-ui-and-lifecycle.md)
+
 ## UX
 
 - [`ux-principles`](../ux/ux-principles.md)
@@ -44,6 +58,7 @@
 
 - [`integrations-ai-core`](../integrations/integrations-ai-core.md)
 - [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
+- [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
 - [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
 - [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
