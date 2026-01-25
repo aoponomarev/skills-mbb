@@ -43,8 +43,8 @@
 ## Integrations
 
 - [`integrations-ai-core`](../integrations/integrations-ai-core.md)
-- [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
+- [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
