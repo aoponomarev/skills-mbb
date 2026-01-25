@@ -1,3 +1,11 @@
+---
+title: ux-principles
+tags: [#mbb-spec, #ux]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # ux-principles
 
 > Источник: `docs/doc-comp-principles.md` (раздел "Единый источник правды для заголовков модальных окон")

@@ -1,3 +1,11 @@
+---
+title: metrics-models
+tags: [#mbb-spec, #metrics]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # metrics-models
 
 > Источник: `docs/doc-metrics.md` (архитектура моделей)

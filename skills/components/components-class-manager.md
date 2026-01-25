@@ -1,3 +1,11 @@
+---
+title: components-class-manager
+tags: [#mbb-spec, #components]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # components-class-manager
 
 > Источник: `docs/doc-comp-classes.md`

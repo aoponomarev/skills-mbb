@@ -1,3 +1,11 @@
+---
+title: cache-keys
+tags: [#mbb-spec, #cache]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # cache-keys
 
 > Источник: `docs/doc-cache.md` (правила принятия решений)

@@ -1,3 +1,11 @@
+---
+title: components-bootstrap
+tags: [#mbb-spec, #components]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # components-bootstrap
 
 > Источник: `docs/doc-comp-principles.md` (раздел "Стратегия максимальной совместимости с Bootstrap")

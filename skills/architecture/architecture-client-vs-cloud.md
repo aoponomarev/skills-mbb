@@ -1,3 +1,11 @@
+---
+title: architecture-client-vs-cloud
+tags: [#mbb-spec, #architecture]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # architecture-client-vs-cloud
 
 > Источник: `docs/doc-architect.md` (раздел "Разделение ответственности: клиент vs облако")

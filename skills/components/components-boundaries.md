@@ -1,3 +1,11 @@
+---
+title: components-boundaries
+tags: [#mbb-spec, #components]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # components-boundaries
 
 > Источник: `docs/doc-comp-principles.md` (разделы "Использование Bootstrap" и "Приоритет библиотек")

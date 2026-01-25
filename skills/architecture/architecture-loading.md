@@ -1,3 +1,11 @@
+---
+title: architecture-loading
+tags: [#mbb-spec, #architecture]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # architecture-loading
 
 > Источник: `docs/doc-architect.md` (разделы "Технические ограничения" и "Принципы модульности")

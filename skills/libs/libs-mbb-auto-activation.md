@@ -1,3 +1,11 @@
+---
+title: libs-mbb-auto-activation
+tags: [#mbb-spec, #libs]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # libs-mbb-auto-activation
 
 > Источник: `docs/doc-lib-github.md` (автоматическая активация)

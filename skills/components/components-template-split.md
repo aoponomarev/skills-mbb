@@ -1,3 +1,11 @@
+---
+title: components-template-split
+tags: [#mbb-spec, #components]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # components-template-split
 
 > Источник: `docs/doc-architect.md` (раздел "Вынос x-template шаблонов")

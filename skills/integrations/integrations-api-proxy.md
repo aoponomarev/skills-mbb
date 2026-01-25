@@ -1,3 +1,11 @@
+---
+title: integrations-api-proxy
+tags: [#mbb-spec, #integrations]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # integrations-api-proxy
 
 > Источник: `docs/doc-cloudflare.md` (раздел "API Proxy")

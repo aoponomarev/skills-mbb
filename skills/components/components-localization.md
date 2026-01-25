@@ -1,3 +1,11 @@
+---
+title: components-localization
+tags: [#mbb-spec, #components]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # components-localization
 
 > Источник: `docs/doc-comp-principles.md` (раздел "Система централизованной реактивности текстов")

@@ -1,3 +1,11 @@
+---
+title: integrations-ai-core
+tags: [#mbb-spec, #integrations]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # integrations-ai-core
 
 > Источник: `docs/doc-ai-providers.md`

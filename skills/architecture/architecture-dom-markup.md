@@ -1,3 +1,11 @@
+---
+title: architecture-dom-markup
+tags: [#mbb-spec, #architecture]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # architecture-dom-markup
 
 > Источник: `docs/doc-architect.md` (раздел "Маркировка элементов DOM")

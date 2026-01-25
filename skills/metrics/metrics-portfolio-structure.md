@@ -1,3 +1,11 @@
+---
+title: metrics-portfolio-structure
+tags: [#mbb-spec, #metrics]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # metrics-portfolio-structure
 
 > Источник: `docs/doc-architect.md` (раздел "Портфельная система")

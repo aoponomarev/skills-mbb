@@ -1,3 +1,11 @@
+---
+title: cache-strategy
+tags: [#mbb-spec, #cache]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # cache-strategy
 
 > Источник: `docs/doc-cache.md` (архитектура, слои, TTL, стратегии)

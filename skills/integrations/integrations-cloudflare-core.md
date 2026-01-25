@@ -1,3 +1,11 @@
+---
+title: integrations-cloudflare-core
+tags: [#mbb-spec, #integrations]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # integrations-cloudflare-core
 
 > Источник: `docs/doc-cloudflare.md`

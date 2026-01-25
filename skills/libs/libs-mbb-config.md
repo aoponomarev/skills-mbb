@@ -1,3 +1,11 @@
+---
+title: libs-mbb-config
+tags: [#mbb-spec, #libs]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # libs-mbb-config
 
 > Источник: `docs/doc-lib-vue.md` (схема хранения и загрузка)

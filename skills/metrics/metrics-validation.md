@@ -1,3 +1,11 @@
+---
+title: metrics-validation
+tags: [#mbb-spec, #metrics]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # metrics-validation
 
 > Источник: `docs/doc-architect.md` (раздел "Валидация и схемы данных")

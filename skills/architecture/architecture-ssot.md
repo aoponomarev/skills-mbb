@@ -1,3 +1,11 @@
+---
+title: architecture-ssot
+tags: [#mbb-spec, #architecture]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # architecture-ssot
 
 > Источник: `docs/doc-architect.md` (раздел "Единый источник правды")

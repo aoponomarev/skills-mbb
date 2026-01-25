@@ -1,3 +1,11 @@
+---
+title: components-column-visibility
+tags: [#mbb-spec, #components]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # components-column-visibility
 
 > Источник: `docs/doc-architect.md` (раздел "CSS-driven Column Visibility через вкладки")

@@ -1,3 +1,11 @@
+---
+title: components-modal-buttons
+tags: [#mbb-spec, #components]
+dependencies: []
+mcp_resource: true
+updated_at: 2026-01-24
+---
+
 # components-modal-buttons
 
 > Источник: `docs/doc-comp-principles.md` (раздел "Система управления кнопками модального окна")
