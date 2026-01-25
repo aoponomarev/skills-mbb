@@ -1,4 +1,5 @@
 # Index: MBB-specific Skills
+
 > Навигационный индекс по MBB-специфичным skills
 
 ## Architecture
@@ -9,18 +10,6 @@
 - [`architecture-loading`](../architecture/architecture-loading.md)
 - [`architecture-ssot`](../architecture/architecture-ssot.md)
 - [`architecture-versioning`](../architecture/architecture-versioning.md)
-
-## Cache
-
-- [`cache-keys`](../cache/cache-keys.md)
-- [`cache-strategy`](../cache/cache-strategy.md)
-- [`cache-versioning`](../cache/cache-versioning.md)
-
-## Cloud
-
-- [`yandex-cloud-function-code`](../cloud/yandex-cloud-function-code.md)
-- [`yandex-cloud-function-steps-guide`](../cloud/yandex-cloud-function-steps-guide.md)
-- [`yandex-get-api-key`](../cloud/yandex-get-api-key.md)
 
 ## Components
 
@@ -39,13 +28,22 @@
 - [`components-template-split`](../components/components-template-split.md)
 - [`components-tooltips`](../components/components-tooltips.md)
 
-## Core Systems
+## UX
 
-- [`auto-coin-sets`](../core-systems/auto-coin-sets.md)
-- [`messages-keys-and-config`](../core-systems/messages-keys-and-config.md)
-- [`messages-translator`](../core-systems/messages-translator.md)
-- [`messages-ui-and-lifecycle`](../core-systems/messages-ui-and-lifecycle.md)
-- [`workspace-config`](../core-systems/workspace-config.md)
+- [`ux-interface-terms`](../ux/ux-interface-terms.md)
+- [`ux-principles`](../ux/ux-principles.md)
+
+## Cache
+
+- [`cache-keys`](../cache/cache-keys.md)
+- [`cache-strategy`](../cache/cache-strategy.md)
+- [`cache-versioning`](../cache/cache-versioning.md)
+
+## Metrics
+
+- [`metrics-models`](../metrics/metrics-models.md)
+- [`metrics-portfolio-structure`](../metrics/metrics-portfolio-structure.md)
+- [`metrics-validation`](../metrics/metrics-validation.md)
 
 ## Integrations
 
@@ -61,7 +59,7 @@
 - [`integrations-rate-limiting`](../integrations/integrations-rate-limiting.md)
 - [`integrations-status`](../integrations/integrations-status.md)
 - [`integrations-strategy`](../integrations/integrations-strategy.md)
-- [`perplexity-connect`](../integrations/perplexity-connect.md)
+- [`integrations-perplexity-connect`](../integrations/perplexity-connect.md)
 
 ## Libraries
 
@@ -70,21 +68,6 @@
 - [`libs-metadata-generation`](../libs/libs-metadata-generation.md)
 - [`libs-repo-setup`](../libs/libs-repo-setup.md)
 
-## Metrics
-
-- [`metrics-models`](../metrics/metrics-models.md)
-- [`metrics-portfolio-structure`](../metrics/metrics-portfolio-structure.md)
-- [`metrics-validation`](../metrics/metrics-validation.md)
-
-## Troubleshooting
-
-- [`yandex-access-binding-issue`](../troubleshooting/yandex-access-binding-issue.md)
-- [`yandex-cors-troubleshooting`](../troubleshooting/yandex-cors-troubleshooting.md)
-
-## UX
-
-- [`ux-interface-terms`](../ux/ux-interface-terms.md)
-- [`ux-principles`](../ux/ux-principles.md)
-
 ## Related
-- Общие skills: [`../skills/`](../../../skills/)
+
+- Общие skills: [`../skills/`](../../skills/)
