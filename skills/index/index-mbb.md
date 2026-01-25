@@ -1,4 +1,5 @@
 # Index: MBB-specific Skills
+
 > Навигационный индекс по MBB-специфичным skills
 
 ## Architecture
@@ -87,4 +88,5 @@
 - [`ux-principles`](../ux/ux-principles.md)
 
 ## Related
+
 - Общие skills: [`../skills/`](../../../skills/)
