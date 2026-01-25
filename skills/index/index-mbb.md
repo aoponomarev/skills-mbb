@@ -1,5 +1,4 @@
 # Index: MBB-specific Skills
-
 > Навигационный индекс по MBB-специфичным skills
 
 ## Architecture
@@ -29,6 +28,7 @@
 - [`components-boundaries`](../components/components-boundaries.md)
 - [`components-class-manager`](../components/components-class-manager.md)
 - [`components-column-visibility`](../components/components-column-visibility.md)
+- [`components-icon-manager`](../components/components-icon-manager.md)
 - [`components-layout-alignment`](../components/components-layout-alignment.md)
 - [`components-localization`](../components/components-localization.md)
 - [`components-modal-buttons`](../components/components-modal-buttons.md)
@@ -38,15 +38,14 @@
 - [`components-styling-principles`](../components/components-styling-principles.md)
 - [`components-template-split`](../components/components-template-split.md)
 - [`components-tooltips`](../components/components-tooltips.md)
-- [`components-icon-manager`](../components/components-icon-manager.md)
 
 ## Core Systems
 
+- [`auto-coin-sets`](../core-systems/auto-coin-sets.md)
 - [`messages-keys-and-config`](../core-systems/messages-keys-and-config.md)
 - [`messages-translator`](../core-systems/messages-translator.md)
 - [`messages-ui-and-lifecycle`](../core-systems/messages-ui-and-lifecycle.md)
-- [`core-systems-auto-coin-sets`](../core-systems/auto-coin-sets.md)
-- [`core-systems-workspace-config`](../core-systems/workspace-config.md)
+- [`workspace-config`](../core-systems/workspace-config.md)
 
 ## Integrations
 
@@ -88,5 +87,4 @@
 - [`ux-principles`](../ux/ux-principles.md)
 
 ## Related
-
 - Общие skills: [`../skills/`](../../../skills/)
