@@ -54,11 +54,11 @@
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
 - [`integrations-data-providers`](../integrations/integrations-data-providers.md)
+- [`n8n Local Setup (Docker)`](../integrations/integrations-n8n-local-setup.md)
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
+- [`External Integrations Overview`](../integrations/integrations-overview.md)
 - [`integrations-postgres`](../integrations/integrations-postgres.md)
 - [`integrations-rate-limiting`](../integrations/integrations-rate-limiting.md)
-- [`integrations-status`](../integrations/integrations-status.md)
-- [`integrations-strategy`](../integrations/integrations-strategy.md)
 - [`integrations-perplexity-connect`](../integrations/perplexity-connect.md)
 
 ## Libraries
