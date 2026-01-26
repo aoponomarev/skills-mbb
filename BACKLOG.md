@@ -9,6 +9,17 @@
 3. **Review**: Человек (USER) просматривает список.
 4. **Promote**: Если одобрено, изменения вносятся в основной реестр, а запись архивируется.
 
+## Action Types
+- `create`: создать новый Skill
+- `update`: обновить существующий
+- `merge`: объединить Skills
+- `split`: разделить Skill
+- `deprecate`: архивировать Skill
+- `move`: перенести Skill между `skills/` и `skills-mbb/`
+
+## Entry Format
+`- [action=<action>] [status=pending] title="<Title>" | scope="<Scope>" | skill_id="<existing_id>" | changes="<description>" | tags=[tag1, tag2] | priority="<low|medium|high|critical>" | context="<cursor_context>" | timestamp=<ISO8601>`
+
 ---
 
 ## 🚀 Candidates (Pending Review)
