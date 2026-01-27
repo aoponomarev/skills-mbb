@@ -24,7 +24,7 @@
 
 ## 🚀 Candidates (Pending Review)
 
-- [action=create] [status=pending] title="Test Skill via n8n and Mistral" | scope="Verification of n8n -> Continue CLI -> Mistral flow" | tags=[test, n8n, mistral] | priority="high" | context="Testing the newly implemented infrastructure for automated skill generation." | timestamp=2026-01-26T19:00:00Z
+- [action=create] [status=rejected] title="Test Skill via n8n and Mistral" | scope="Verification of n8n to Continue CLI to Mistral flow" | tags=[test, n8n, mistral] | priority="high" | context="Testing the newly implemented infrastructure for automated skill generation" | timestamp=2026-01-27T09:30:00Z
 - [status=pending] title="skills-mcp basic smoke test" | scope="Проверка записи в BACKLOG через MCP" | tags=[mcp, skills] | source="manual-test" | priority="low" | timestamp=2026-01-25T13:03:37.046Z
 
 ---

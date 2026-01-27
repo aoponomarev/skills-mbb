@@ -57,11 +57,17 @@
 - [`n8n Local Setup (Docker)`](../integrations/integrations-n8n-local-setup.md) — базовая настройка
 - [`n8n API Access & JWT`](../integrations/integrations-n8n-api-access.md) — программный доступ, генерация ключей
 - [`n8n Docker Internals`](../integrations/integrations-n8n-docker-internals.md) — БД, volumes, диагностика
+- [`n8n Code Node v2`](../integrations/integrations-n8n-code-node-v2.md) — особенности Code node в n8n 2.x
+- [`Continue CLI + Mistral`](../integrations/integrations-continue-cli-mistral.md) — LLM интеграция для автоматизации
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
 - [`External Integrations Overview`](../integrations/integrations-overview.md)
 - [`integrations-postgres`](../integrations/integrations-postgres.md)
 - [`integrations-rate-limiting`](../integrations/integrations-rate-limiting.md)
 - [`integrations-perplexity-connect`](../integrations/perplexity-connect.md)
+
+## Process
+
+- [`Automated Skill Pipeline`](../process/process-skill-pipeline.md) — автогенерация skills через Continue CLI
 
 ## Libraries
 
