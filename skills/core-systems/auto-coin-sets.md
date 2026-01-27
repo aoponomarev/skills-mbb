@@ -8,6 +8,11 @@ dependencies: []
 mcp_resource: true
 updated_at: 2026-01-25
 ---
+## When to Use
+
+- При необходимости работы с данным компонентом или функционалом.
+
+
 
 # core-systems-auto-coin-sets
 

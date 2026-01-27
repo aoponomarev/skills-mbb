@@ -7,6 +7,15 @@ dependencies: []
 mcp_resource: true
 updated_at: 2026-01-24
 ---
+## Scope
+
+- Libs Mbb Auto Activation functionality and configuration.
+
+## When to Use
+
+- При необходимости работы с данным компонентом или функционалом.
+
+
 
 # libs-mbb-auto-activation
 

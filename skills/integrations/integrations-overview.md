@@ -10,6 +10,15 @@ updated_at: 2026-01-26
 
 > SSOT по стратегии и текущему статусу внешних интеграций MBB.
 
+
+## Scope
+
+- Integrations Overview functionality and configuration.
+
+## When to Use
+
+- При необходимости работы с данным компонентом или функционалом.
+
 ## Принципы и Стратегия
 - **On-demand**: Интеграция по мере необходимости, без избыточности.
 - **Resilience**: Отказоустойчивость (primary → secondary → local).
