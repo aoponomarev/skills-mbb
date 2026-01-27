@@ -54,7 +54,9 @@
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
 - [`integrations-data-providers`](../integrations/integrations-data-providers.md)
-- [`n8n Local Setup (Docker)`](../integrations/integrations-n8n-local-setup.md)
+- [`n8n Local Setup (Docker)`](../integrations/integrations-n8n-local-setup.md) — базовая настройка
+- [`n8n API Access & JWT`](../integrations/integrations-n8n-api-access.md) — программный доступ, генерация ключей
+- [`n8n Docker Internals`](../integrations/integrations-n8n-docker-internals.md) — БД, volumes, диагностика
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
 - [`External Integrations Overview`](../integrations/integrations-overview.md)
 - [`integrations-postgres`](../integrations/integrations-postgres.md)
