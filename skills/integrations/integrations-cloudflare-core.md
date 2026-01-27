@@ -15,8 +15,6 @@ updated_at: 2026-01-24
 
 - При необходимости работы с данным компонентом или функционалом.
 
-
-
 # integrations-cloudflare-core
 
 > Источник: `docs/doc-cloudflare.md`

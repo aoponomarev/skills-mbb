@@ -12,7 +12,6 @@ updated_at: 2026-01-24
 
 > Источник: `docs/doc-architect.md` (раздел "Технологический стек")
 
-
 ## Scope
 
 - Architecture Core Stack functionality and configuration.

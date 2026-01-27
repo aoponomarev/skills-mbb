@@ -10,7 +10,6 @@ updated_at: 2026-01-26
 
 > SSOT по стратегии и текущему статусу внешних интеграций MBB.
 
-
 ## Scope
 
 - Integrations Overview functionality and configuration.

@@ -15,8 +15,6 @@ updated_at: 2026-01-24
 
 - При необходимости работы с данным компонентом или функционалом.
 
-
-
 # components-column-visibility
 
 > Источник: `docs/doc-architect.md` (раздел "CSS-driven Column Visibility через вкладки")

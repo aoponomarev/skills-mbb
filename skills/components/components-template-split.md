@@ -15,8 +15,6 @@ updated_at: 2026-01-24
 
 - При необходимости работы с данным компонентом или функционалом.
 
-
-
 # components-template-split
 
 > Источник: `docs/doc-architect.md` (раздел "Вынос x-template шаблонов")

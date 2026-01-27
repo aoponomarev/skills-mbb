@@ -15,8 +15,6 @@ updated_at: 2026-01-24
 
 - При необходимости работы с данным компонентом или функционалом.
 
-
-
 # integrations-ai-core
 
 > Источник: `docs/doc-ai-providers.md`
