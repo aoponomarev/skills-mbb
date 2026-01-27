@@ -24,6 +24,18 @@
 
 ## 🚀 Candidates (Pending Review)
 
+### Quality Audit Tasks (132 warnings in 62 files)
+
+- [action=update] [status=pending] skill_id="architecture-*" | changes="Standardize tags format to [#tag1, #tag2], add ## Scope and ## When to Use sections" | priority="medium" | context="Quality audit: 6 files in architecture/" | timestamp=2026-01-27T15:00:00Z
+- [action=update] [status=pending] skill_id="cache-*" | changes="Standardize tags format to [#tag1, #tag2], add ## Scope and ## When to Use sections" | priority="medium" | context="Quality audit: 3 files in cache/" | timestamp=2026-01-27T15:00:00Z
+- [action=update] [status=pending] skill_id="components-*" | changes="Standardize tags format to [#tag1, #tag2], add ## Scope and ## When to Use sections" | priority="medium" | context="Quality audit: 14 files in components/" | timestamp=2026-01-27T15:00:00Z
+- [action=update] [status=pending] skill_id="integrations-*" | changes="Standardize tags format to [#tag1, #tag2], add ## Scope and ## When to Use sections" | priority="medium" | context="Quality audit: 17 files in integrations/" | timestamp=2026-01-27T15:00:00Z
+- [action=update] [status=pending] skill_id="libs-*" | changes="Standardize tags format to [#tag1, #tag2], add ## Scope and ## When to Use sections" | priority="medium" | context="Quality audit: 4 files in libs/" | timestamp=2026-01-27T15:00:00Z
+- [action=update] [status=pending] skill_id="metrics-*" | changes="Standardize tags format to [#tag1, #tag2], add ## Scope and ## When to Use sections" | priority="medium" | context="Quality audit: 3 files in metrics/" | timestamp=2026-01-27T15:00:00Z
+- [action=update] [status=pending] skill_id="ux-*" | changes="Standardize tags format to [#tag1, #tag2], add ## Scope and ## When to Use sections" | priority="medium" | context="Quality audit: 2 files in ux/" | timestamp=2026-01-27T15:00:00Z
+
+### Other Pending
+
 - [action=create] [status=rejected] title="Test Skill via n8n and Mistral" | scope="Verification of n8n to Continue CLI to Mistral flow" | tags=[test, n8n, mistral] | priority="high" | context="Testing the newly implemented infrastructure for automated skill generation" | timestamp=2026-01-27T09:30:00Z
 - [status=pending] title="skills-mcp basic smoke test" | scope="Проверка записи в BACKLOG через MCP" | tags=[mcp, skills] | source="manual-test" | priority="low" | timestamp=2026-01-25T13:03:37.046Z
 
