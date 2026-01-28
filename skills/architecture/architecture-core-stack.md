@@ -1,84 +1,50 @@
 ---
-title: architecture-core-stack
-tags:
-  - "#mbb-spec"
-  - "#architecture"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: architecture-core-stack
+title: "Ядро архитектуры и технологический стек MBB"
+description_ru: "Актуальное описание технологического стека проекта MBB, включая Docker, MCP, Node.js и фронтенд."
+scope: "Фундаментальный стек технологий, среда исполнения и принципы взаимодействия компонентов."
+tags: [#architecture, #stack, #docker, #mcp, #frontend]
+priority: emergency
+created_at: 2026-01-28
+updated_at: 2026-01-28
 ---
 
-# architecture-core-stack
+# Ядро архитектуры и технологический стек MBB
 
-> Источник: `docs/doc-architect.md` (раздел "Технологический стек")
+## Среда исполнения (Hybrid Environment)
 
-## Scope
+Проект MBB использует гибридную среду исполнения для обеспечения максимальной автономности и гибкости:
 
-- Architecture Core Stack functionality and configuration.
+1.  **Frontend**: Статическое приложение (GitHub Pages или `file://`), работающее в браузере.
+2.  **Local Backend (Docker)**: Набор контейнеров для обслуживания ИИ-инструментария:
+    *   `continue-cli`: Контейнер с Node.js Express сервером (`continue-wrapper`) и Continue CLI.
+    *   `skills-mcp`: MCP-сервер для доступа к базе знаний проекта.
+3.  **Cloud (Cloudflare & Yandex)**: Внешние воркеры и функции для проксирования API (обход CORS на `file://`) и тяжелых вычислений.
 
-## When to Use
+## Технологический Стек
 
-- При необходимости работы с данным компонентом или функционалом.
+### Backend & AI Infrastructure
+*   **Runtime**: Node.js (v20+) внутри Docker.
+*   **API Wrapper**: Express.js сервер для проброса команд CLI в HTTP.
+*   **Knowledge Management**: MCP (Model Context Protocol) сервер для интеграции Skills в контекст ИИ-агентов.
+*   **AI Engines**: Mistral Small (Cloud), Ollama Qwen (Local Fallback).
 
-## Технологический стек
+### Frontend (MBB Core)
+*   **Vanilla JS + Custom Components**: Проект отошел от Vue.js в сторону кастомной компонентной модели (см. `shared/components/`).
+*   **Styling**: Bootstrap 5 (CSS/JS) — приоритет утилитных классов.
+*   **Storage**: Браузерное `localStorage` с системой версионированного кэширования (см. `cache-versioning`).
+*   **Proxying**: Обязательное проксирование внешних API через Cloudflare Worker при работе на `file://`.
 
-### Среда исполнения
-- Приложение развёрнуто на GitHub Pages: только фронтенд, без серверного кода, корректные относительные пути и загрузка ресурсов по HTTPS (без `content://`).
+### Data & Events
+*   **JSON-based SSOT**: Все очереди (кандидаты, идеи, реестры сканирования) хранятся в `.json` файлах в папке `events/`.
+*   **Logging**: Единый лог событий `logs/skills-events.log`.
 
-### Фреймворки и UI
-- Основной стек: Vue.js + Bootstrap для стилизации.
-- Приоритет Bootstrap-классов и утилит; кастомный CSS, inline-стили и `<style>`-блоки использовать минимально.
+## Критические Принципы
+1.  **SSOT (Single Source of Truth)**: Конфиги в `core/config/` — единственный источник правды для UI и логики.
+2.  **Secrets Hygiene**: Секреты только в `.env` (не попадают в Docker/Git).
+3.  **Skills-First**: Любое архитектурное решение должно быть согласовано с базой Skills.
 
-### Работа фронтенда
-- Внешние HTTP-запросы не запускать вне `#app`, пока сплэш-экран не разблокирован.
-- Компоненты и разметка, управляемые Vue, должны располагаться внутри `<div id="app">`.
-
-### Проксирование внешних API на file://
-
-**КРИТИЧЕСКИ ВАЖНО:** При работе на `file://` протоколе все запросы к внешним API **ОБЯЗАТЕЛЬНО** проксируются через Cloudflare Worker для обхода CORS ограничений браузера. **Обоснование:** Браузеры блокируют CORS запросы с `file://` к внешним доменам по соображениям безопасности. Cloudflare Worker выступает в роли прокси-сервера, который делает запросы от имени клиента и возвращает данные с корректными CORS headers. Это позволяет приложению работать локально без необходимости запуска HTTP-сервера, сохраняя при этом доступ ко всем внешним API (CoinGecko, Yahoo Finance, Stooq и др.). На HTTP/HTTPS протоколах запросы идут напрямую к API без прокси.
-
-**Архитектура проксирования:**
-- **Cloudflare Worker:** `https://mbb-api.ponomarev-ux.workers.dev/api/{service}/*`
-- **Поддерживаемые сервисы:** `coingecko`, `yahoo-finance`, `stooq`
-- **KV кэширование:** Все запросы кэшируются в Cloudflare KV с настраиваемым TTL (5 мин - 24 часа)
-- **Автоматическое переключение:** Клиентские модули автоматически используют proxy на `file://` и прямые запросы на HTTP/HTTPS
-
-**Конфигурация:**
-- `core/config/cloudflare-config.js` — proxy endpoints и функция `getApiProxyEndpoint(apiType, path, params)`
-- `cloud/cloudflare/workers/src/api-proxy.js` — универсальный прокси handler с KV кэшированием
-- `cloud/cloudflare/workers/wrangler.toml` — KV namespace binding `API_CACHE`
-
-**Реализация в модулях:**
-Все модули, работающие с внешними API, должны использовать метод `buildUrl()` или аналогичный, который автоматически определяет протокол и выбирает прямой запрос или proxy:
-
-```javascript
-buildUrl(pathWithQuery) {
-    const isFile = window.location && window.location.protocol === 'file:';
-
-    // Если file:// — используем Cloudflare Worker proxy
-    if (isFile && window.cloudflareConfig) {
-        const [path, query] = pathWithQuery.split('?');
-        const params = query ? Object.fromEntries(new URLSearchParams(query)) : {};
-        return window.cloudflareConfig.getApiProxyEndpoint('coingecko', path, params);
-    }
-
-    // Иначе — прямой запрос к API
-    return `${this.config.baseUrl}${pathWithQuery}`;
-}
-```
-
-**ЗАПРЕЩЕНО:**
-- Блокировать запросы на `file://` с early return без использования proxy
-- Пропускать обновления данных на `file://` с сообщениями "CORS ограничение"
-- Использовать публичные CORS прокси (ненадежны, медленны, имеют свои rate limits)
-
-**Документация:**
-- `docs/doc-cloudflare.md` (раздел "§ API Proxy") — детальное описание архитектуры proxy
-- `cloud/cloudflare/workers/DEPLOY_INSTRUCTIONS.md` — инструкции по деплою Worker с KV namespace
-
-### Перенос кода из первоисточников и старых версий
-- Сохранять имена, семантику переменных/функций, полезные комментарии.
-- Избегать конфликтов имён, комментировать новые переменные и решения.
-- При возникновении конфликтов имен переменных — сообщать пользователю с достаточной детализацией, предлагая варианты решения.
-- При переносе кода из первоисточников (примеров кода из других проектов) использовать переменные первоисточников в приоритете.
-- Переносить комментарии первоисточников с сохранением их сути и контекста, адаптируя при необходимости. Всегда комментировать переменные при их объявлении, указывая их назначение и семантику для понимания другим разработчиком или ИИ-агентом.
+## Документация
+*   `docker-compose.yml` — описание инфраструктуры.
+*   `mcp/skills-mcp/server.js` — реализация MCP.
+*   `docs/CONTINUE_SKILLS_INTEGRATION.md` — детали интеграции Continue.

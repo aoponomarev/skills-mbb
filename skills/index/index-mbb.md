@@ -47,24 +47,24 @@
 
 ## Integrations
 
-- [`Continue CLI: Активация инструментов и интеграция с MCP`](../integrations/continue-cli-mcp-integration-nuances.md)
+- [`Continue CLI Nuances`](../integrations/continue-cli-mcp-integration-nuances.md)
+- [`Continue Mistral Integration`](../integrations/integrations-continue-cli-mistral.md)
 - [`integrations-ai-core`](../integrations/integrations-ai-core.md)
 - [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
 - [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
-- [`Continue CLI + Mistral Integration`](../integrations/integrations-continue-cli-mistral.md)
 - [`integrations-data-providers`](../integrations/integrations-data-providers.md)
-- [`n8n API Access & JWT Key Generation`](../integrations/integrations-n8n-api-access.md)
-- [`n8n Code Node v2: Gotchas & Patterns`](../integrations/integrations-n8n-code-node-v2.md)
-- [`n8n Docker Internals & Database Management`](../integrations/integrations-n8n-docker-internals.md)
-- [`n8n Local Setup (Docker)`](../integrations/integrations-n8n-local-setup.md)
+- [`n8n API Access`](../integrations/integrations-n8n-api-access.md)
+- [`n8n Code Node v2`](../integrations/integrations-n8n-code-node-v2.md)
+- [`n8n Docker Internals`](../integrations/integrations-n8n-docker-internals.md)
+- [`n8n Local Setup`](../integrations/integrations-n8n-local-setup.md)
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
 - [`External Integrations Overview`](../integrations/integrations-overview.md)
 - [`integrations-postgres`](../integrations/integrations-postgres.md)
 - [`integrations-rate-limiting`](../integrations/integrations-rate-limiting.md)
-- [`integrations-perplexity-connect`](../integrations/perplexity-connect.md)
+- [`perplexity-connect`](../integrations/perplexity-connect.md)
 
 ## Libraries
 
@@ -73,6 +73,19 @@
 - [`libs-metadata-generation`](../libs/libs-metadata-generation.md)
 - [`libs-repo-setup`](../libs/libs-repo-setup.md)
 
+## Process
+
+- [`protocol-agent-core`](../process/protocol-agent-core.md)
+- [`process-skills-bridge`](../process/process-skills-bridge.md)
+- [`process-batch-skills-review`](../process/process-batch-skills-review.md)
+- [`process-skill-pipeline`](../process/process-skill-pipeline.md)
+
+## Troubleshooting
+
+- [`docker-container-networking-debug`](../troubleshooting/docker-container-networking-debug.md)
+- [`yandex-access-binding-issue`](../troubleshooting/yandex-access-binding-issue.md)
+- [`yandex-cors-troubleshooting`](../troubleshooting/yandex-cors-troubleshooting.md)
+
 ## Related
 
-- Общие skills: [`../skills/`](../../skills/)
+- Общие skills: [`../skills/`](../../../skills/)
