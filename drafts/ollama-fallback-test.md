@@ -1,7 +1,7 @@
-```markdown
 ---
 id: ollama-fallback-test
 title: Ollama Fallback Test
+description_ru: Гарантия «выживания» ИИ без интернета: процедура тестирования, которая проверяет, сможет ли система автоматически переключиться с облачного Mistral на локальный сервер Ollama при потере связи. Этот навык важен для обеспечения автономности проекта и защиты от сбоев на стороне провайдеров.
 scope: Test skill to verify Mistral->Ollama fallback mechanism
 tags: #test, #ollama, #fallback
 priority: medium
@@ -53,4 +53,3 @@ This skill is designed to test the fallback mechanism from Mistral to Ollama. Th
 - Fallback Mechanism Design
 - Performance Testing
 - Log Analysis
-```
