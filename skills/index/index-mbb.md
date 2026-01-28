@@ -1,5 +1,4 @@
 # Index: MBB-specific Skills
-
 > Навигационный индекс по MBB-специфичным skills
 
 ## Architecture
@@ -10,6 +9,23 @@
 - [`architecture-loading`](../architecture/architecture-loading.md)
 - [`architecture-ssot`](../architecture/architecture-ssot.md)
 - [`architecture-versioning`](../architecture/architecture-versioning.md)
+
+## Archive
+
+- [`integrations-status`](../archive/integrations-status.md)
+- [`integrations-strategy`](../archive/integrations-strategy.md)
+
+## Cache
+
+- [`cache-keys`](../cache/cache-keys.md)
+- [`cache-strategy`](../cache/cache-strategy.md)
+- [`cache-versioning`](../cache/cache-versioning.md)
+
+## Cloud
+
+- [`yandex-cloud-function-code`](../cloud/yandex-cloud-function-code.md)
+- [`yandex-cloud-function-steps-guide`](../cloud/yandex-cloud-function-steps-guide.md)
+- [`yandex-get-api-key`](../cloud/yandex-get-api-key.md)
 
 ## Components
 
@@ -28,40 +44,31 @@
 - [`components-template-split`](../components/components-template-split.md)
 - [`components-tooltips`](../components/components-tooltips.md)
 
-## UX
+## Core Systems
 
-- [`ux-interface-terms`](../ux/ux-interface-terms.md)
-- [`ux-principles`](../ux/ux-principles.md)
-
-## Cache
-
-- [`cache-keys`](../cache/cache-keys.md)
-- [`cache-strategy`](../cache/cache-strategy.md)
-- [`cache-versioning`](../cache/cache-versioning.md)
-
-## Metrics
-
-- [`metrics-models`](../metrics/metrics-models.md)
-- [`metrics-portfolio-structure`](../metrics/metrics-portfolio-structure.md)
-- [`metrics-validation`](../metrics/metrics-validation.md)
+- [`auto-coin-sets`](../core-systems/auto-coin-sets.md)
+- [`messages-keys-and-config`](../core-systems/messages-keys-and-config.md)
+- [`messages-translator`](../core-systems/messages-translator.md)
+- [`messages-ui-and-lifecycle`](../core-systems/messages-ui-and-lifecycle.md)
+- [`workspace-config`](../core-systems/workspace-config.md)
 
 ## Integrations
 
-- [`Continue CLI Nuances`](../integrations/continue-cli-mcp-integration-nuances.md)
-- [`Continue Mistral Integration`](../integrations/integrations-continue-cli-mistral.md)
+- [`continue-cli-mcp-integration-nuances`](../integrations/continue-cli-mcp-integration-nuances.md)
 - [`integrations-ai-core`](../integrations/integrations-ai-core.md)
 - [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
 - [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
 - [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
+- [`integrations-continue-cli-mistral`](../integrations/integrations-continue-cli-mistral.md)
 - [`integrations-data-providers`](../integrations/integrations-data-providers.md)
-- [`n8n API Access`](../integrations/integrations-n8n-api-access.md)
-- [`n8n Code Node v2`](../integrations/integrations-n8n-code-node-v2.md)
-- [`n8n Docker Internals`](../integrations/integrations-n8n-docker-internals.md)
-- [`n8n Local Setup`](../integrations/integrations-n8n-local-setup.md)
+- [`integrations-n8n-api-access`](../integrations/integrations-n8n-api-access.md)
+- [`integrations-n8n-code-node-v2`](../integrations/integrations-n8n-code-node-v2.md)
+- [`integrations-n8n-docker-internals`](../integrations/integrations-n8n-docker-internals.md)
+- [`integrations-n8n-local-setup`](../integrations/integrations-n8n-local-setup.md)
 - [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
-- [`External Integrations Overview`](../integrations/integrations-overview.md)
+- [`integrations-overview`](../integrations/integrations-overview.md)
 - [`integrations-postgres`](../integrations/integrations-postgres.md)
 - [`integrations-rate-limiting`](../integrations/integrations-rate-limiting.md)
 - [`perplexity-connect`](../integrations/perplexity-connect.md)
@@ -73,13 +80,19 @@
 - [`libs-metadata-generation`](../libs/libs-metadata-generation.md)
 - [`libs-repo-setup`](../libs/libs-repo-setup.md)
 
+## Metrics
+
+- [`metrics-models`](../metrics/metrics-models.md)
+- [`metrics-portfolio-structure`](../metrics/metrics-portfolio-structure.md)
+- [`metrics-validation`](../metrics/metrics-validation.md)
+
 ## Process
 
-- [`process-orchestrator-evolution`](../process/process-orchestrator-evolution.md)
-- [`protocol-agent-core`](../process/protocol-agent-core.md)
-- [`process-skills-bridge`](../process/process-skills-bridge.md)
 - [`process-batch-skills-review`](../process/process-batch-skills-review.md)
+- [`process-orchestrator-evolution`](../process/process-orchestrator-evolution.md)
 - [`process-skill-pipeline`](../process/process-skill-pipeline.md)
+- [`process-skills-bridge`](../process/process-skills-bridge.md)
+- [`protocol-agent-core`](../process/protocol-agent-core.md)
 
 ## Troubleshooting
 
@@ -87,6 +100,10 @@
 - [`yandex-access-binding-issue`](../troubleshooting/yandex-access-binding-issue.md)
 - [`yandex-cors-troubleshooting`](../troubleshooting/yandex-cors-troubleshooting.md)
 
-## Related
+## UX
 
+- [`ux-interface-terms`](../ux/ux-interface-terms.md)
+- [`ux-principles`](../ux/ux-principles.md)
+
+## Related
 - Общие skills: [`../skills/`](../../../skills/)
