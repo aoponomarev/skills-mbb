@@ -72,15 +72,6 @@
 - [`libs-metadata-generation`](../libs/libs-metadata-generation.md)
 - [`libs-repo-setup`](../libs/libs-repo-setup.md)
 
-## Process
-
-- [`process-skill-pipeline`](../process/process-skill-pipeline.md)
-
-## Troubleshooting
-
-- [`yandex-access-binding-issue`](../troubleshooting/yandex-access-binding-issue.md)
-- [`yandex-cors-troubleshooting`](../troubleshooting/yandex-cors-troubleshooting.md)
-
 ## Related
 
 - Общие skills: [`../skills/`](../../skills/)
