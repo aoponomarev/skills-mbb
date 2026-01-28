@@ -87,7 +87,6 @@
 
 ## Process
 
-- [`process-batch-skills-review`](../process/process-batch-skills-review.md)
 - [`process-skill-pipeline`](../process/process-skill-pipeline.md)
 
 ## Troubleshooting
