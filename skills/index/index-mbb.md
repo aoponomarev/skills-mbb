@@ -61,6 +61,7 @@
 - [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
 - [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
 - [`integrations-continue-cli-mistral`](../integrations/integrations-continue-cli-mistral.md)
+- [`continue-cli-mcp-integration-nuances`](../integrations/continue-cli-mcp-integration-nuances.md)
 - [`integrations-data-providers`](../integrations/integrations-data-providers.md)
 - [`integrations-n8n-api-access`](../integrations/integrations-n8n-api-access.md)
 - [`integrations-n8n-code-node-v2`](../integrations/integrations-n8n-code-node-v2.md)
