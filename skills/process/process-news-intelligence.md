@@ -52,11 +52,15 @@ dependencies: ["process-infrastructure-maintenance", "process-future-skill-impac
 - `utility_score`: Оценка бота.
 - `impact_analysis`: Текст анализа на русском языке.
 - `user_comment`: Поле для обратной связи от человека.
+- `comment_is_bot`: Флаг (true/false). Если true — комментарий отображается полупрозрачным (черновик бота).
 
 ## 4. Жизненный цикл
 
 1. **News** (Проект) → **Analyze** (Оценка ИИ) → **Comment** (Мнение пользователя).
+   *   При анализе бот может создать `user_comment` с флагом `comment_is_bot: true`.
+   *   При сохранении комментария пользователем флаг `comment_is_bot` сбрасывается в `false`.
 2. Если `SCORE > 7` и одобрено → Перенос в **Publish** (Drafts).
+   *   **ВАЖНО**: При переносе бот-комментарии (`comment_is_bot: true`) должны игнорироваться.
 3. Если требует времени → Перенос во **Future**.
 
 ## Реестр источников
