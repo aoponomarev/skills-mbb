@@ -88,8 +88,9 @@
 
 ## Process
 
-- [`process-batch-skills-review`](../process/process-batch-skills-review.md)
 - [`process-infrastructure-maintenance`](../process/process-infrastructure-maintenance.md)
+- [`process-skills-curation-intelligence`](../process/process-skills-curation-intelligence.md)
+- [`process-batch-skills-review`](../process/process-batch-skills-review.md)
 - [`process-orchestrator-evolution`](../process/process-orchestrator-evolution.md)
 - [`process-skill-pipeline`](../process/process-skill-pipeline.md)
 - [`process-skills-bridge`](../process/process-skills-bridge.md)
