@@ -8,6 +8,7 @@ priority: medium
 created_at: 2026-01-29
 updated_at: 2026-01-29
 utility_score: 8
+project_type: Skill
 comment_is_bot: true
 user_comment: "Shareable Agents — отличная штука для того, чтобы делиться нашими кастомными агентами для MBB (например, skill-processor) с другими участниками или для тестирования."
 impact_analysis: "Функция 'Shareable Agents' позволит нам экспортировать конфигурации наших специализированных агентов MBB в виде ссылок. Это упрощает миграцию и настройку новых рабочих мест. 
