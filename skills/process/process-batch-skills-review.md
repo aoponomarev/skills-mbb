@@ -1,3 +1,14 @@
+---
+id: process-batch-skills-review
+title: "Batch Skills Review"
+description_ru: "Процедура массового анализа и применения накопленных кандидатов в скиллы"
+scope: "Массовый анализ кандидатов после долгого периода без ручного администрирования"
+tags: [#process, #skills, #review, #batch]
+priority: medium
+created_at: 2026-01-27
+updated_at: 2026-01-29
+---
+
 # Batch Skills Review
 
 > **Skill ID:** process-batch-skills-review  

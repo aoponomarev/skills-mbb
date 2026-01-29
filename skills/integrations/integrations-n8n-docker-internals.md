@@ -162,6 +162,15 @@ docker logs n8n-mbb --tail 50
 # - license cert invalid: device fingerprint изменился
 ```
 
+### Контейнер отсутствует (удалён)
+**Симптом**: `docker ps -a` не показывает контейнер, хотя volume `n8n_data` на месте. Браузер выдает `ERR_CONNECTION_REFUSED`.
+**Причина**: Выполнение `docker compose down` или случайное удаление.
+**Решение**:
+```bash
+docker compose up -d n8n
+```
+**Проверка**: `node scripts/infra-manager.js status`
+
 ### Решение SQLITE_READONLY
 ```bash
 docker run --rm -v n8n_data:/data alpine sh -c '
