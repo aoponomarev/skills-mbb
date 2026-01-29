@@ -94,6 +94,7 @@
 - [`process-cursor-settings-management`](../process/process-cursor-settings-management.md)
 - [`process-future-skill-impact-analysis`](../process/process-future-skill-impact-analysis.md)
 - [`process-infrastructure-maintenance`](../process/process-infrastructure-maintenance.md)
+- [`process-news-intelligence`](../process/process-news-intelligence.md)
 - [`process-orchestrator-evolution`](../process/process-orchestrator-evolution.md)
 - [`process-skill-pipeline`](../process/process-skill-pipeline.md)
 - [`process-skills-bridge`](../process/process-skills-bridge.md)
