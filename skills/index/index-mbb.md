@@ -97,6 +97,7 @@
 - [`process-skill-pipeline`](../process/process-skill-pipeline.md)
 - [`process-skills-bridge`](../process/process-skills-bridge.md)
 - [`process-skills-curation-intelligence`](../process/process-skills-curation-intelligence.md)
+- [`process-cursor-settings-management`](../process/process-cursor-settings-management.md)
 - [`protocol-agent-core`](../process/protocol-agent-core.md)
 - [`skill-based-playbooks`](../process/skill-based-playbooks.md)
 
