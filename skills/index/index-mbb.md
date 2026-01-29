@@ -1,5 +1,4 @@
 # Index: MBB-specific Skills
-
 > Навигационный индекс по MBB-специфичным skills
 
 ## Architecture
@@ -73,6 +72,24 @@
 - [`libs-metadata-generation`](../libs/libs-metadata-generation.md)
 - [`libs-repo-setup`](../libs/libs-repo-setup.md)
 
-## Related
+## Process
 
+- [`agentic-self-correction`](../process/agentic-self-correction.md)
+- [`autonomous-skill-synthesis`](../process/autonomous-skill-synthesis.md)
+- [`process-batch-skills-review`](../process/process-batch-skills-review.md)
+- [`process-infrastructure-maintenance`](../process/process-infrastructure-maintenance.md)
+- [`process-orchestrator-evolution`](../process/process-orchestrator-evolution.md)
+- [`process-skill-pipeline`](../process/process-skill-pipeline.md)
+- [`process-skills-bridge`](../process/process-skills-bridge.md)
+- [`process-skills-curation-intelligence`](../process/process-skills-curation-intelligence.md)
+- [`protocol-agent-core`](../process/protocol-agent-core.md)
+- [`skill-based-playbooks`](../process/skill-based-playbooks.md)
+
+## Troubleshooting
+
+- [`docker-container-networking-debug`](../troubleshooting/docker-container-networking-debug.md)
+- [`yandex-access-binding-issue`](../troubleshooting/yandex-access-binding-issue.md)
+- [`yandex-cors-troubleshooting`](../troubleshooting/yandex-cors-troubleshooting.md)
+
+## Related
 - Общие skills: [`../skills/`](../../skills/)

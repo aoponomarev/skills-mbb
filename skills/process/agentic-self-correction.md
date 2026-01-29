@@ -6,7 +6,7 @@ scope: Guidelines for agents to handle errors autonomously by rethinking and ada
 tags: [#architecture, #process, #agentic]
 priority: high
 created_at: 2026-01-28
-updated_at: 2026-01-28
+updated_at: 2026-01-29
 ---
 
 # Agentic Self-Correction & Autonomy

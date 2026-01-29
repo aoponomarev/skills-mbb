@@ -6,7 +6,7 @@ scope: Conceptualizing skills as "cassettes" or "playbooks" that provide agents 
 tags: [#architecture, #ux, #agentic]
 priority: medium
 created_at: 2026-01-28
-updated_at: 2026-01-28
+updated_at: 2026-01-29
 ---
 
 # Skills as Agentic Playbooks
