@@ -6,7 +6,7 @@ scope: Guidelines for agents to proactively expand their own knowledge base by d
 tags: [#architecture, #process, #agentic, #meta]
 priority: high
 created_at: 2026-01-28
-updated_at: 2026-01-28
+updated_at: 2026-01-29
 ---
 
 # Autonomous Skill Synthesis Protocol
