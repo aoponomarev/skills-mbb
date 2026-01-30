@@ -30,9 +30,9 @@ dependencies: ["architecture-core-stack", "continue-cli-mcp-integration-nuances"
 
 ### 1. Синхронизация путей в конфигурации
 В файле `INFRASTRUCTURE_CONFIG.yaml` необходимо проверить и обновить секцию `profiles` для текущего ПК:
-- `user_profile` (обычно `C:\Users\AO`)
+- `user_profile` (обычно `%USERPROFILE%`)
 - `git_path`, `node_path`, `docker_path`
-- `project_root` (важно: убедиться в отсутствии лишних пробелов в путях, например `Portfolio-CV` вместо `Portfolio - CV`)
+- `project_root` (важно: убедиться в отсутствии лишних пробелов в путях, например `Portfolio-CV` вместо `Portfolio-CV` (исправлено))
 
 ### 2. Подготовка окружения
 1. Скопировать `.env` файл из безопасного хранилища ключей.

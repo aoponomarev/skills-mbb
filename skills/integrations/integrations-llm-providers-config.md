@@ -101,8 +101,8 @@ Remove-Item "$env:USERPROFILE\.continue\config.ts" -ErrorAction SilentlyContinue
 
 ### 7. SSOT для Continue конфигов
 **Единственный источник правды для конфигов Continue:**
-- `D:\Clouds\AO\OneDrive\AI\.continue\config.yaml`
-- `C:\Users\AO\.continue` — это junction (символическая ссылка) на OneDrive.
+- `${CONTINUE_HOME}/config.yaml` (см. `INFRASTRUCTURE_CONFIG.yaml` → `paths.continue_ssot`).
+- `%USERPROFILE%\.continue` — это junction (символическая ссылка) на OneDrive.
 
 **При переносе на другой ПК:**
 1. Убедитесь, что junction настроен корректно.
