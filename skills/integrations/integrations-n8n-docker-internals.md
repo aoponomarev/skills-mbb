@@ -218,7 +218,7 @@ docker exec n8n-mbb cat //home/node/.n8n/config
 ### docker cp с пробелами в пути
 ```bash
 # ПРОБЛЕМА: Cursor shell не понимает пути с пробелами
-cd "d:\Clouds\AO\OneDrive\Portfolio - CV\..."
+cd "d:\Clouds\AO\OneDrive\Portfolio-CV\..."
 
 # РЕШЕНИЕ: Установить working_directory в параметрах Shell tool
 # или использовать относительные пути внутри рабочей директории

@@ -59,13 +59,13 @@ def generate_index(base_path, index_file_path, repo_root_path):
     index_content.append("\n## Related\n")
     # Относительный путь от index-mbb.md (в skills-mbb/skills/index/) до skills/ (корневой skills репозиторий)
     # Это значит, что нам нужно выйти на 3 уровня вверх, а затем зайти в skills/
-    # Исходный путь: D:\Clouds\AO\OneDrive\Portfolio - CV\Refactoring\ToDo\Statistics\skills-mbb\skills\index
-    # Целевой путь: D:\Clouds\AO\OneDrive\Portfolio - CV\Refactoring\ToDo\Statistics\skills
+    # Исходный путь: D:\Clouds\AO\OneDrive\Portfolio-CV\Refactoring\ToDo\Statistics\skills-mbb\skills\index
+    # Целевой путь: D:\Clouds\AO\OneDrive\Portfolio-CV\Refactoring\ToDo\Statistics\skills
     
     # Расчитываем относительный путь.
-    # repo_root_path = 'D:\Clouds\AO\OneDrive\Portfolio - CV\Refactoring\ToDo\Statistics'
-    # index_file_path = 'D:\Clouds\AO\OneDrive\Portfolio - CV\Refactoring\ToDo\Statistics\skills-mbb\skills\index\index-mbb.md'
-    # target_skills_repo = 'D:\Clouds\AO\OneDrive\Portfolio - CV\Refactoring\ToDo\Statistics\skills'
+    # repo_root_path = 'D:\Clouds\AO\OneDrive\Portfolio-CV\Refactoring\ToDo\Statistics'
+    # index_file_path = 'D:\Clouds\AO\OneDrive\Portfolio-CV\Refactoring\ToDo\Statistics\skills-mbb\skills\index\index-mbb.md'
+    # target_skills_repo = 'D:\Clouds\AO\OneDrive\Portfolio-CV\Refactoring\ToDo\Statistics\skills'
 
     # 1. Получаем путь до директории, где лежит index-mbb.md
     dir_of_index = os.path.dirname(index_file_path)
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     # index_file - это skills-mbb/skills/index/index-mbb.md
     
     # Определяем корневой путь для всего проекта 'Refactoring\ToDo\Statistics'
-    # Предположим, что скрипт находится в D:\Clouds\AO\OneDrive\Portfolio - CV\Refactoring\ToDo\Statistics\skills-mbb
+    # Предположим, что скрипт находится в D:\Clouds\AO\OneDrive\Portfolio-CV\Refactoring\ToDo\Statistics\skills-mbb
     # Тогда корневая директория будет на один уровень выше: 
     current_script_dir = os.path.dirname(os.path.abspath(__file__))
     # Переходим на уровень выше, чтобы получить 'skills-mbb'

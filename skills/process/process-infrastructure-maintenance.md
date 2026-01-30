@@ -6,7 +6,7 @@ scope: "Обеспечение непрерывной работоспособн
 tags: [#process, #infrastructure, #devops, #maintenance, #docker, #mcp]
 priority: high
 created_at: 2026-01-29
-updated_at: 2026-01-29
+updated_at: 2026-01-30
 source: "mcp:infrastructure-audit"
 dependencies: ["architecture-core-stack", "continue-cli-mcp-integration-nuances"]
 ---
@@ -22,6 +22,38 @@ dependencies: ["architecture-core-stack", "continue-cli-mcp-integration-nuances"
 2. Мониторинг состояния компонентов
 3. Процедуры восстановления после сбоев
 4. Правила внесения изменений в инфраструктуру
+5. **Процедуру миграции между рабочими станциями (Home/Office)**
+
+## Миграция инфраструктуры (Home <-> Office)
+
+При переносе проекта на новую рабочую станцию необходимо выполнить следующие шаги:
+
+### 1. Синхронизация путей в конфигурации
+В файле `INFRASTRUCTURE_CONFIG.yaml` необходимо проверить и обновить секцию `profiles` для текущего ПК:
+- `user_profile` (обычно `C:\Users\AO`)
+- `git_path`, `node_path`, `docker_path`
+- `project_root` (важно: убедиться в отсутствии лишних пробелов в путях, например `Portfolio-CV` вместо `Portfolio - CV`)
+
+### 2. Подготовка окружения
+1. Скопировать `.env` файл из безопасного хранилища ключей.
+2. Убедиться, что в `.env` прописан актуальный `CONTINUE_API_KEY`.
+3. Создать Docker volume для n8n:
+   ```bash
+   docker volume create n8n_data
+   ```
+
+### 3. Настройка LLM (Ollama)
+Если используется локальный fallback, необходимо загрузить требуемые модели:
+```bash
+ollama pull qwen2.5-coder:32b-instruct
+ollama pull hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF:Q4_K_M
+```
+
+### 4. Верификация
+После запуска контейнеров через `infra-manager.js`, запустить полную проверку:
+```bash
+node scripts/health-check.js
+```
 
 ## Ключевые файлы
 
