@@ -91,6 +91,8 @@
 - [`agentic-self-correction`](../process/agentic-self-correction.md)
 - [`autonomous-skill-synthesis`](../process/autonomous-skill-synthesis.md)
 - [`process-batch-skills-review`](../process/process-batch-skills-review.md)
+- [`process-bug-resolution-protocol`](../process/process-bug-resolution-protocol.md)
+- [`process-continue-config-ssot`](../process/process-continue-config-ssot.md)
 - [`process-cursor-settings-management`](../process/process-cursor-settings-management.md)
 - [`process-future-skill-impact-analysis`](../process/process-future-skill-impact-analysis.md)
 - [`process-infrastructure-maintenance`](../process/process-infrastructure-maintenance.md)
