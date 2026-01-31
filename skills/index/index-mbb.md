@@ -112,6 +112,7 @@
 
 - [`docker-container-networking-debug`](../troubleshooting/docker-container-networking-debug.md)
 - [`process-n8n-browser-cache`](../troubleshooting/process-n8n-browser-cache.md)
+- [`troubleshoot-continue-cli-api-keys`](../troubleshooting/troubleshoot-continue-cli-api-keys.md)
 - [`yandex-access-binding-issue`](../troubleshooting/yandex-access-binding-issue.md)
 - [`yandex-cors-troubleshooting`](../troubleshooting/yandex-cors-troubleshooting.md)
 
