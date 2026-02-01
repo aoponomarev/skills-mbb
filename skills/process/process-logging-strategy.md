@@ -47,7 +47,7 @@ updated: 2026-01-31
 ## When to Consult Logs (AI Agent Triggers)
 
 1.  **Start of Session**: Проверь `handoff-note.md` и `issues-backlog.md`, чтобы понять текущий приоритет.
-2.  **After an Error**: 
+2.  **After an Error**:
     - Проверь `logs/skills-events.log` (последние 50 строк).
     - Если ошибка в MCP, проверь `logs/mcp-debug.log`.
 3.  **After a Success**: Запиши детали в `fixes-tracking.md` (если это был фикс) или `changelog.md`.
