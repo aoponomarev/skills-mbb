@@ -1,17 +1,17 @@
 ---
 id: architecture-relative-paths
-title: Architecture: Relative Paths (EEIIPP)
+title: Architecture: Relative Paths (`ЕИП`)
 scope: skills-mbb
-tags: [#architecture, #eeiipp, #ssot, #infrastructure]
+tags: [#architecture, #еип, #ssot, #infrastructure]
 priority: high
 created_at: 2026-01-30
 updated_at: 2026-02-01
 ---
 
-# Architecture: Relative Paths (EEIIPP)
+# Architecture: Relative Paths (`ЕИП`)
 
 > **Context**: Portability principle ensuring the project runs on any machine (Home/Office) without config changes.
-> **Rule**: "EEIIPP" (Single Source of Truth / Portable Paths).
+> **Rule**: `ЕИП` (Single Source of Truth / Portable Paths).
 
 ## 1. Core Principle
 All paths MUST be **relative** to the project root or the current file.
@@ -48,4 +48,4 @@ All paths MUST be **relative** to the project root or the current file.
 3.  **Safety**: Prevents accidental writes to wrong absolute paths.
 
 ## 4. Verification
-Command `ееиипп` triggers a scan for absolute paths in the codebase.
+Command `ЕИП` triggers a scan for absolute paths in the codebase.

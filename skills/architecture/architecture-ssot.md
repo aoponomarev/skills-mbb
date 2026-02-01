@@ -2,7 +2,7 @@
 id: architecture-ssot
 title: Architecture: Single Source of Truth (SSOT)
 scope: skills-mbb
-tags: [#architecture, #ssot, #eeiipp, #config]
+tags: [#architecture, #ssot, #еип, #config]
 priority: high
 created_at: 2026-01-24
 updated_at: 2026-02-01
@@ -11,7 +11,7 @@ updated_at: 2026-02-01
 # Architecture: Single Source of Truth (SSOT)
 
 > **Context**: Data normalization and configuration centralization.
-> **Command**: `ееиипп` (Verify SSOT).
+> **Command**: `ЕИП` (Verify SSOT).
 
 ## 1. Core Principle
 **No Duplication**: If a value (text, config, setting) appears in two places, it must be extracted to a single source.

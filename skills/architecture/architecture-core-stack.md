@@ -8,10 +8,10 @@ created_at: 2026-01-28
 updated_at: 2026-02-01
 ---
 
-# Architecture: Core Tech Stack (ааиисс)
+# Architecture: Core Tech Stack (`АИС`)
 
 > **Context**: The foundational technology choices and execution environment.
-> **Command**: `ааиисс` (Architecture/Infrastructure Analysis).
+> **Command**: `АИС` (Architecture/Infrastructure Analysis).
 
 ## 1. Execution Environment (Hybrid)
 
