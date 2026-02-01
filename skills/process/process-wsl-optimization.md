@@ -2,69 +2,91 @@
 id: process-wsl-optimization
 title: WSL2 & Docker Optimization Guide
 scope: skills-mbb
-tags: [#wsl, #docker, #optimization, #windows]
+tags: [#wsl, #docker, #optimization, #windows, #hardware]
 priority: medium
 created_at: 2026-01-31
-updated_at: 2026-01-31
+updated_at: 2026-02-01
 ---
 
 # WSL2 & Docker Optimization Guide
 
-> **Performance Note**: Настройки оптимизированы под систему с 64 ГБ ОЗУ и 16-ядерным процессором (i5-12600K) для предотвращения "жора" памяти процессом `Vmmem`.
+> **Context Aware**: Настройки WSL зависят от активного профиля оборудования.
+> **Current Profile**: См. `INFRASTRUCTURE_CONFIG.yaml` -> `profiles.active`.
 
-## 1. WSL 2 Configuration (`.wslconfig`)
+## 1. Hardware-Specific Configuration (`.wslconfig`)
 
-Этот файл ограничивает аппетиты виртуальной машины Linux.
-**Location**: `C:\Users\[User]\.wslconfig`
+Файл `.wslconfig` (в `C:\Users\[User]\`) управляет ресурсами виртуальной машины Linux.
+Значения должны соответствовать вашему текущему оборудованию (Home/Office).
+
+### Profile: Home (High Performance)
+*Target: Intel Core i5-12600K (16 threads) / 64GB RAM*
 
 ```ini
 [wsl2]
-# Выделение 8 из 16 ядер процессора для стабильной работы
-processors=8
-# Выделение 16 ГБ ОЗУ (достаточно для n8n + Continue + Docker)
-memory=16GB
-# Резервный файл подкачки
+# Выделяем 12 потоков (оставляем 4 E-cores для Windows фоновых задач)
+processors=12
+
+# Выделяем 32GB ОЗУ (50% от 64GB)
+# Этого достаточно для n8n + AI моделей, при этом Windows остается отзывчивой
+memory=32GB
+
+# Swap файл (резерв)
 swap=8GB
-# Отключение GUI-приложений для экономии ресурсов
+
+# Отключение GUI экономит ресурсы
 guiApplications=false
-# Включение сквозной пересылки портов (доступ по localhost)
 localhostForwarding=true
 
 [experimental]
-# Автоматический возврат неиспользуемой памяти в Windows
+# Критически важно для 64GB: авто-возврат неиспользуемой памяти
 autoMemoryReclaim=gradual
-# Улучшенная обработка DNS (предотвращает проблемы с сетью в контейнерах)
 dnsTunneling=true
-# Автоматическое сжатие виртуального диска (экономит место на C:)
 autoDiskShrink=true
+```
+
+### Profile: Office (Standard / Unknown)
+*Target: Standard Laptop/PC (~16-32GB RAM)*
+
+```ini
+[wsl2]
+processors=4
+memory=8GB
+swap=4GB
+guiApplications=false
+localhostForwarding=true
+
+[experimental]
+autoMemoryReclaim=gradual
 ```
 
 ## 2. Docker Desktop Settings
 
 ### Resources
-- **WSL Integration**: Убедись, что твоя Linux-дистрибуция (например, Ubuntu-22.04) включена в настройках Docker Desktop > Resources > WSL Integration.
+- **WSL Integration**: Убедитесь, что ваш дистрибутив (Ubuntu-22.04) включен.
+- **Resource Saver**: Для 64GB RAM можно поставить `Mode: Auto` (или отключить, если нужны всегда горячие сервисы).
 
-### Features
-- **Use containerd**: Enable (Improved image storage)
-- **Beta Features / Docker MCP Toolkit**: Enable (Critical for Skills MCP)
-- **AI / Docker Model Runner**: Enable (GPU acceleration support)
-- **Kubernetes**: **DISABLE** (Saves ~4-8GB RAM immediately)
+### Features (Critical for MBB)
+- **Use containerd**: Enable (Improved image storage).
+- **Beta Features / Docker MCP Toolkit**: Enable (Для работы MCP).
+- **Kubernetes**: **DISABLE** (Экономит ресурсы, не используется в MBB).
 
-### Apply Changes
-После изменения настроек Docker Desktop или `.wslconfig`:
-```powershell
-wsl --shutdown
-```
-Затем запустите Docker Desktop заново.
+## 3. Applying Changes
 
-## 3. PowerShell & Encoding
+После изменения `.wslconfig`:
 
-Для корректной работы скриптов и Docker логов в Windows:
-```powershell
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-$env:MSYS_NO_PATHCONV = 1  # Для Git Bash
-```
+1. Откройте PowerShell.
+2. Выполните полную перезагрузку WSL:
+   ```powershell
+   wsl --shutdown
+   ```
+3. Запустите Docker Desktop.
+4. Проверьте выделенные ресурсы в WSL:
+   ```bash
+   # В терминале Ubuntu/Git Bash
+   free -h   # Показать память
+   nproc     # Показать ядра
+   ```
 
 ## Related Skills
+- [Infrastructure Config (SSOT)](../../INFRASTRUCTURE_CONFIG.yaml)
 - [Disaster Recovery Protocol](./process-disaster-recovery.md)
-- [Windows & Docker Paths](./process-windows-docker-paths.md)

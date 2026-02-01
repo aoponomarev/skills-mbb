@@ -2,10 +2,10 @@
 id: process-disaster-recovery
 title: Infrastructure Disaster Recovery Protocol
 scope: skills-mbb
-tags: [#process, #recovery, #docker, #infrastructure]
+tags: [#process, #recovery, #docker, #infrastructure, #automation]
 priority: high
 created_at: 2026-01-31
-updated_at: 2026-01-31
+updated_at: 2026-02-01
 ---
 
 # Infrastructure Disaster Recovery Protocol
@@ -14,13 +14,13 @@ updated_at: 2026-01-31
 
 ## Scope
 
-Этот навык описывает процедуру восстановления среды исполнения (Docker Containers) с сохранением данных, используя OneDrive как SSOT (Single Source of Truth).
+Этот навык описывает процедуру восстановления среды исполнения (Docker Containers) с сохранением данных, используя OneDrive как SSOT (Single Source of Truth). Включает как автоматизированное восстановление через `infra-manager.js`, так и ручное "чистое" развертывание.
 
 ## Prerequisites
 
 ### 1. External Data (OneDrive)
 Убедитесь, что папка Datasets доступна и синхронизирована:
-- **Path**: `D:\Clouds\AO\OneDrive\AI\MBB\Datasets` (или аналогичный)
+- **Path**: `D:\Clouds\AO\OneDrive\AI\MBB\Datasets` (или аналогичный из `INFRASTRUCTURE_CONFIG.yaml`)
 - **Content**:
   - `/n8n` (Database & Config)
   - `/continue` (Logs & State)
@@ -34,12 +34,28 @@ updated_at: 2026-01-31
 
 ## Recovery Steps
 
+### Phase 0: Automated Recovery (Try This First)
+
+Для частичных сбоев (упал контейнер, завис сервис) используйте `infra-manager.js`.
+
+1. **Check Status**:
+   ```powershell
+   node scripts/infra-manager.js status
+   ```
+2. **Attempt Auto-Recovery**:
+   ```powershell
+   node scripts/infra-manager.js recover
+   ```
+   *Скрипт попытается перезапустить упавшие сервисы, соблюдая кулдауны.*
+
 ### Phase 1: Clean Slate Preparation
 
-Если система повреждена, начните с очистки.
+Если автоматика не помогла или система повреждена, начните с очистки.
 
 1. **Stop & Remove Containers**:
    ```powershell
+   node scripts/infra-manager.js stop
+   # OR manual:
    docker compose down --remove-orphans
    ```
 
@@ -75,6 +91,8 @@ updated_at: 2026-01-31
 
 2. **Start Services**:
    ```powershell
+   node scripts/infra-manager.js start
+   # OR manual:
    docker compose up -d
    ```
 
