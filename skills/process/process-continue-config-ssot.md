@@ -5,21 +5,25 @@ scope: skills-mbb
 tags: [#process, #continue, #config, #ssot]
 priority: high
 created_at: 2026-01-30
-updated_at: 2026-02-01
+updated_at: 2026-02-02
 ---
 
 # Process: Continue Config SSOT
 
 > **Context**: Managing the `config.yaml` for Continue across multiple devices.
+> **Master Skill**: See `process/process-settings-sync` for unified sync protocol.
 
-## 1. The Junction
-**Rule**: `%USERPROFILE%\.continue` MUST be a Directory Junction to `[OneDrive]\AI\.continue`.
-This ensures that settings, prompts, and model configs are synced automatically.
+## 1. Sync Method
+**Rule**: Use `scripts/sync-cursor-settings.ps1` for bidirectional sync (copy-method).
+Directory Junctions for `.continue` are **FORBIDDEN** to prevent SQLite database locks and performance issues with OneDrive.
 
-## 2. File Roles
-- **`config.yaml`**: The ONLY source of truth for models and tools.
-- **`config.ts`**: FORBIDDEN. If found, delete it immediately.
-- **`config.json`**: Legacy. Do not use.
+## 2. File Sync Scope
+Sync ONLY the following configuration files:
+- `config.yaml` (Main models/tools config)
+- `.continuerc.json` (Custom commands)
+- `.continueignore` (Context filtering)
+
+**DO NOT** sync the `index/` or `cache/` directories (heavy SQLite databases).
 
 ## 3. Maintenance
 When updating models:
