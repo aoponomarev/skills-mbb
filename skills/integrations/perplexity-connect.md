@@ -1,46 +1,34 @@
 ---
-title: integrations-perplexity-connect
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-  - "#ai"
-  - "#perplexity"
-dependencies: [integrations-ai-core]
-mcp_resource: true
-updated_at: 2026-01-24
+id: integrations-perplexity-connect
+title: Integrations: Perplexity AI
+scope: skills-mbb
+tags: [#integrations, #ai, #perplexity, #search]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# integrations-perplexity-connect
+# Integrations: Perplexity AI
 
-## Scope
-- Использование Perplexity AI в проекте MBB.
-- Получение и настройка API ключа Perplexity.
-- Интеграция с `aiProviderManager`.
+> **Context**: Using Perplexity for real-time web search and news analysis.
 
-## When to Use
-- При необходимости подключения или переключения на Perplexity AI.
-- Для перевода tooltips, генерации новостей и AI-анализа текста.
+## 1. Role
+Perplexity serves as the secondary AI provider and the primary engine for tasks requiring up-to-date market sentiment.
 
-## Key Rules
-- Perplexity интегрирован через `core/api/perplexity.js`, `perplexity-provider.js` и `ai-provider-manager.js`.
-- Используется стандартный формат Chat Completions API.
-- API endpoint: `https://api.perplexity.ai/chat/completions`.
-- API ключ вводится через настройки приложения: **Настройки → AI API**.
-- Настройки Perplexity (ключ, модель) хранятся в кэше (`perplexity-api-key`, `perplexity-model`).
-- Текущий провайдер хранится в кэше как `ai-provider` со значением `perplexity`.
-- Список доступных моделей определяется в `core/config/app-config.js` (дефолт `sonar-pro`).
+## 2. Configuration
+- **API**: OpenAI-compatible Chat Completions.
+- **Endpoint**: `https://api.perplexity.ai/chat/completions`.
+- **Model**: `sonar-pro` (Default).
 
-## Workflow
-1) Зарегистрировать аккаунт на https://www.perplexity.ai/ и получить API ключ.
-2) В приложении MBB: **Настройки → AI API → Perplexity AI**.
-3) Ввести API ключ и выбрать модель (`sonar-pro` по умолчанию).
-4) Нажать **Сохранить**.
-5) Для использования: `await window.aiProviderManager.sendRequest([...])`.
+## 3. Workflow
+1.  **Key**: User enters key in **Settings -> AI API**.
+2.  **Storage**: Key stored in `localStorage` (`perplexity-api-key`).
+3.  **Request**: `aiProviderManager.sendRequest()` routes to Perplexity if selected.
 
-## References
-- Perplexity API документация: https://docs.perplexity.ai/
-- `core/api/ai-provider-manager.js`
-- `core/api/ai-providers/perplexity-provider.js`
-- `core/api/perplexity.js`
-- `core/config/app-config.js`
-- `docs/doc-ai-providers.md`
+## 4. Hard Constraints
+1.  **Rate Limits**: Respect Perplexity's tier-based limits.
+2.  **Privacy**: Do not send sensitive user portfolio data to Perplexity; use it for public market analysis only.
+
+## 5. File Map
+- `@core/api/ai-providers/perplexity-provider.js`: Adapter.
+- `@core/config/app-config.js`: Model list.

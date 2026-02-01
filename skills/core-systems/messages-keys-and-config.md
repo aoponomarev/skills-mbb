@@ -1,33 +1,40 @@
 ---
-title: messages-keys-and-config
-tags:
-  - "#mbb-spec"
-  - "#core-systems"
-  - "#messages"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: messages-keys-and-config
+title: Core: Message Keys & Config
+scope: skills-mbb
+tags: [#core, #messages, #config, #standards]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# messages-keys-and-config
+# Core: Message Keys & Config
 
-## Scope
-- Формат ключей сообщений (v2) и типы.
-- `messages-config` и базовый API для получения сообщений.
+> **Context**: Standardized keys for system notifications and errors.
+> **SSOT**: `core/config/messages-config.js`
 
-## When to Use
-- Когда добавляете новые системные сообщения.
-- При миграции legacy ключей.
+## 1. Key Format (v2)
+Use short, dot-notated prefixes for functional areas:
+- `e.*`: Errors.
+- `i.*`: Info.
+- `h.*`: Health/Status.
+- `v.*`: Validation.
+- `ai.*`: AI/LLM events.
 
-## Key Rules
-- **Короткие ключи**: `e.*`, `i.*`, `h.*`, `v.*`, `a.*`, `p.*`, `m.*`, `r.*`, `ai.*`.
-- **Короткие типы**: `d/w/i/s` в конфиге, а не в ключе.
-- **Legacy map**: старые ключи маппятся через `LEGACY_KEY_MAP`.
+## 2. Message Types
+Defined in the config object, not the key:
+- `d`: Danger/Error.
+- `w`: Warning.
+- `i`: Info.
+- `s`: Success.
 
-## Workflow
-1) Добавить ключ в `messages-config`.
-2) Определить `type` (`d/w/i/s`) и текст/детали.
-3) При необходимости добавить legacy‑ключ в `LEGACY_KEY_MAP`.
+## 3. Legacy Support
+`LEGACY_KEY_MAP` handles translation from old long-form keys to v2 format during the transition period.
 
-## References
-- `core/config/messages-config.js`
+## 4. Workflow
+1.  Add key to `messages-config.js`.
+2.  Assign `type` and default RU/EN text.
+3.  Access via `messagesConfig.get(key, params)`.
+
+## 5. File Map
+- `@core/config/messages-config.js`: The Registry.

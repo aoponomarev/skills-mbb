@@ -1,36 +1,35 @@
 ---
-title: messages-translator
-tags:
-  - "#mbb-spec"
-  - "#core-systems"
-  - "#messages"
-  - "#i18n"
-dependencies: [messages-keys-and-config]
-mcp_resource: true
-updated_at: 2026-01-24
+id: messages-translator
+title: Core: Message Translation (i18n)
+scope: skills-mbb
+tags: [#core, #messages, #i18n, #translation]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# messages-translator
+# Core: Message Translation (i18n)
 
-## Scope
-- Формат переводов и правила парсинга.
-- `messagesTranslator` API и процесс перевода.
+> **Context**: Dynamic translation of system messages using AI or local cache.
+> **SSOT**: `core/api/messages-translator.js`
 
-## When to Use
-- При добавлении новых переводимых сообщений.
-- При отладке смены языка.
+## 1. Translation Format
+Messages are stored/transmitted as: `KEY|TEXT|DETAILS`.
 
-## Key Rules
-- Формат переводов: `KEY|TEXT|DETAILS`.
-- Хранение: `localStorage` (`tr-{lang}`) с массивом `[text, details]`.
-- В ответах AI **placeholder** (`{name}`) не менять.
+## 2. Storage
+- **Cache**: `localStorage` key `tr-{lang}`.
+- **Structure**: Array `[text, details]`.
 
-## Workflow
-1) `messagesTranslator.init(lang)` при загрузке.
-2) `updateLanguage(lang)` при смене языка.
-3) Если перевода нет — запрос к AI, парсинг и кэш.
-4) `updateDisplayedMessages()` пересобирает сообщения.
+## 3. Workflow
+1.  **Init**: `messagesTranslator.init(lang)` loads cache.
+2.  **Request**: If key missing in cache, request translation from active AI Provider.
+3.  **Parse**: Extract text and details from AI response.
+4.  **Update**: `updateDisplayedMessages()` triggers Vue reactivity to refresh UI.
 
-## References
-- `core/api/messages-translator.js`
-- `core/api/ai-provider-manager.js`
+## 4. Hard Constraints
+1.  **Placeholders**: AI MUST NOT translate or modify `{name}` or `{value}` placeholders.
+2.  **Async**: Translation is non-blocking; UI shows "Translating..." or default text.
+
+## 5. File Map
+- `@core/api/messages-translator.js`: Logic.
+- `@core/config/tooltips-config.js`: Fallback source.

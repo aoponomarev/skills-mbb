@@ -1,53 +1,35 @@
 ---
 id: process-bug-resolution-protocol
-title: "Протокол исправления ошибок (Bug vs Feature)"
-description_ru: "Мета-навык, обязывающий агента проверять существующие навыки перед исправлением любых неполадок, чтобы отличить баг от архитектурной особенности."
-scope: "Процесс анализа, верификации и исправления ошибок в коде и инфраструктуре MBB."
-tags: [#process, #debug, #logic, #ssot, #architecture]
-priority: emergency
-created_at: 2026-01-30
-updated_at: 2026-01-30
-dependencies: ["protocol-agent-core", "architecture-ssot"]
+title: Process: Bug Resolution Protocol
+scope: skills-mbb
+tags: [#process, #bugs, #workflow, #quality]
+priority: high
+created_at: 2026-01-28
+updated_at: 2026-02-01
 ---
 
-# Протокол исправления ошибок (Bug vs Feature)
+# Process: Bug Resolution Protocol
 
-## Scope
-- Анализ инцидентов и багов.
-- Верификация намерений (Intent Verification).
-- Защита архитектурных особенностей от "случайных" исправлений.
+> **Context**: Standardized approach to fixing errors and documenting them.
 
-## When to Use
-- Выполнение любой задачи (анализ, разработка, рефакторинг).
-- Поступление задачи на исправление ошибки (bug report).
-- Обнаружение странного или нелогичного поведения системы.
-- Желание "отрефакторить" кусок кода, который кажется избыточным.
+## 1. Resolution Steps
+1.  **Reproduce**: Confirm the bug with a log or screenshot.
+2.  **Trace**: Find the root cause in the code.
+3.  **Fix**: Apply the code change.
+4.  **Log**: Add an entry to `logs/fixes-tracking.md`.
+5.  **Skill Check**: Should this fix be a new Skill? If yes -> `propose_skill`.
 
-## Key Rules
-1. **Сначала Скиллы, потом Фикс**: Любое действие (не только исправление) начинается с поиска в `skills/` и `skills-mbb/`.
-2. **Внутренний монолог "Баг или Фича?"**: Агент обязан задать этот вопрос самому себе и найти ответ в Skills, прежде чем беспокоить пользователя. "Не является ли это поведение задокументированным решением для обхода ограничений (например, CORS, специфика Docker на Windows или OneDrive)?"
-3. **Презумпция Намеренности**: Если код кажется странным, но он работает — предполагается, что за ним стоит Skill или архитектурное решение, пока не доказано обратное.
-4. **Запрет на "Быстрые фиксы"**: Запрещено исправлять то, что агент не понимает до конца в контексте всей системы.
-5. **Постоянная бдительность**: Правило применяется фоново при выполнении любой задачи, где агент сталкивается с "нестандартным" кодом или поведением.
+## 2. Logging Format
+In `fixes-tracking.md`:
+- **Date**: YYYY-MM-DD.
+- **Issue**: Short description.
+- **Root Cause**: Why it happened.
+- **Solution**: What was changed.
 
-## Workflow
-1) **Идентификация**: Получить описание ошибки.
-2) **Поиск по Skills (КРИТИЧЕСКО_ВАЖНО)**:
-   - Выполнить `grep` или `list_skills` по ключевым словам компонента.
-   - Изучить связанные с этим местом навыки (особенно в `architecture/` и `process/`).
-3) **Архитектурная сверка**:
-   - Проверить `INFRASTRUCTURE_CONFIG.yaml` и `.cursorrules`.
-   - Если поведение соответствует описанному в навыках (даже если оно выглядит как костыль) — **ЭТО НЕ БАГ**. ОСТАНОВИТЬСЯ и доложить пользователю.
-4) **Верификация балона (Issue Verification)**:
-   - Только если в навыках нет оправдания этому поведению И оно явно противоречит протоколам — переходить к исправлению.
-5) **Фиксация**:
-   - После исправления проверить, не нужно ли обновить соответствующий Skill, чтобы в будущем этот баг не вернулся или "фича" стала понятнее.
+## 3. Hard Constraints
+1.  **No Ghost Fixes**: Every code change that fixes a bug MUST be logged.
+2.  **Verify First**: Run `health-check.js` before and after the fix.
 
-## References
-- `skills-mbb/skills/process/protocol-agent-core.md`
-- `skills-mbb/skills/architecture/architecture-ssot.md`
-- `logs/fixes-tracking.md`
-
-## Metadata
-- updated_at: 2026-01-30
-- priority: emergency
+## 4. File Map
+- `@logs/fixes-tracking.md`: The Log.
+- `@scripts/health-check.js`: Verification.

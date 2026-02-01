@@ -1,38 +1,30 @@
 ---
-title: cloud-yandex-get-api-key
-tags:
-  - "#mbb-spec"
-  - "#cloud"
-  - "#yandex-cloud"
-  - "#api-key"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: cloud-yandex-get-api-key
+title: Cloud: Yandex API Key Retrieval
+scope: skills-mbb
+tags: [#cloud, #yandex, #iam, #security]
+priority: low
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# cloud-yandex-get-api-key
+# Cloud: Yandex API Key Retrieval
 
-## Scope
-- Пошаговое руководство по получению API-ключа Yandex Cloud.
-- Использование раздела IAM и сервисных аккаунтов.
+> **Context**: Obtaining credentials for Yandex Cloud services.
 
-## When to Use
-- При необходимости получить новый API-ключ Yandex Cloud.
-- При настройке Yandex Cloud Functions или других сервисов, требующих API-ключ.
+## 1. Procedure
+1.  **IAM Section**: Go to Yandex Cloud Console -> IAM.
+2.  **Service Account**: Select the `mbb` account.
+3.  **Create Key**: Click "Create API Key" in the "Keys" tab.
+4.  **Save**: Copy the key immediately (`AQVN...`). It is shown only once.
 
-## Key Rules
-- **API-ключ показывается только один раз** при создании. Скопировать немедленно.
-- Ключ имеет формат `AQVN...`.
-- После получения ключ используется как переменная окружения `YANDEX_API_KEY` в Cloud Function.
-- Если ключ утерян — нужно создать новый, старый восстановить нельзя.
+## 2. Usage
+- Add to `MBB/.env` as `YANDEX_API_KEY`.
+- Add to Cloud Function Environment Variables.
 
-## Workflow
-1) В Yandex Cloud Console перейти в раздел **IAM**.
-2) Выбрать вкладку **"Сервисные аккаунты"** и найти аккаунт `mbb`.
-3) На странице сервисного аккаунта в разделе **"Ключи"** нажать **"Создать API-ключ"**.
-4) **Скопировать ключ немедленно** и сохранить в безопасном месте.
-5) В Cloud Function настроить `YANDEX_API_KEY` как переменную окружения.
+## 3. Security
+- **Leak**: If leaked, delete the key in Console and rotate immediately.
+- **Lost**: If lost, create a new one. Old keys cannot be recovered.
 
-## References
-- `cloud-yandex-cloud-function-steps-guide.md`
-- `cloud-yandex-cloud-function-code.md`
+## 4. File Map
+- `@.env`: Local storage (gitignored).

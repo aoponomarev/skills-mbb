@@ -1,38 +1,32 @@
 ---
-title: integrations-oauth-file-protocol
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-  - "#auth"
-  - "#oauth"
-  - "#file-protocol"
-dependencies: [integrations-auth-worker-restore]
-mcp_resource: true
-updated_at: 2026-01-24
+id: integrations-oauth-file-protocol
+title: Integrations: OAuth on `file://`
+scope: skills-mbb
+tags: [#integrations, #auth, #oauth, #file-protocol]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# integrations-oauth-file-protocol
+# Integrations: OAuth on `file://`
 
-## Scope
-- Обработка OAuth callback при запуске приложения через `file://`.
-- Механизм передачи токена из popup‑окна обратно в приложение.
+> **Context**: Handling Google OAuth callbacks when the app runs locally without a web server.
 
-## When to Use
-- При отладке OAuth в локальном режиме `file://`.
-- Если редирект обратно в локальный файл невозможен.
+## 1. The Mechanism
+Since `file://` cannot receive HTTP redirects, we use a **Popup Bridge**.
 
-## Key Rules
-- **Popup обязателен**: OAuth должен открываться через `window.open()` для `postMessage`.
-- **Fallback обязателен**: при блокировке popup — сохранять токен в `localStorage`.
-- **Безопасность**: секреты и токены не хранятся в репозитории.
+1.  **Open**: App opens OAuth URL in a new window (`window.open`).
+2.  **Callback**: Cloudflare Worker receives the code, exchanges it for a token.
+3.  **Return**: Worker serves an HTML page that sends the token back via `window.opener.postMessage`.
+4.  **Save**: Main app receives the message and stores the JWT in `localStorage`.
 
-## Workflow
-1) При `file://` сохранить `client_url` в `state`.
-2) OAuth callback возвращает HTML с JS для `postMessage` и `localStorage`.
-3) Приложение слушает `message` и сохраняет токен.
-4) При необходимости предложить запуск локального HTTP сервера вместо `file://`.
+## 2. Fallback
+If `postMessage` fails (e.g., popup blocked/closed prematurely), the Worker saves the token to a temporary cookie/KV, and the app polls for it.
 
-## References
-- `core/api/cloudflare/auth-client.js`
-- `cloud/cloudflare/workers/src/auth.js`
-- `app/components/auth-button.js`
+## 3. Hard Constraints
+1.  **Security**: The `Origin` of the `postMessage` must be validated.
+2.  **User Action**: Popups must be triggered by a direct user click to avoid browser blocks.
+
+## 4. File Map
+- `@core/api/cloudflare/auth-client.js`: Client logic.
+- `@cloud/cloudflare/workers/src/auth.js`: Server logic.

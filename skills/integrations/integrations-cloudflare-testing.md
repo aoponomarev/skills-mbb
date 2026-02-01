@@ -1,35 +1,26 @@
 ---
-title: integrations-cloudflare-testing
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: integrations-cloudflare-testing
+title: Integrations: Cloudflare Testing
+scope: skills-mbb
+tags: [#integrations, #cloudflare, #testing, #qa]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Integrations Cloudflare Testing functionality and configuration.
+# Integrations: Cloudflare Testing
 
-## When to Use
+> **Context**: Verification protocol for Edge services.
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Checklist
+- [ ] **Auth**: Does Google Login return a valid JWT?
+- [ ] **D1**: Can I save and retrieve a portfolio?
+- [ ] **KV**: Is the API Proxy returning cached results (check `cf-cache-status`)?
+- [ ] **CORS**: Are preflight `OPTIONS` requests handled by the Worker?
 
-# integrations-cloudflare-testing
+## 2. Tools
+- **Wrangler**: `wrangler tail` to see real-time Worker logs.
+- **DevTools**: Network tab -> Filter by `workers.dev`.
 
-> Источник: `docs/doc-cloudflare-testing.md`
-
-## Предусловия
-
-- Worker доступен
-- OAuth Client ID настроен
-- D1 создана и схема применена
-- Feature flags включены
-
-## Чеклист (сокращенно)
-
-- OAuth flow: редирект, callback, токены
-- Workers endpoints: health, auth/callback, protected APIs
-- API клиенты: portfolios, datasets, auth
-- UI компоненты: auth-button, portfolios-manager
-- Интеграция: полный flow + feature flags
+## 3. File Map
+- `@cloud/cloudflare/workers/src/`: Source code to test.

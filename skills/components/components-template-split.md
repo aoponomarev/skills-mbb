@@ -1,38 +1,40 @@
 ---
-title: components-template-split
-tags:
-  - "#mbb-spec"
-  - "#components"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: components-template-split
+title: Components: Template Externalization
+scope: skills-mbb
+tags: [#components, #templates, #x-template, #architecture]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Components Template Split functionality and configuration.
+# Components: Template Externalization
 
-## When to Use
+> **Context**: Moving HTML from JS files to standalone template files.
+> **Mechanism**: `x-template` script tags.
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Directory Structure
+- `shared/templates/{name}-template.js`: Global components.
+- `app/templates/{name}-template.js`: Application-specific components.
 
-# components-template-split
+## 2. Implementation Pattern
+Each template file exports a `TEMPLATE` string and registers itself in the DOM:
+```javascript
+export const TEMPLATE = `<div>...</div>`;
+const script = document.createElement('script');
+script.id = 'my-component-template';
+script.type = 'text/x-template';
+script.text = TEMPLATE;
+document.body.appendChild(script);
+```
 
-> Источник: `docs/doc-architect.md` (раздел "Вынос x-template шаблонов")
+## 3. Boot Sequence
+**CRITICAL**: Templates MUST be loaded and injected into the DOM **before** Vue initializes the components that use them.
 
-## Принцип
+## 4. Hard Constraints
+1.  **Unique IDs**: Template script IDs must match the `template` property in the Vue component definition.
+2.  **No Logic**: Templates should contain only HTML and Vue directives. No complex JS.
 
-Все `x-template` вынесены в отдельные файлы и вставляются в DOM при загрузке модуля.
-
-## Структура
-
-- `shared/templates/{component-name}-template.js` — переиспользуемые компоненты
-- `app/templates/{component-name}-template.js` — компоненты приложения
-- `features/<feature>/templates/` — зарезервировано
-
-## Формат
-
-Каждый файл содержит константу `TEMPLATE` со строкой шаблона и регистрацию `<script type="text/x-template">` в DOM.
-
-## Порядок загрузки
-
-Шаблоны должны быть загружены **до** Vue и компонентов. Загрузка через `core/module-loader.js`.
+## 5. File Map
+- `@core/module-loader.js`: Handles injection order.
+- `@shared/templates/`: Reusable HTML.

@@ -1,40 +1,33 @@
 ---
-title: components-boundaries
-tags:
-  - "#mbb-spec"
-  - "#components"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: components-boundaries
+title: Components: Composition Boundaries
+scope: skills-mbb
+tags: [#components, #architecture, #vue, #bootstrap]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Components Boundaries functionality and configuration.
+# Components: Composition Boundaries
 
-## When to Use
+> **Context**: Deciding when to use raw Bootstrap vs. Vue wrappers.
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. The Principle
+Use **Raw Bootstrap** (HTML + Classes) for static layout. Create **Vue Wrappers** ONLY when dynamic logic is required.
 
-# components-boundaries
+## 2. When to Wrap
+- **Search/Filter**: e.g., `cmp-combobox`.
+- **Dynamic Lists**: e.g., `cmp-dropdown` with async items.
+- **Complex State**: e.g., `cmp-modal` with validation.
+- **Reusability**: If the same complex HTML structure repeats in 3+ places.
 
-> Источник: `docs/doc-comp-principles.md` (разделы "Использование Bootstrap" и "Приоритет библиотек")
+## 3. Boundary Rules
+- **Internal Elements**: Wrap the *items* and *logic*, not necessarily the outer container.
+- **Control**: The container (`.modal`, `.dropdown`) should remain accessible to Bootstrap's native JS.
 
-## Базовый принцип
+## 4. Library Priority
+Before coding a wrapper, check `libs/` for existing Vue-compatible UMD libraries.
 
-Нативные компоненты Bootstrap 5 используются напрямую через классы и JS API. Vue-обёртки создаются **только** при необходимости дополнительной логики.
-
-## Когда создавать Vue-обёртки
-
-- Поиск по элементам (dropdown)
-- Прокрутка длинных списков
-- Кастомная фильтрация/сортировка
-- Динамическая загрузка элементов
-
-## Границы обёрток
-
-- Обёртки создаются для **внутренних элементов** Bootstrap (items/menu), а не для контейнеров
-- Контейнеры Bootstrap (`.dropdown`, `.modal`) остаются под контролем Bootstrap, **кроме** случаев, когда нужна расширенная функциональность
-
-## Приоритет библиотек
-
-Перед созданием кастомного компонента проверить наличие подходящей Vue-библиотеки с расширяемым API. Кастомные компоненты создаются только если библиотека отсутствует или не подходит по весу/логике.
+## 5. File Map
+- `@shared/components/`: Wrapper implementations.
+- `@shared/templates/`: HTML structures.

@@ -1,53 +1,28 @@
 ---
 id: process-future-skill-impact-analysis
-title: Future Skill Impact Analysis Protocol
-description_ru: Протокол оценки влияния гипотетических навыков на архитектуру MBB. Вместо простого описания «что делает инструмент», этот метод заставляет ИИ анализировать, как конкретная технология (IaC, Prometheus, CI/CD) решит текущие боли проекта, ускорит цикл разработки и повысит автономность агентов.
-scope: Writing detailed impact analysis for "future" skills in the MBB ecosystem.
-tags: [#process, #architecture, #skills, #future]
+title: Process: Skill Impact Analysis
+scope: skills-mbb
+tags: [#process, #skills, #planning, #impact]
 priority: medium
-created_at: 2026-01-29
-updated_at: 2026-01-29
+created_at: 2026-01-30
+updated_at: 2026-02-01
 ---
 
-# Future Skill Impact Analysis Protocol
+# Process: Skill Impact Analysis
 
-## Overview
+> **Context**: Evaluating how a new feature or change affects the existing knowledge base.
 
-Этот протокол используется для генерации глубокого анализа того, как перспективные технологии и навыки (находящиеся в `drafts/future/`) могут трансформировать текущую архитектуру MBB. 
+## 1. Analysis Steps
+1.  **Search**: Find all skills related to the target module.
+2.  **Conflict Check**: Does the new change violate any "Hard Constraints" in those skills?
+3.  **Update Requirement**: List which skills will need `action=update` after the code change.
+4.  **New Skill**: Determine if the change introduces a new pattern worth capturing.
 
-## Scope
+## 2. Decision Gate
+If a change impacts >5 skills, it is considered a **Major Architectural Shift** and requires a dedicated `A_` document update.
 
-Применяется при описании черновиков, которые еще не внедрены, но планируются к реализации. Цель — обосновать ценность внедрения через призму специфики MBB.
+## 3. Hard Constraints
+1.  **No Orphan Rules**: Never implement a feature that contradicts a Skill without updating the Skill first.
 
-## Analysis Framework (The 3 Pillars)
-
-При составлении описания для вкладки "Future", ИИ должен следовать трем направлениям:
-
-1.  **Direct Architecture Impact**: Как это изменит способ хранения, обработки или доставки данных? (Например: IaC уберет риск "дрейфа" конфигураций Docker).
-2.  **Agent Autonomy Boost**: Как это поможет агентам Cursor или Continue действовать более независимо? (Например: Мониторинг даст агенту данные для самодиагностики без участия пользователя).
-3.  **Efficiency & Risk Mitigation**: Какие текущие боли (slow scans, manual reboots, security holes) исчезнут?
-
-## Structure of the Narrative
-
-Описание должно состоять из 2-3 абзацев на русском языке:
-
-- **Архитектурный сдвиг**: Какой концептуальный элемент системы меняется.
-- **Новые возможности агентов**: Конкретные примеры того, что сможет делать агент "завтра".
-- **Результат для проекта**: Итоговое ускорение или повышение надежности.
-
-Для вкладки **News** в самом конце должны быть добавлены строки:
-`TYPE: [Skill|Task]` (Skill — регулярный протокол/поведение, Task — разовое внедрение/настройка).
-`SCORE: X` (где X — число от 0 до 10, отражающее приоритет внедрения).
-
-## Example
-
-**Skill: Infrastructure as Code (IaC)**
-*Impact Analysis:*
-Внедрение IaC (Terraform/Ansible) переведет управление нашими Docker-контейнерами и MCP-серверами из режима «ручной правки конфигов» в режим «декларативного кода». Это устранит инциденты, подобные недавнему исчезновению контейнера n8n, так как система будет автоматически приводиться к эталонному состоянию.
-Для агентов это открывает возможность самостоятельно разворачивать новые тестовые окружения или MCP-шлюзы для специфических задач, просто создавая новый `.tf` файл. Мы перейдем от обслуживания инфраструктуры к ее программированию, что сделает проект MBB полностью переносимым и неубиваемым.
-
-## Validation
-
-- Описание не содержит общих фраз ("это полезно", "это стандарт").
-- Упоминаются конкретные компоненты MBB (n8n, MCP, Continue-wrapper, Docker).
-- Описание вдохновляет на реализацию, показывая четкую выгоду.
+## 4. File Map
+- `@skills/index/`: For discovery.

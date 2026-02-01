@@ -1,67 +1,37 @@
 ---
-title: cache-keys
-tags:
-  - "#mbb-spec"
-  - "#cache"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: cache-keys
+title: Cache: Key Management
+scope: skills-mbb
+tags: [#cache, #storage, #keys]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Cache Keys functionality and configuration.
+# Cache: Key Management
 
-## When to Use
+> **Context**: Logic for adding and configuring cache keys.
+> **SSOT**: `core/cache/storage-layers.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Storage Layer Selection
+- **Hot** (`localStorage`): <100KB, frequent access, simple objects (e.g., `settings`).
+- **Warm** (`IndexedDB`): 100KB–10MB, frequent access, structured data (e.g., `coins-list`).
+- **Cold** (`IndexedDB`): >10MB, rare access, large blobs (e.g., `time-series`).
 
-# cache-keys
+## 2. Decision Matrix
+| Feature | Rule | Action |
+| :--- | :--- | :--- |
+| **Versioning** | Depends on App Version? | Add to `versionedKeys` in `cache-manager.js`. |
+| **Persistence** | User Data? | No TTL, No Versioning. |
+| **Freshness** | External API? | Define `TTL` in `cache-config.js`. |
+| **Rate Limits** | CoinGecko/API? | Use **Preload Strategy** (fetch once, slice from cache). |
 
-> Источник: `docs/doc-cache.md` (правила принятия решений)
+## 3. Implementation Workflow
+1.  **Register Key**: Add to `LAYERS.{layer}.keys` in `storage-layers.js`.
+2.  **Set TTL**: Define in `cache-config.js` -> `TTL`.
+3.  **Set Strategy**: Define in `cache-config.js` -> `STRATEGIES` (e.g., `cache-first`).
+4.  **Migration**: If schema changes, update `VERSIONS` and `cache-migrations.js`.
 
-## Алгоритм добавления ключа
-
-### 1) Выбор слоя хранения
-
-- **Hot** (localStorage): <100KB, частый доступ, простые структуры
-- **Warm** (IndexedDB): 100KB–10MB, частый доступ, структурированные данные
-- **Cold** (IndexedDB): >10MB, редкий доступ, большие структуры
-
-Добавлять ключ в `core/cache/storage-layers.js` → `LAYERS.{layer}.keys`
-
-### 2) Версионирование
-
-- Внешние API / парсинг / завязано на версию → версионировать
-- Пользовательские данные / UI‑состояние / миграции → не версионировать
-
-Добавлять ключ в `core/cache/cache-manager.js` → `versionedKeys`
-
-### 3) TTL
-
-- Устаревает → задать TTL
-- Пользовательские данные → без TTL
-
-Добавлять в `core/cache/cache-config.js` → `TTL`
-
-### 4) Стратегия
-
-- cache-first → стабильные данные
-- network-first → критична актуальность
-- stale-while-revalidate → баланс
-- cache-only → только локальные данные
-
-Добавлять в `core/cache/cache-config.js` → `STRATEGIES`
-
-### 5) Preload Strategy
-
-Использовать при жестких rate limits (CoinGecko): загружать максимальный набор один раз и нарезать из кэша.
-
-Ключи:
-- `top-coins-by-market-cap`
-- `top-coins-by-volume`
-
-### 6) Версия схемы (пользовательские данные)
-
-Если пользовательские данные меняют структуру:
-- `core/cache/cache-config.js` → `VERSIONS`
-- `core/cache/cache-migrations.js` → миграции
+## 4. File Map
+- `@core/cache/storage-layers.js`: Key registry.
+- `@core/cache/cache-config.js`: TTL & Strategies.

@@ -1,60 +1,33 @@
 ---
 id: continue-cli-mcp-integration-nuances
-title: "Continue CLI: Активация инструментов и интеграция с MCP"
-description_ru: "Решение проблем с активацией инструментов (MCP) в headless-режиме Continue CLI, включая настройки конфигов и промптов."
-scope: "Настройка и отладка работы Continue CLI (cn) с MCP серверами в Docker-контейнерах."
+title: Integrations: Continue CLI & MCP Nuances
+scope: skills-mbb
 tags: [#integrations, #continue-cli, #mcp, #docker, #troubleshooting]
 priority: high
 created_at: 2026-01-28
-updated_at: 2026-01-28
-source: "mbb:integration-debug-session"
+updated_at: 2026-02-01
 ---
 
-# Continue CLI: Активация инструментов и интеграция с MCP
+# Integrations: Continue CLI & MCP Nuances
 
-> **Контекст**: При использовании Continue CLI в headless-режиме (через `cn -p`) инструменты и MCP серверы по умолчанию могут игнорироваться моделью, даже если они прописаны в конфиге.
+> **Context**: Ensuring AI Agents correctly use tools in headless mode.
 
-## Русскоязычное описание
-**Паттерны активации и отладки Continue CLI с MCP**:
-Для того чтобы Continue-агенты гарантированно использовали навыки через MCP в автоматическом режиме, необходимо учитывать ряд неочевидных технических нюансов:
+## 1. Critical Flags
+- **`--auto`**: Mandatory. Without it, Continue CLI blocks tool calls in print mode.
+- **`--config`**: Explicitly point to `/root/.continue/config.yaml` to ensure project-specific MCP servers are loaded.
 
-1.  **Флаг `--auto`**: В режиме печати (`-p` / `--print`) Continue CLI отключает вызов инструментов для безопасности. Флаг `--auto` принудительно разрешает агенту использовать инструменты без подтверждения.
-2.  **Явный конфиг**: Использование флага `--config /path/to/config.yaml` гарантирует, что агент подгрузит именно те MCP серверы и `systemMessage`, которые настроены для проекта.
-3.  **Приоритет промпта над System Message**: Модели (особенно Mistral Small) могут игнорировать системные инструкции о поиске навыков, если пользовательский запрос кажется им самодостаточным. Решение — "инъекция" инструкции (Prompt Injection) в начало каждого запроса.
-4.  **Гибкость поиска в MCP**: Стандартный поиск по подстроке часто не находит навыки, если запрос состоит из нескольких слов (например, "docker networking" не найдет "docker-debug"). Решение — разбивка запроса на части и проверка вхождения каждой части.
-5.  **Логирование в дочерних процессах**: Логи MCP сервера (stderr) могут не попадать в `docker logs`. Для отладки необходимо использовать запись в файл внутри контейнера.
+## 2. Prompt Injection
+Models (e.g., Mistral Small) may ignore System Messages.
+**Rule**: Inject "Always use list_skills before responding" at the start of every user prompt in `server.js`.
 
-## Решение и реализация
+## 3. Flexible Search
+Standard substring search is too rigid.
+**Fix**: Split query into words and ensure ALL words exist in `id` or `title`.
 
-### 1. Вызов CLI (server.js)
-```javascript
-const cmd = `cn --auto --config /root/.continue/config.yaml -p "${escapedPrompt}"`;
-```
+## 4. Logging
+MCP `stderr` is often swallowed by Docker.
+**Fix**: Write debug logs to a physical file inside the container (`/workspace/mbb/logs/mcp-debug.log`).
 
-### 2. Принудительный поиск (Prompt Injection)
-Внедрение инструкции прямо в промпт пользователя:
-```javascript
-const enhancedPrompt = `Always use the list_skills tool to search for relevant skills before responding. Task: ${userPrompt}`;
-```
-
-### 3. Исправление MCP сервера (Node.js)
-Использование синхронного логирования для отладки и гибкого поиска:
-```javascript
-// Гибкий поиск
-if (query) {
-  const queryParts = query.toLowerCase().split(/\s+/).filter(Boolean);
-  records = records.filter(r => {
-    const searchStr = `${r.id} ${r.title}`.toLowerCase();
-    return queryParts.every(part => searchStr.includes(part));
-  });
-}
-```
-
-## Почему это важно
-Без этих настроек Continue-агенты остаются "вещью в себе", не используя накопленный опыт проекта, что ведет к повторению старых ошибок и нарушению архитектурных стандартов MBB.
-
-## Контрольные вопросы при отладке
-- [ ] Добавлен ли флаг `--auto` в команду запуска?
-- [ ] Видит ли MCP сервер навыки из всех нужных репозиториев? (Проверить через `mcp-debug.log`)
-- [ ] Не падает ли MCP сервер из-за ошибок импорта (например, `fs/promises` vs `fsSync`)?
-- [ ] Поддерживает ли поисковый запрос разбиение на слова?
+## 5. File Map
+- `@mcp/continue-wrapper/server.js`: CLI caller.
+- `@mcp/skills-mcp/server.js`: Tool implementation.

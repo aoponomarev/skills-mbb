@@ -1,74 +1,35 @@
 ---
-title: integrations-n8n-local-setup
-tags: [#integrations, #n8n, #docker]
-dependencies: [skill-secrets-hygiene]
-mcp_resource: true
-updated_at: 2026-01-27
+id: integrations-n8n-local-setup
+title: Integrations: n8n Local Setup
+scope: skills-mbb
+tags: [#integrations, #n8n, #docker, #setup]
+priority: high
+created_at: 2026-01-27
+updated_at: 2026-02-01
 ---
 
-# n8n Local Setup (Docker)
+# Integrations: n8n Local Setup
 
-## Scope
-- Конфигурация локального n8n Community Edition в Docker.
-- Управление данными через Named Volumes.
-- Безопасное хранение секретов через .env.
+> **Context**: Configuring n8n Community Edition for local automation.
 
-**Не покрывает** (см. связанные скиллы):
-- Программный доступ через API → [integrations-n8n-api-access](./integrations-n8n-api-access.md)
-- Работа с внутренней БД → [integrations-n8n-docker-internals](./integrations-n8n-docker-internals.md)
+## 1. Prerequisites
+- Docker Desktop installed.
+- `.env` file with `N8N_ENCRYPTION_KEY`.
 
-## When to Use
-- При необходимости развертывания или восстановления среды автоматизации (n8n) на локальной машине разработчика.
-- При изменении состава секретов или путей доступа к навыкам.
+## 2. Setup Steps
+1.  **Volume**: `docker volume create n8n_data`.
+2.  **Launch**: `docker compose up -d n8n`.
+3.  **Verify**: Access `http://localhost:5678`.
 
-## Key Rules
-1. **Named Volumes Only**: Использовать n8n_data для персистентности /home/node/.n8n. Это решает проблемы с правами доступа Windows/Docker.
-2. **Secrets Isolation**: Все ключи (N8N_ENCRYPTION_KEY, OAuth, N8N_API_KEY) хранятся в .env и никогда не попадают в git.
-3. **Restart Policy**: Всегда использовать restart: unless-stopped для обеспечения автозапуска при старте Docker Desktop.
-4. **File Access**: n8n должен иметь монтирование к ../skills и ../skills-mbb для работы с бэклогом.
-5. **Encryption Key**: `N8N_ENCRYPTION_KEY` критически важен — от него зависят расшифровка credentials и генерация JWT secret для API.
+## 3. Key Environment Variables
+- `N8N_ENCRYPTION_KEY`: Master secret for credentials.
+- `N8N_API_KEY`: JWT for programmatic access.
+- `N8N_RUNNERS_ENABLED=false`: Required for Code Nodes to access host modules.
 
-## Workflow / Steps
-1. **Подготовка**: Убедиться, что .env файл создан и содержит все ключи.
-2. **Создать Named Volume** (если первый запуск):
-   ```bash
-   docker volume create n8n_data
-   ```
-3. **Запуск**: Выполнить `docker compose up -d`.
-4. **Проверка UI**: Открыть http://localhost:5678 и убедиться в активности workflow "Backlog Watcher".
-5. **Проверка API** (опционально):
-   ```bash
-   curl -H "X-N8N-API-KEY: $N8N_API_KEY" http://localhost:5678/api/v1/workflows
-   ```
-6. **Безопасность**: Проверить `git status`, чтобы убедиться, что runtime-файлы n8n игнорируются.
+## 4. Hard Constraints
+1.  **Isolation**: Keep the n8n network separate from the public internet where possible.
+2.  **Sync**: n8n must have read/write access to `../skills` and `../skills-mbb` for the Backlog Watcher.
 
-## Environment Variables
-```bash
-# Обязательные
-N8N_ENCRYPTION_KEY=your-encryption-key  # Критически важен!
-
-# API доступ
-N8N_API_KEY=eyJ...                      # JWT токен для программного доступа
-
-# OAuth (для Google интеграций)
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-
-# Cloudflare (если используется)
-CLOUDFLARE_ACCOUNT_ID=...
-CLOUDFLARE_API_TOKEN=...
-```
-
-## References
-- docker-compose.yml
-- .env (защищён .gitignore)
-- n8n/MIGRATION.md
-- [integrations-n8n-api-access](./integrations-n8n-api-access.md) — программный доступ через API
-- [integrations-n8n-docker-internals](./integrations-n8n-docker-internals.md) — внутренняя структура и БД
-- [skill-secrets-hygiene](../../skills/security/skill-secrets-hygiene.md)
-
-## Metadata
-- tags: #integrations #n8n #automation #docker
-- dependencies: [skill-secrets-hygiene]
-- updated_at: 2026-01-27
-- source_refs: ["docker-compose.yml", "BACKLOG.md"]
+## 5. File Map
+- `@docker-compose.yml`: Service definition.
+- `@.env`: Secrets storage.

@@ -1,34 +1,31 @@
 ---
-title: components-layout-alignment
-tags:
-  - "#mbb-spec"
-  - "#components"
-  - "#layout"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: components-layout-alignment
+title: Components: Layout & Alignment
+scope: skills-mbb
+tags: [#components, #layout, #css, #alignment]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# components-layout-alignment
+# Components: Layout & Alignment
 
-## Scope
-- Выравнивание высоты элементов через vertical padding.
-- Spacing и выравнивание компонентов в ряду.
+> **Context**: Ensuring consistent height and spacing across the UI.
 
-## When to Use
-- Когда элементы одного размера должны иметь одинаковую высоту.
-- При выравнивании компонент в горизонтальном ряду.
+## 1. Vertical Alignment
+- **Rule**: Use vertical padding on the **inner container** based on the size class.
+- **Implementation**: `.component-responsive.size-sm > .inner-container`.
+- **Avoid**: Fixed `height` or `line-height` for alignment.
 
-## Key Rules
-- Вертикальный padding задается **внутреннему контейнеру** по классу размера.
-- Горизонтальный padding остается Bootstrap (`px-*`).
-- Spacing — через Bootstrap утилиты.
+## 2. Horizontal Spacing
+- **Rule**: Use Bootstrap utility classes (`me-2`, `gap-3`).
+- **Standard**: `gap-2` for button groups, `mb-3` for form fields.
 
-## Workflow
-1) Убрать фиксированный `py-*` из внутреннего контейнера.
-2) Привязать padding к размеру через селектор `.component-responsive.size-class > .inner-container`.
-3) Значения брать из нативных размеров Bootstrap (см. CSS‑комменты).
+## 3. Sizing
+- **sm**: Compact (Tables, Sidebars).
+- **md**: Default (Forms, Modals).
+- **lg**: Prominent (Hero sections).
 
-## References
-- `styles/wrappers/button.css`
-- `shared/components/button.js`
+## 4. File Map
+- `@styles/wrappers/`: Component-specific layout overrides.
+- `@shared/components/button.js`: Sizing implementation.

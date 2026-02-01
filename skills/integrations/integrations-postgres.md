@@ -1,42 +1,31 @@
 ---
-title: integrations-postgres
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-  - "#postgres"
-  - "#cloud"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-25
+id: integrations-postgres
+title: Integrations: PostgreSQL & Sync
+scope: skills-mbb
+tags: [#integrations, #postgres, #database, #sync]
+priority: medium
+created_at: 2026-01-25
+updated_at: 2026-02-01
 ---
-## When to Use
 
-- При необходимости работы с данным компонентом или функционалом.
+# Integrations: PostgreSQL & Sync
 
-# integrations-postgres
+> **Context**: Managed PostgreSQL in Yandex Cloud for heavy data and analytics.
 
-## Scope
-- Интеграция с PostgreSQL (включая Yandex Cloud).
-- Клиент, синхронизация и конфигурация API слоя.
+## 1. Architecture
+- **Client**: `postgres-client.js` (REST wrapper via Cloud Functions).
+- **Manager**: `postgres-sync-manager.js` handles delta-updates between local state and DB.
+- **Server**: Yandex Cloud Function acting as a secure gateway.
 
-## Key Components
-- `core/api/postgres-client.js`
-- `core/api/postgres-sync-manager.js`
-- `core/config/postgres-config.js`
-- `cloud/yandex/functions/mbb-api/index.js`
+## 2. Key Rules
+1.  **No Direct Connection**: Frontend MUST NOT connect to Postgres port 5432. Use the HTTPS API.
+2.  **Batching**: Sync operations should be batched to minimize Function invocations.
+3.  **Schema SSOT**: The database schema is defined in `cloud/yandex/db/schema.sql`.
 
-## Key Rules
-- Конфигурация подключения хранится централизованно.
-- Синхронизация данных управляется отдельным менеджером.
-- Функции API не содержат секретов в репозитории.
+## 3. Hard Constraints
+1.  **Transactional**: All financial record updates must use SQL transactions.
+2.  **Secrets**: DB credentials live only in Yandex Cloud Function environment variables.
 
-## Workflow
-1) Обновить параметры в `postgres-config`.
-2) Проверить клиент и синхронизацию.
-3) Обновить/проверить API функцию в Yandex Cloud.
-
-## References
-- `core/api/postgres-client.js`
-- `core/api/postgres-sync-manager.js`
-- `core/config/postgres-config.js`
-- `cloud/yandex/functions/mbb-api/index.js`
+## 4. File Map
+- `@core/api/postgres-sync-manager.js`: Logic.
+- `@core/config/postgres-config.js`: Endpoints.

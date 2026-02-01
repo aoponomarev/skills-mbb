@@ -1,52 +1,33 @@
 ---
 id: autonomous-skill-synthesis
-title: Autonomous Skill Synthesis Protocol
-description_ru: Механизм эволюции интеллекта: в конце каждой задачи агент обязан проанализировать свой опыт, выделить новые удачные решения или архитектурные находки и самостоятельно предложить их в качестве постоянных «навыков». Таким образом, база знаний проекта растет органически в процессе работы, а не только по команде человека.
-scope: Guidelines for agents to proactively expand their own knowledge base by distilling complex logic into reusable skills.
-tags: [#architecture, #process, #agentic, #meta]
+title: Process: Autonomous Skill Synthesis
+scope: skills-mbb
+tags: [#process, #skills, #automation, #ai]
 priority: high
 created_at: 2026-01-28
-updated_at: 2026-01-29
+updated_at: 2026-02-01
 ---
 
-# Autonomous Skill Synthesis Protocol
+# Process: Autonomous Skill Synthesis
 
-> "Skill Creator: the agent creates its own tools! - The agent building its own capabilities."
+> **Context**: How the system automatically transforms raw logs into structured knowledge.
 
-## Scope
+## 1. The Pipeline
+1.  **Watcher**: `skill-watcher.js` scans Git diffs for "worthy" patterns.
+2.  **Drafter**: `skill-processor.js` sends the diff to an LLM.
+3.  **Synthesis**: LLM writes a new `.md` file in `drafts/` using the standard template.
 
-This skill is a "Meta-Skill" that governs how agents should behave at the end of a task. It defines the protocol for identifying new "capabilities" or "playbooks" that were born during the current session.
+## 2. Selection Heuristics
+A change is "Skill-worthy" if it:
+- Fixes a recurring architectural bug.
+- Introduces a new integration pattern.
+- Defines a new naming convention.
+- Solves a complex environment issue (Docker/WSL).
 
-## When to Use
+## 3. Hard Constraints
+1.  **Human Gate**: No skill is moved from `drafts/` to `skills/` without manual approval.
+2.  **Context Limit**: Diffs are capped at 3500 characters to ensure LLM focus.
 
-- After completing any significant task that involved architectural decisions.
-- When you find yourself repeating a multi-step logic across different files.
-- When you've solved a complex problem that wasn't previously documented in the Skills base.
-- During the "Post-Action Analysis" phase of a task.
-
-## Overview
-
-In the **agentic paradigm**, an agent is not just a worker but a **contributor to its own evolutionary code**. Instead of waiting for a human to document a process, the agent distills its successful logic into a "Genetic Code" (a Skill) and proposes it for the knowledge base.
-
-## Guidelines
-
-1. **Post-Action Analysis**: After finishing a task, take 10 seconds to look at the "Genetic Code" of your solution. Is there a reusable pattern?
-2. **Genetic Code Distillation**: If the logic is reusable, simplify it. Remove project-specific data and extract the *methodology*.
-3. **Proactive Proposal**: Use the `propose_skill` tool or write directly to the `BACKLOG.md` to register the need for this new skill.
-4. **Self-Documentation**: Don't just save code; save the "Why" and "When to Use".
-
-## Protocol Steps
-
-1. **Identify**: "Wait, I just spent 20 minutes figuring out how to fix Docker port conflicts. This should be a skill."
-2. **Abstract**: "The core issue was Windows reserving ports. The solution was checking `netstat` and changing `docker-compose.yml`."
-3. **Draft**: Create a entry in `BACKLOG.md` with:
-   - `action=create`
-   - `title="Handling Windows Port Conflicts in Docker"`
-   - `scope="Guidelines for identifying and resolving port reservations by OS processes."`
-4. **Register**: Notify the user that a new capability has been proposed.
-
-## Validation
-
-- The agent context remains lean because logic is offloaded to the Skills base.
-- Repetitive errors decrease over time as agents "remember" solutions through the Knowledge Base.
-- The `BACKLOG.md` grows automatically with relevant technical insights.
+## 4. File Map
+- `@scripts/skill-watcher.js`: The Scanner.
+- `@scripts/skill-processor.js`: The Drafter.

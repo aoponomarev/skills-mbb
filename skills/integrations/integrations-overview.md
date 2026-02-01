@@ -1,52 +1,35 @@
 ---
-title: integrations-overview
-tags: [#mbb-spec, #integrations, #architecture]
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-26
+id: integrations-overview
+title: Integrations: External Strategy
+scope: skills-mbb
+tags: [#integrations, #architecture, #strategy]
+priority: high
+created_at: 2026-01-26
+updated_at: 2026-02-01
 ---
 
-# External Integrations Overview
+# Integrations: External Strategy
 
-> SSOT по стратегии и текущему статусу внешних интеграций MBB.
+> **Context**: High-level map of MBB's external dependencies and failover logic.
 
-## Scope
+## 1. Core Principles
+- **On-Demand**: Integrate only what is necessary for the current phase.
+- **Resilience**: Every cloud service must have a local or secondary fallback.
+- **Geo-Selection**: Use Yandex Cloud for CIS-region tasks and Cloudflare for Global Edge.
 
-- Integrations Overview functionality and configuration.
+## 2. Current Stack
+- **Auth**: Google OAuth via Cloudflare Workers.
+- **AI**: YandexGPT (Primary) + Perplexity (Fallback).
+- **Data**: CoinGecko (Market) + Yahoo Finance (Charts).
+- **Storage**: Cloudflare D1 (Relational) + OneDrive (Files/SSOT).
 
-## When to Use
+## 3. Command `EI:` (External Insights)
+Trigger for Agents to analyze new integration candidates, compare costs, and design fallback chains.
 
-- При необходимости работы с данным компонентом или функционалом.
+## 4. Hard Constraints
+1.  **No Vendor Lock-in**: Business logic must remain provider-agnostic via `BaseProvider` classes.
+2.  **Secrets Hygiene**: No API keys in code. Use `.env` and Wrangler Secrets.
 
-## Принципы и Стратегия
-- **On-demand**: Интеграция по мере необходимости, без избыточности.
-- **Resilience**: Отказоустойчивость (primary → secondary → local).
-- **Geo-selection**: РФ/СНГ → Yandex Cloud, Global → Cloudflare.
-- **Centralized Config**: Единый источник правды в `core/config/` и `.env`.
-
-## Текущий Статус Реализации
-
-### ✅ Реализовано
-- **Auth**: Google OAuth через Cloudflare Workers.
-- **AI**: YandexGPT (Yandex Cloud Functions) + Perplexity AI (fallback).
-- **Storage**: Cloudflare D1 (Users/Portfolios).
-- **Hosting**: GitHub Pages + CDN libs.
-- **Automation**: n8n Community Edition (Local Docker + Volumes).
-
-### ⚠️ В Процессе / Частично
-- **Configuration**: Централизованное управление через `.env` и секреты n8n.
-- **Caching**: Облачное кэширование (KV/R2) — ожидается интеграция.
-
-### 🎯 Планируется (High Priority)
-- **Integration Manager**: `core/api/integration-manager.js` для мониторинга и авто-переключения.
-- **Unified Workers AI**: Динамический фолбэк между YandexGPT и Perplexity.
-- **Backup**: Резервное копирование D1 в Object Storage.
-
-## Команда "EI:" (External Insights)
-Триггер для анализа новых интеграций: сравнение провайдеров, проектирование фолбэка, план реализации.
-
-## References
-- `core/config/`
-- `.env`
-- `docker-compose.yml`
-- [Skill: integrations-n8n-local-setup]
+## 5. File Map
+- `@core/api/`: Implementation adapters.
+- `@docs/A_MASTER.md`: Topology.

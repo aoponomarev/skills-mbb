@@ -1,38 +1,33 @@
 ---
-title: components-ssot
-tags:
-  - "#mbb-spec"
-  - "#components"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: components-ssot
+title: Components: Single Source of Truth
+scope: skills-mbb
+tags: [#components, #ssot, #dry, #config]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Components Ssot functionality and configuration.
+# Components: Single Source of Truth
 
-## When to Use
+> **Context**: Centralizing repeated UI patterns and data.
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Core Rule
+If a UI element (label, icon, logic) repeats in **2 or more** places, it MUST be extracted to SSOT.
 
-# components-ssot
+## 2. Extraction Targets
+- **Titles/Icons**: `core/config/modals-config.js`.
+- **API Endpoints**: `core/config/app-config.js`.
+- **Cache Rules**: `core/cache/cache-config.js`.
+- **UI Text**: `core/config/tooltips-config.js`.
 
-> Источник: `docs/doc-comp-principles.md` (раздел "Единый источник правды")
+## 3. Decision Matrix
+| Scenario | Action |
+| :--- | :--- |
+| Repeated HTML | Create a `shared/component`. |
+| Repeated Options | Create a `core/config` file. |
+| Repeated Logic | Create a `shared/utility`. |
 
-## Базовый принцип
-
-Дублирующаяся разметка, данные и логика выносятся в переиспользуемые компоненты или конфигурационные файлы (`core/config/`, `core/cache/`).
-
-## Области применения
-
-- Заголовки/иконки модальных окон → `core/config/modals-config.js`
-- TTL/стратегии кэша → `core/cache/cache-config.js`
-- API endpoints/лимиты → `core/config/app-config.js`
-- Прокси‑URL AI провайдеров → `core/config/app-config.js`
-- Порядок загрузки модулей → `core/modules-config.js`
-
-## Когда выносить
-
-- Разметка повторяется ≥ 2 мест → компонент
-- Опции/данные дублируются → конфигурационный файл
-- Логика повторяется → утилита или компонент
+## 4. File Map
+- `@core/config/`: Configuration hub.
+- `@shared/components/`: Reusable UI hub.

@@ -1,37 +1,29 @@
 ---
-title: integrations-cloudflare-plan
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: integrations-cloudflare-plan
+title: Integrations: Cloudflare Roadmap
+scope: skills-mbb
+tags: [#integrations, #cloudflare, #roadmap]
+priority: low
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Integrations Cloudflare Plan functionality and configuration.
+# Integrations: Cloudflare Roadmap
 
-## When to Use
+> **Context**: Status of Edge infrastructure integration.
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Completed Phases
+1.  **Infrastructure**: Workers, D1, KV setup.
+2.  **Auth**: Google OAuth 2.0 flow.
+3.  **Proxy**: API Proxy for CoinGecko/Yahoo.
+4.  **Storage**: Portfolios CRUD via D1.
 
-# integrations-cloudflare-plan
+## 2. Pending Phases
+- **R2 Storage**: Object storage for datasets (requires payment method).
+- **Edge Analytics**: Tracking API usage per user.
 
-> Источник: `docs/doc-cloudflare-integration-plan.md`
+## 3. Hard Constraints
+- **Local-First Fallback**: App must remain functional via `localStorage` if Cloudflare is unreachable.
 
-## Этапы интеграции
-
-1. Инфраструктура Cloudflare (Workers, D1, OAuth)
-2. Конфигурация и SSOT (`auth-config`, `cloudflare-config`)
-3. OAuth клиент (браузер)
-4. Workers серверные endpoints
-5. API клиенты (portfolios, datasets)
-6. UI авторизации
-7. UI портфелей
-8. Интеграция с приложением (feature flags)
-9. Тестирование и отладка
-10. Документация и финализация
-
-## Статусы
-
-Все этапы 1–10 выполнены, кроме отложенного R2 (требуется платежный метод).
+## 4. File Map
+- `@docs/A_CLOUDFLARE.md`: Architecture spec.

@@ -1,37 +1,31 @@
 ---
-title: components-column-visibility
-tags:
-  - "#mbb-spec"
-  - "#components"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: components-column-visibility
+title: Components: CSS-Driven Column Visibility
+scope: skills-mbb
+tags: [#components, #css, #tables, #performance]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Components Column Visibility functionality and configuration.
+# Components: CSS-Driven Column Visibility
 
-## When to Use
+> **Context**: Toggling table columns without re-rendering the DOM.
+> **SSOT**: `styles/table-columns.css`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Architecture
+- **State**: `columnVisibilityConfig` in `app-ui-root.js`.
+- **Mixin**: `column-visibility-mixin.js` computes classes based on active tab.
+- **Application**: Classes applied to `<col>`, `<th>`, and `<td>`.
 
-# components-column-visibility
+## 2. Logic
+Visibility is controlled via `display: none` in CSS, triggered by a parent class on the table or body.
+**Benefit**: Instant switching, preserves scroll position.
 
-> Источник: `docs/doc-architect.md` (раздел "CSS-driven Column Visibility через вкладки")
+## 3. Edge Case: Bootstrap Radio Buttons
+Native `@change` on `<input class="btn-check">` fails in Vue when the input is hidden.
+**Fix**: Bind `@click` to the `<label>` to trigger the change manually.
 
-## Архитектура
-
-- `app-ui-root.js` содержит `columnVisibilityConfig`
-- `shared/utils/column-visibility-mixin.js` вычисляет `columnVisibilityClasses`
-- В `index.html` классы применяются к `<col>`, `<th>`, `<td>`
-- CSS: `styles/table-columns.css`
-
-## Принцип
-
-CSS-driven подход: DOM не пересоздается, только меняются классы.
-
-## Bootstrap radio buttons (критическая проблема)
-
-`@change` на `<input class="btn-check">` не срабатывает в Vue из-за скрытия input.
-
-**Решение:** обработчик `@click` на `<label>` вызывает `handleLabelClick` → `handleButtonChange`.
+## 4. File Map
+- `@shared/utils/column-visibility-mixin.js`: Logic.
+- `@styles/table-columns.css`: Visibility rules.

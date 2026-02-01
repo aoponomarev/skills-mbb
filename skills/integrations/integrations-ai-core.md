@@ -1,52 +1,33 @@
 ---
-title: integrations-ai-core
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: integrations-ai-core
+title: Integrations: AI Provider Architecture
+scope: skills-mbb
+tags: [#integrations, #ai, #providers, #abstraction]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Integrations Ai Core functionality and configuration.
+# Integrations: AI Provider Architecture
 
-## When to Use
+> **Context**: Abstraction layer for LLM providers (Yandex, Perplexity, etc.).
+> **SSOT**: `core/api/ai-provider-manager.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Architecture
+- **Base Class**: `BaseAIProvider` defines the `prompt()` and `translate()` interface.
+- **Implementations**: `YandexProvider`, `PerplexityProvider`.
+- **Manager**: Singleton handling provider switching and key management.
 
-# integrations-ai-core
+## 2. Switching Logic
+- **Active Provider**: Stored in `CacheManager` (`ai-provider`).
+- **Keys**: Stored in `localStorage` (`yandex-api-key`, etc.).
+- **Models**: Configured per provider in `app-config.js`.
 
-> Источник: `docs/doc-ai-providers.md`
+## 3. Key Rules
+1.  **Normalization**: All provider responses must be parsed into a standard internal format.
+2.  **No Direct Calls**: Components must use `aiProviderManager.prompt()`.
+3.  **CORS Bypass**: All cloud AI calls MUST go through the `Cloudflare Proxy`.
 
-## Архитектура
-
-- `core/api/ai-provider-manager.js`
-- `core/api/ai-providers/base-provider.js`
-- Провайдеры: `yandex-provider`, `perplexity-provider`
-
-## Принципы
-
-- Единый интерфейс `BaseAIProvider`
-- Абстракция различий в форматах запросов/ответов
-- Переключение без изменения кода приложения
-
-## Механизм переключения
-
-- Текущий провайдер в кэше: `ai-provider`
-- API ключи: `yandex-api-key`, `perplexity-api-key`
-- Модели: `yandex-model`, `perplexity-model`
-- Переключение через `aiProviderManager.setProvider()`
-
-## Кэширование по провайдеру
-
-Ключи переводов включают имя провайдера:
-`tooltips-{provider}-{versionHash}-{language}`
-
-## Добавление провайдера (кратко)
-
-1. Новый класс провайдера
-2. Регистрация в `modules-config.js`
-3. Добавление в `ai-provider-manager.js`
-4. Настройки в `app/components/ai-api-settings.js`
-5. Defaults в `core/config/app-config.js`
+## 4. File Map
+- `@core/api/ai-provider-manager.js`: The Switcher.
+- `@core/api/ai-providers/`: Provider implementations.

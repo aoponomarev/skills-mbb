@@ -1,33 +1,33 @@
 ---
-title: core-systems-workspace-config
-tags:
-  - "#mbb-spec"
-  - "#core-systems"
-  - "#config"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-25
+id: workspace-config
+title: Core: Workspace Configuration
+scope: skills-mbb
+tags: [#core, #config, #workspace, #ui]
+priority: medium
+created_at: 2026-01-25
+updated_at: 2026-02-01
 ---
-## When to Use
 
-- При необходимости работы с данным компонентом или функционалом.
+# Core: Workspace Configuration
 
-# core-systems-workspace-config
+> **Context**: Centralized settings for the application layout and behavior.
+> **SSOT**: `core/config/workspace-config.js`
 
-## Scope
-- Централизованное хранилище настроек рабочей зоны.
+## 1. Scope
+Manages UI-specific constants that don't belong in business logic:
+- Default tabs.
+- Grid layouts.
+- Feature visibility flags.
+- Chart defaults.
 
-## Key Components
-- `core/config/workspace-config.js`
+## 2. Key Rules
+1.  **Single Source**: All components MUST read workspace settings from this config.
+2.  **Reactivity**: Use `workspaceConfig` getter within Vue computed properties.
 
-## Key Rules
-- Все настройки рабочей зоны определяются в одном месте.
-- Компоненты получают настройки через единый интерфейс.
+## 3. Workflow
+1.  Define new setting in `workspace-config.js`.
+2.  Provide a sensible default.
+3.  Import and use in `app-ui-root.js` or components.
 
-## Workflow
-1) Добавить/обновить настройки в `workspace-config`.
-2) Обновить потребителей настроек.
-3) Проверить значения по умолчанию.
-
-## References
-- `core/config/workspace-config.js`
+## 4. File Map
+- `@core/config/workspace-config.js`: The Source.

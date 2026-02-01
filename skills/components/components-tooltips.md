@@ -1,41 +1,35 @@
 ---
-title: components-tooltips
-tags:
-  - "#mbb-spec"
-  - "#components"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: components-tooltips
+title: Components: Tooltip System
+scope: skills-mbb
+tags: [#components, #tooltips, #ux, #i18n]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Components Tooltips functionality and configuration.
+# Components: Tooltip System
 
-## When to Use
+> **Context**: Standardized hover hints for metrics and controls.
+> **SSOT**: `core/config/tooltips-config.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Core Principle
+Use **Native Browser Tooltips** (`title` attribute). HTML-based tooltips are forbidden to maintain performance and accessibility.
 
-# components-tooltips
+## 2. Tooltip Structure
+1.  **Static Part**: Description from `tooltips-config.js`.
+2.  **Separator**: Newline (`\n`).
+3.  **Dynamic Part**: Interpretation from `tooltip-interpreter.js` (e.g., "High Volatility").
 
-> Источник: `docs/doc-comp-principles.md` (раздел "Система всплывающих подсказок")
+## 3. Usage
+- **Simple**: `tooltipsConfig.getTooltip(key)`.
+- **Interpreted**: `window.tooltipInterpreter.getTooltip(key, { value, lang })`.
 
-## Принцип
+## 4. Hard Constraints
+1.  **UTF-8 Only**: No special binary characters.
+2.  **Length**: Keep under 2000 characters to prevent browser truncation.
+3.  **No HTML**: Direct text only.
 
-Используются только нативные подсказки через `title`. HTML запрещен.
-
-## Структура подсказки
-
-1. Статическая часть из `tooltips-config.js`
-2. Разделитель `\n`
-3. Динамическая интерпретация из `tooltip-interpreter.js`
-
-## Использование
-
-- Метрики футера: `window.tooltipInterpreter.getTooltip(key, { value, lang })`
-- Контролы хедера: статический текст + `getInterpretation()`
-- Простые элементы: только `tooltipsConfig.getTooltip()`
-
-## Ограничения
-
-- Только UTF-8
-- Длина до ~2000 символов
+## 5. File Map
+- `@core/config/tooltips-config.js`: Dictionary.
+- `@shared/utils/tooltip-interpreter.js`: Logic.

@@ -1,42 +1,39 @@
 ---
-title: cloud-yandex-cloud-function-steps-guide
-tags:
-  - "#mbb-spec"
-  - "#cloud"
-  - "#yandex-cloud"
-  - "#serverless"
-dependencies: [cloud-yandex-cloud-function-code, troubleshooting-yandex-cors-troubleshooting, cloud-yandex-get-api-key]
-mcp_resource: true
-updated_at: 2026-01-24
+id: cloud-yandex-cloud-function-steps-guide
+title: Cloud: Yandex Function Deployment
+scope: skills-mbb
+tags: [#cloud, #yandex, #deployment, #guide]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# cloud-yandex-cloud-function-steps-guide
+# Cloud: Yandex Function Deployment
 
-## Scope
-- Пошаговое руководство по созданию версии Yandex Cloud Function.
-- Настройка среды выполнения, вставка кода, переменные окружения, таймаут.
+> **Context**: Step-by-step guide for deploying the `yandexgpt-proxy`.
 
-## When to Use
-- При первом развёртывании Yandex Cloud Function.
-- При обновлении или создании новой версии функции.
+## 1. Setup Steps
+1.  **Create Function**: In Yandex Cloud Console -> Cloud Functions.
+2.  **Runtime**: Select `Node.js 22` (or latest).
+3.  **Code**: Paste content from `cloud-yandex-cloud-function-code.md`.
+4.  **Environment**: Add `YANDEX_API_KEY` variable.
+5.  **Limits**:
+    - Memory: `128MB`.
+    - Timeout: `30s`.
+6.  **Access**: Enable "Public function" toggle.
 
-## Key Rules
-- **Выбирать Node.js 22** (или актуальную версию) и **снимать галочку с "Добавить файлы с примерами кода"**.
-- **Использовать исправленный код** из `cloud-yandex-cloud-function-code.md`.
-- **Настроить `YANDEX_API_KEY`** как переменную окружения функции.
-- **Таймаут функции: 30 секунд**.
-- Функция должна быть **публичной** для внешних вызовов.
+## 2. Verification
+Test via `curl`:
+```bash
+curl -X POST https://functions.yandexcloud.net/YOUR_FUNC_ID \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [{"role": "user", "text": "Hello"}]}'
+```
 
-## Workflow
-1) Открыть страницу функции в Yandex Cloud Console.
-2) Выбрать среду выполнения `Node.js 22`.
-3) Вставить исправленный код функции.
-4) Настроить переменную окружения `YANDEX_API_KEY`.
-5) Установить таймаут `30` секунд.
-6) Сохранить и дождаться деплоя.
-7) Проверить работу функции через приложение или `curl`.
+## 3. Troubleshooting
+- **403 Forbidden**: Ensure "Public" toggle is ON.
+- **504 Gateway Timeout**: Increase timeout to 30s.
+- **CORS Error**: Check `OPTIONS` handling in code.
 
-## References
-- `cloud-yandex-cloud-function-code.md`
-- `troubleshooting-yandex-cors-troubleshooting.md`
-- `cloud-yandex-get-api-key.md`
+## 4. File Map
+- `@cloud/yandex/functions/`: Deployment source.

@@ -1,98 +1,44 @@
 ---
-title: cache-strategy
-tags:
-  - "#mbb-spec"
-  - "#cache"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: cache-strategy
+title: Cache: Architecture & Strategies
+scope: skills-mbb
+tags: [#cache, #architecture, #performance]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Cache Strategy functionality and configuration.
+# Cache: Architecture & Strategies
 
-## When to Use
+> **Context**: Unified caching engine providing abstraction over storage layers.
+> **SSOT**: `core/cache/cache-manager.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Storage Layers
+- **Hot** (localStorage): `theme`, `timezone`, `ui-state`, `icons-cache`.
+- **Warm** (IndexedDB): `coins-list`, `market-metrics`, `api-cache`.
+- **Cold** (IndexedDB): `time-series`, `history`, `portfolios`, `strategies`.
 
-# cache-strategy
+## 2. Caching Strategies
+- **`cache-first`**: Use for static/slow-changing data (`icons-cache`, `coins-list`).
+- **`network-first`**: Use for critical real-time data (`market-metrics`, `api-cache`).
+- **`stale-while-revalidate`**: Use for background updates (`time-series`).
+- **`cache-only`**: Use for local-first user data (`portfolios`, `settings`).
 
-> Источник: `docs/doc-cache.md` (архитектура, слои, TTL, стратегии)
+## 3. TTL Policy
+- **Short (5m-1h)**: `api-cache`, `market-metrics`, `icons-cache`.
+- **Long (24h+)**: `coins-list`, `history`, `news`.
+- **Infinite**: User preferences, API keys, language.
 
-## Архитектура кэширования
+## 4. Troubleshooting
+- **Cache Miss on Every Load?**
+  - Check if TTL expired.
+  - Check if App Version changed (invalidates versioned keys).
+  - Check if `localStorage` is full (>5MB).
+- **Data Not Saving?**
+  - Verify key is in `storage-layers.js`.
+  - Check return value of `cacheManager.set()` (must be `true`).
 
-Единая система через `core/cache/cache-manager.js` скрывает детали хранилищ, обеспечивает версионирование, миграции и стратегии кэширования.
-
-**Ключевые файлы:**
-- `cache-manager.js`, `cache-config.js`, `storage-layers.js`
-- `cache-migrations.js`, `cache-cleanup.js`, `cache-indexes.js`
-
-## Слои хранения
-
-**Hot (localStorage, ≤5MB):**
-- `settings`, `theme`, `timezone`, `favorites`, `ui-state`, `active-tab`
-- `icons-cache`
-
-**Warm (IndexedDB, ≤50MB):**
-- `coins-list`, `market-metrics`, `api-cache`
-
-**Cold (IndexedDB, ≤500MB):**
-- `time-series`, `history`, `portfolios`, `strategies`, `correlations`
-
-## TTL (Time To Live)
-
-**С TTL:**
-- `icons-cache`: 1 час
-- `coins-list`: 1 день
-- `market-metrics`: 1 час
-- `api-cache`: 5 минут
-- `time-series`: 1 час
-- `history`: 1 день
-- `crypto-news-cache-max-age`: 24 часа
-- `market-update-fallback`: 3 часа
-- `market-update-delay-max`: 24 часа
-
-**Без TTL:**
-- пользовательские данные, настройки, API ключи, язык
-
-## Стратегии кэширования
-
-- **cache-first:** `icons-cache`, `coins-list`
-- **network-first:** `market-metrics`, `api-cache`
-- **stale-while-revalidate:** `time-series`, `history`
-- **cache-only:** `portfolios`, `strategies`, `settings`, `theme`, `timezone`, `favorites`, `ui-state`, API ключи
-
-## Troubleshooting: Кэш "не работает"
-
-### Симптом: cacheHit: false при каждом запуске
-
-**Возможные причины (не ошибки):**
-1. **Первый запуск** — кэш пуст, данные загружаются из API
-2. **TTL истёк** — данные устарели и были удалены (проверить `expiresAt < Date.now()`)
-3. **Смена версии приложения** — версионированные ключи инвалидируются при изменении hash
-4. **Hard reload (Ctrl+Shift+R)** — может очистить localStorage
-
-**Как проверить:**
-- Логировать `expiresAt` и `Date.now()` при `get()` — если `expiresAt < now`, данные истекли
-- Проверить localStorage/IndexedDB в DevTools — есть ли ключ
-- Сравнить версию приложения — изменился ли hash (см. `v:{hash}:{key}`)
-- Повторный запуск без hard reload должен показать `cacheHit: true`
-
-**Ключи, которые НЕ версионируются** (не инвалидируются при смене версии):
-- Пользовательские данные: `portfolios`, `strategies`, `favorites`
-- Настройки: `settings`, `theme`, `timezone`, API ключи
-
-**Ключи, которые версионируются** (инвалидируются при смене версии):
-- `icons-cache`, `coins-list`, `api-cache`, `market-metrics`, `crypto-news-state`, `stablecoins-list`
-
-### Симптом: Данные не сохраняются в кэш
-
-**Возможные причины:**
-1. **Ключ не указан в storage-layers.js** — попадает в `hot` (localStorage) по умолчанию
-2. **Переполнение localStorage** — лимит ~5MB, большие данные могут не сохраниться
-3. **Ошибка в `set()`** — проверить возвращаемое значение (должно быть `true`)
-
-**Как проверить:**
-- `const result = await cacheManager.set(key, data)` — если `false`, ошибка сохранения
-- Проверить размер данных: `JSON.stringify(data).length` — если >1MB, возможно переполнение
-- Добавить ключ в соответствующий слой в `storage-layers.js`
+## 5. File Map
+- `@core/cache/cache-manager.js`: The Engine.
+- `@core/cache/cache-config.js`: Configuration.
+- `@core/cache/storage-layers.js`: Layer definitions.

@@ -1,166 +1,30 @@
 ---
 id: process-batch-skills-review
-title: "Batch Skills Review"
-description_ru: "Процедура массового анализа и применения накопленных кандидатов в скиллы"
-scope: "Массовый анализ кандидатов после долгого периода без ручного администрирования"
-tags: [#process, #skills, #review, #batch]
+title: Process: Batch Skills Review
+scope: skills-mbb
+tags: [#process, #skills, #maintenance, #quality]
 priority: medium
-created_at: 2026-01-27
-updated_at: 2026-01-29
+created_at: 2026-01-28
+updated_at: 2026-02-01
 ---
 
-# Batch Skills Review
+# Process: Batch Skills Review
 
-> **Skill ID:** process-batch-skills-review  
-> **Category:** Process  
-> **Created:** 2026-01-27  
-> **Status:** Active
+> **Context**: Periodic audit of the knowledge base to prevent rot.
 
-## Scope
+## 1. Audit Steps
+1.  **Dead Links**: Scan all `.md` files for broken relative paths.
+2.  **Redundancy**: Identify skills that cover similar topics and `MERGE` them.
+3.  **Staleness**: Check `updated_at` dates. Skills older than 90 days need re-validation.
+4.  **Index Sync**: Ensure `index-mbb.md` contains all active skills.
 
-Процедура массового анализа и применения накопленных кандидатов в скиллы после долгого периода без ручного администрирования BACKLOG. Кандидаты формируются только автоматическим трекингом репозитория через `skill-watcher.js`, вручную в backlog их не добавляем.
+## 2. Workflow
+- **Trigger**: Monthly or after major architectural shifts.
+- **Action**: Create `action=revalidate` entries in `BACKLOG.md`.
 
-## When to Use
+## 3. Hard Constraints
+1.  **No Orphans**: Every skill MUST be linked from at least one index.
+2.  **Consistency**: All skills in a batch must follow the latest `process-skill-template.md`.
 
-- При накоплении >10 кандидатов в `events/SKILL_CANDIDATES.json`
-- После длительного перерыва в работе с проектом (>1 неделя)
-- При запуске нового агента, которому нужно освоить историю изменений
-- Перед крупными архитектурными решениями — для синхронизации базы знаний
-
-## Problem
-
-ИИ-агенты генерируют кандидатов в скиллы автоматически через `skill-watcher.js`, анализируя Git-коммиты. Без регулярной модерации накапливается:
-
-1. **Хлам** — тривиальные изменения, которые не требуют документирования
-2. **Дубликаты** — несколько коммитов по одной теме (промежуточные этапы)
-3. **Противоречия** — более ранние скиллы конфликтуют с поздними
-4. **Неактуальность** — решения, перекрытые последующими изменениями
-
-## Solution
-
-### Алгоритм Batch Review
-
-```
-1. ЗАГРУЗКА
-   - Прочитать events/SKILL_CANDIDATES.json
-   - Отсортировать по commit_date (хронологически)
-
-2. КЛАССИФИКАЦИЯ каждого кандидата
-   Критерии пригодности:
-   ├── Уникальность: решает новую проблему?
-   ├── Повторяемость: предотвращает будущие ошибки агентов?
-   ├── Сложность: агент не справится сам без документации?
-   └── Актуальность: не перекрыт более поздним коммитом?
-
-   Вердикты:
-   - APPROVE: добавить как отдельный скилл
-   - MERGE: объединить с другими по той же теме
-   - REJECT: удалить (хлам/дубликат/устарел)
-
-3. ПРОВЕРКА ПРОТИВОРЕЧИЙ
-   Для каждого APPROVE/MERGE:
-   - Сравнить с более поздними кандидатами
-   - Если есть конфликт → MERGE в более поздний
-   - Принцип: поздний коммит = истина
-
-4. МЕРЖ
-   Объединить тематически связанные:
-   - Monitoring (alerts + health + status)
-   - Quality Gates (validation + fix scripts)
-   - UI Components (modals + dropdowns + search)
-   
-   При мерже:
-   - Объединить commit_hash через запятую
-   - Суммировать lines_added
-   - Сохранить самый поздний commit_date
-   - Написать объединенное explanation
-
-5. ПРИМЕНЕНИЕ
-   - Обновить SKILL_CANDIDATES.json (только approved)
-   - Добавить записи в BACKLOG.md секция "Archive"
-   - Перечислить rejected в отдельном блоке с причинами
-
-6. СОЗДАНИЕ СКИЛЛОВ (опционально)
-   Для critical/high priority → создать .md файл:
-   skills/[category]/[skill-name].md
-```
-
-### Критерии отсева (REJECT)
-
-| Тип | Пример | Причина |
-|-----|--------|---------|
-| Промежуточный | "n8n prepare #2" | Перекрыт финальным коммитом |
-| Тривиальный | "add API_KEY to .env" | Агент справится сам |
-| Чистка | "remove runtime files from git" | Не архитектурное решение |
-| Дубликат | "fix links" + "relink skills" | Одна тема, два коммита |
-| Устаревший | "Initial Skills" | Всё переписано позже |
-
-### Критерии мержа (MERGE)
-
-```
-MERGE если:
-- Одна предметная область (UI, Monitoring, Quality)
-- Один автор
-- Временной интервал < 48 часов
-- Взаимодополняющие функции
-```
-
-## Example
-
-**До Batch Review:**
-```
-27 кандидатов
-├── 5 approved ранее
-├── 8 промежуточных (reject)
-├── 4 тривиальных (reject)
-├── 3 дубликатов (reject)
-├── 1 устаревший (reject)
-└── 6 тематических групп → 3 merged скилла
-```
-
-**После:**
-```
-11 финальных скиллов
-├── Architecture: 6
-├── Mathematical Models: 3
-└── UI: 2
-```
-
-## Integration
-
-### Автоматизация через n8n
-
-```json
-{
-  "trigger": "cron @weekly OR candidates.length > 15",
-  "steps": [
-    "Уведомить USER о накоплении",
-    "Запустить Cursor Agent с этим скиллом",
-    "Ожидать подтверждения USER",
-    "Применить результат"
-  ]
-}
-```
-
-### Команда для Cursor Agent
-
-```
-/review-skills-batch
-
-Выполни процедуру Batch Skills Review согласно скиллу process-batch-skills-review.
-Покажи таблицу классификации, затем примени одобренные.
-```
-
-## Related Skills
-
-- `process-skills-lifecycle` — общий жизненный цикл скиллов
-- `integrations-continue-cli-mistral` — инфраструктура генерации
-- `SKILLS_UI_BRIDGE` — UI для одобрения кандидатов
-
-## Tags
-
-#process #skills #batch #review #automation #quality-control
-
----
-
-*Создан в результате выполнения Batch Review 2026-01-27: 27 кандидатов → 11 скиллов (3 merged, 16 rejected)*
+## 4. File Map
+- `@skills-mbb/skills/index/index-mbb.md`: The Map.
