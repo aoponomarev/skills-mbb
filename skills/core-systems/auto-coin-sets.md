@@ -1,31 +1,42 @@
 ---
 id: auto-coin-sets
-title: Core: Automated Coin Sets
-scope: skills-mbb
-tags: [#core, #automation, #coins, #logic]
-priority: medium
-created_at: 2026-01-25
+title: Auto Coin Sets Generation
+description_ru: Автоматическое создание и управление наборами токенов (коин-сетов) с учетом архитектурных требований
+scope: core-systems, tokenomics
+tags: [architecture, tokenomics, automation, blockchain]
+priority: high
+created_at: 2026-02-01
 updated_at: 2026-02-01
 ---
 
-# Core: Automated Coin Sets
+# Auto Coin Sets Generation
 
-> **Context**: Dynamic generation of coin lists based on market criteria.
-> **SSOT**: `core/utils/auto-coin-sets.js`
+## Overview
+This skill enables AI agents to automatically generate, validate, and manage sets of cryptocurrency tokens (coin-sets) according to predefined architectural requirements. The process includes token creation, relationship mapping, and validation against architectural constraints.
 
-## 1. Purpose
-Eliminates manual portfolio building by automatically grouping coins (e.g., "Top 10 L1s", "Stablecoins", "High Volume").
+## Steps
 
-## 2. Logic Flow
-1.  **Rules**: Defined in `auto-coin-sets.js` (e.g., `market_cap > 1B`).
-2.  **Source**: Fetches from `CacheManager` (`coins-list`).
-3.  **Generation**: `draft-coin-set.js` creates a temporary portfolio object.
-4.  **UI**: User previews and "promotes" to a real Portfolio.
+### 1. Requirement Analysis
+- Parse architectural requirements for the coin-set.
+- Identify required token types (fungible, non-fungible, stablecoins).
+- Determine relationship rules (e.g., index weighting).
 
-## 3. Hard Constraints
-1.  **Centralized Rules**: No hardcoded filtering in Vue components.
-2.  **Consistency**: Sets must be reproducible from the same market snapshot.
+### 2. Token Generation
+- For each token in the set:
+  - Generate unique parameters (name, symbol, decimals).
+  - Create/Identify contracts or data mappings.
+  - Set distribution rules.
 
-## 4. File Map
-- `@core/utils/auto-coin-sets.js`: Filtering rules.
-- `@core/utils/draft-coin-set.js`: Object factory.
+### 3. Relationship Establishment
+- Implement cross-token relationships (staking, conversion, pairing).
+- Document all relationships in a machine-readable format (`coins.json`).
+
+### 4. Validation
+- Verify all tokens meet architectural constraints.
+- Test inter-token data flows.
+- Check for security or liquidity vulnerabilities.
+
+## Validation
+1. **Automated Checks**: Verify parameters against the master registry.
+2. **Economic Review**: Validate the economic model of the coin-set.
+3. **Data Integrity**: Ensure the mapping between blockchain data and system data is correct.

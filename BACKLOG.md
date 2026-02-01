@@ -34,31 +34,31 @@ _Очищено после Batch Review 2026-01-27. Все кандидаты п
 
 #### Architecture (6 скиллов)
 
-- [action=create] [status=approved] title="SKILLS_ARCHITECTURE_SSOT" | scope="Консолидация документации в единый мастер-документ" | context="Commit fb14138. SSOT для архитектуры. markdown-lint.js" | priority="high" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="SKILLS_ARCHITECTURE_SSOT" | scope="Консолидация документации в единый мастер-документ" | context="Commit fb14138. SSOT для архитектуры. markdown-lint.js" | priority="high" | timestamp=2026-01-27T23:00:00Z
 
 - [action=merge] [status=approved] title="MONITORING_UNIFIED" | scope="Единая система мониторинга: alert-manager + health-check + status-report" | context="Merged c57c0f6 + bcf8af7. Алерты сервисов, проверка здоровья, комплексные отчеты." | priority="high" | timestamp=2026-01-27T23:00:00Z
 
-- [action=create] [status=approved] title="LLM_FALLBACK_MECHANISM" | scope="Отказоустойчивость: Mistral -> Ollama fallback" | context="Commit a925e9f. Автопереключение при недоступности API." | priority="critical" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="LLM_FALLBACK_MECHANISM" | scope="Отказоустойчивость: Mistral -> Ollama fallback" | context="Commit a925e9f. Автопереключение при недоступности API." | priority="critical" | timestamp=2026-01-27T23:00:00Z
 
 - [action=merge] [status=approved] title="QUALITY_GATES_UNIFIED" | scope="Контроль качества: валидация + авто-исправление + pipeline automation" | context="Merged 7bb565f + ccc1164. Снижение warnings 132->8." | priority="high" | timestamp=2026-01-27T23:00:00Z
 
-- [action=create] [status=approved] title="CONTINUE_CLI_MISTRAL_INTEGRATION" | scope="HTTP-обертка Continue CLI + n8n workflows" | context="Commit 7c8cc90. 'Сердце' системы автоматизации." | priority="critical" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="CONTINUE_CLI_MISTRAL_INTEGRATION" | scope="HTTP-обертка Continue CLI + n8n workflows" | context="Commit 7c8cc90. 'Сердце' системы автоматизации." | priority="critical" | timestamp=2026-01-27T23:00:00Z
 
-- [action=create] [status=approved] title="MCP_SERVER_YAML_PARSING" | scope="MCP сервер для интеграции Skills с Cursor Agent" | context="Commit ce9ddc0. Model Context Protocol + YAML конфигурации." | priority="high" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="MCP_SERVER_YAML_PARSING" | scope="MCP сервер для интеграции Skills с Cursor Agent" | context="Commit ce9ddc0. Model Context Protocol + YAML конфигурации." | priority="high" | timestamp=2026-01-27T23:00:00Z
 
 #### Mathematical Models (3 скилла)
 
-- [action=create] [status=approved] title="COINGECKO_PROVIDER_STABILITY" | scope="Стабилизация провайдера данных CoinGecko" | context="Commit 62b21f9. Обработка ответов API, повторные запросы." | priority="medium" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="COINGECKO_PROVIDER_STABILITY" | scope="Стабилизация провайдера данных CoinGecko" | context="Commit 62b21f9. Обработка ответов API, повторные запросы." | priority="medium" | timestamp=2026-01-27T23:00:00Z
 
-- [action=create] [status=approved] title="AUTO_COIN_SETS" | scope="Автоматические наборы монет для анализа секторов" | context="Commit d893b54. auto-coin-sets.js + модальные окна." | priority="medium" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="AUTO_COIN_SETS" | scope="Автоматические наборы монет для анализа секторов" | context="Commit d893b54. auto-coin-sets.js + модальные окна." | priority="medium" | timestamp=2026-01-27T23:00:00Z
 
-- [action=create] [status=approved] title="ASSET_METADATA_STABLECOINS" | scope="Метаданные стейблкоинов и wrapped токенов" | context="Commit 532d4e3. Генератор и загрузчик метаданных." | priority="medium" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="ASSET_METADATA_STABLECOINS" | scope="Метаданные стейблкоинов и wrapped токенов" | context="Commit 532d4e3. Генератор и загрузчик метаданных." | priority="medium" | timestamp=2026-01-27T23:00:00Z
 
 #### UI (2 скилла)
 
 - [action=merge] [status=approved] title="UI_COMPONENTS_UNIFIED" | scope="Единая система UI: dropdowns, modals, search, favorites" | context="Merged 6 commits: c5aed93, 314264d, e98dac7, 1dbf516, 224f52f, 6abb12f. 2334 lines." | priority="medium" | timestamp=2026-01-27T23:00:00Z
 
-- [action=create] [status=approved] title="SKILLS_UI_BRIDGE" | scope="Веб-интерфейс для управления скиллами" | context="Commit 5106ad5. HTML UI, API endpoints, automated tests." | priority="high" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="SKILLS_UI_BRIDGE" | scope="Веб-интерфейс для управления скиллами" | context="Commit 5106ad5. HTML UI, API endpoints, automated tests." | priority="high" | timestamp=2026-01-27T23:00:00Z
 
 ### Rejected as Non-Skills (16 items)
 
@@ -104,4 +104,4 @@ _Промежуточные коммиты, тривиальные измене�
 - [status=promoted] title="components-icon-manager" | scope="Единый источник URL иконок" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
 - [status=promoted] title="core-systems-auto-coin-sets" | scope="Автоматическое формирование наборов монет" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
 - [status=promoted] title="core-systems-workspace-config" | scope="ЕИП для настроек рабочей зоны" | priority="medium" | timestamp=2026-01-25T14:10:00.000Z
-- [action=create] [status=approved] title="feat(core): Advanced Error Recovery & Self-Healing System" | category="Architecture" | scope="feat(core): Advanced Error Recovery & Self-Healing System" | context="Commit abc123d: feat(core): Advanced Error Recovery & Self-Healing System. Files: core/errors/error-recovery.js, core/errors/self-healing-manager.js, core/state/recovery-state.js, scripts/health-monitor.js. Lines: +847. Batch Review Auto-Approve" | priority="medium" | timestamp=2026-01-27T20:48:21.225Z
+- [action=create] [status=drafted] title="feat(core): Advanced Error Recovery & Self-Healing System" | category="Architecture" | scope="feat(core): Advanced Error Recovery & Self-Healing System" | context="Commit abc123d: feat(core): Advanced Error Recovery & Self-Healing System. Files: core/errors/error-recovery.js, core/errors/self-healing-manager.js, core/state/recovery-state.js, scripts/health-monitor.js. Lines: +847. Batch Review Auto-Approve" | priority="medium" | timestamp=2026-01-27T20:48:21.225Z
