@@ -1,7 +1,7 @@
 ---
 id: process-model-registry-maintenance
 title: "Поддержка реестра моделей (Model Registry Sync)"
-description_ru: "Протокол синхронизации конфигурации Continue (config.yaml) и реестра моделей (MODELS_REGISTRY.md)."
+description_ru: "Протокол синхронизации конфигурации Continue (config.yaml) и реестра моделей (logs/llm-models-registry.md)."
 scope: "Процесс актуализации данных о моделях, их лимитах, силе кодинга и статусе работоспособности."
 tags: [#process, #maintenance, #llm, #registry, #ssot]
 priority: high
@@ -25,7 +25,7 @@ dependencies: ["integrations-llm-providers-config", "architecture-ssot"]
 ## Key Rules
 
 ### 1. Правило синхронизации (Registry-Config Sync)
-Любое изменение в `config.yaml` **ОБЯЗАТЕЛЬНО** должно сопровождаться обновлением `MBB/docs/MODELS_REGISTRY.md`. 
+Любое изменение в `config.yaml` **ОБЯЗАТЕЛЬНО** должно сопровождаться обновлением `MBB/logs/llm-models-registry.md`. 
 - Нельзя оставить модель в конфиге, если её нет в реестре.
 - Закомментированные модели в конфиге должны быть помечены в реестре как "Кандидаты" или "Отключены".
 
@@ -36,7 +36,7 @@ dependencies: ["integrations-llm-providers-config", "architecture-ssot"]
 - **Качество**: Если модель галлюцинирует или не понимает инструкции по инструментам.
 
 ### 3. Обновление рейтингов
-Рейтинг "Сила кодинга" в `MODELS_REGISTRY.md` не является статичным. 
+Рейтинг "Сила кодинга" в `logs/llm-models-registry.md` не является статичным. 
 - Если модель `or-deepseek-chat` начала выдавать ошибки в 2026 году — понизить ранг.
 - Если появилась новая бесплатная модель (например, Llama 4) — провести экспертизу и вписать в топ.
 
@@ -44,7 +44,7 @@ dependencies: ["integrations-llm-providers-config", "architecture-ssot"]
 
 ### Шаг 1: Идентификация изменений
 Если агент добавил модель или сменил провайдера:
-1. Выполнить `read_file` для `MODELS_REGISTRY.md`.
+1. Выполнить `read_file` для `logs/llm-models-registry.md`.
 2. Найти соответствующий Tier или создать новый.
 
 ### Шаг 2: Обновление Tier-структуры

@@ -46,7 +46,7 @@ dependencies: ["protocol-agent-core", "architecture-ssot"]
 ## References
 - `skills-mbb/skills/process/protocol-agent-core.md`
 - `skills-mbb/skills/architecture/architecture-ssot.md`
-- `FIXES_LOG.md`
+- `logs/fixes-tracking.md`
 
 ## Metadata
 - updated_at: 2026-01-30

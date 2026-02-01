@@ -61,8 +61,8 @@ node scripts/health-check.js
 |------|------------|
 | `INFRASTRUCTURE_CONFIG.yaml` | Единый источник правды о конфигурации |
 | `docs/INFRASTRUCTURE_RECOVERY.md` | Пошаговый план восстановления |
-| `ISSUES_BACKLOG.md` | Бэклог нерешённых проблем |
-| `FIXES_LOG.md` | Журнал успешных исправлений |
+| `logs/issues-backlog.md` | Бэклог нерешённых проблем |
+| `logs/fixes-tracking.md` | Журнал успешных исправлений |
 
 ## Критические компоненты
 
@@ -137,7 +137,7 @@ node scripts/health-check.js
 2. Внести изменения
 3. Перезапустить затронутые сервисы
 4. Проверить `health-check.js` ПОСЛЕ изменений
-5. Зафиксировать в `FIXES_LOG.md` (если это исправление)
+5. Зафиксировать в `logs/fixes-tracking.md` (если это исправление)
 6. Обновить `INFRASTRUCTURE_CONFIG.yaml` (если изменилась конфигурация)
 
 ## Безопасность
