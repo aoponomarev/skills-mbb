@@ -1,43 +1,34 @@
 ---
-title: integrations-data-providers
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-  - "#data-providers"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-25
+id: integrations-data-providers
+title: Integrations: Data Providers
+scope: skills-mbb
+tags: [#integrations, #data-providers, #coingecko, #yahoo]
+priority: high
+created_at: 2026-01-25
+updated_at: 2026-02-01
 ---
-## When to Use
 
-- При необходимости работы с данным компонентом или функционалом.
+# Integrations: Data Providers
 
-# integrations-data-providers
+> **Context**: Unified interface for market data ingestion.
+> **SSOT**: `core/config/data-providers-config.js`
 
-## Scope
-- Единый интерфейс провайдеров данных о монетах и рынокe.
-- Конфигурация провайдеров и переключение источников.
+## 1. Architecture
+- **Abstract Base**: `BaseDataProvider` defines the contract (`getTopCoins`, `searchCoins`).
+- **Implementations**: `CoinGeckoProvider`, `YahooProvider` (future).
+- **Manager**: `DataProviderManager` handles provider switching and API key injection.
 
-## Key Components
-- `core/api/data-provider-manager.js`
-- `core/api/data-providers/base-provider.js`
-- `core/api/data-providers/coingecko-provider.js`
-- `core/api/coingecko-stablecoins-loader.js`
-- `core/config/data-providers-config.js`
+## 2. Key Rules
+1.  **Normalization**: All provider responses MUST be normalized to the MBB internal schema via `normalizeCoinData()`.
+2.  **No Direct Calls**: UI components must use `dataProviderManager.getTopCoins()`, never fetch from the provider directly.
+3.  **Proxying**: `buildUrl()` method automatically routes requests through Cloudflare Worker when on `file://`.
 
-## Key Rules
-- Все провайдеры реализуют общий интерфейс `BaseProvider`.
-- Переключение источника не требует изменения потребителей данных.
-- Конфигурация провайдеров централизована, без дублирования в компонентах.
+## 3. Workflow
+1.  **Add**: Create `core/api/data-providers/{name}-provider.js`.
+2.  **Register**: Add to `data-provider-manager.js`.
+3.  **Config**: Define limits and URLs in `data-providers-config.js`.
 
-## Workflow
-1) Добавить/обновить провайдера в `core/api/data-providers/`.
-2) Подключить в `data-provider-manager`.
-3) Описать параметры в `data-providers-config`.
-
-## References
-- `core/api/data-provider-manager.js`
-- `core/api/data-providers/base-provider.js`
-- `core/api/data-providers/coingecko-provider.js`
-- `core/api/coingecko-stablecoins-loader.js`
-- `core/config/data-providers-config.js`
+## 4. File Map
+- `@core/api/data-provider-manager.js`: The Switcher.
+- `@core/api/data-providers/base-provider.js`: The Interface.
+- `@core/api/data-providers/coingecko-provider.js`: The Implementation.

@@ -1,35 +1,31 @@
 ---
-title: libs-metadata-generation
-tags:
-  - "#mbb-spec"
-  - "#libs"
-  - "#metadata"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-25
+id: libs-metadata-generation
+title: Libs: Metadata Generation
+scope: skills-mbb
+tags: [#libs, #metadata, #coins, #automation]
+priority: medium
+created_at: 2026-01-25
+updated_at: 2026-02-01
 ---
-## When to Use
 
-- При необходимости работы с данным компонентом или функционалом.
+# Libs: Metadata Generation
 
-# libs-metadata-generation
+> **Context**: Creating the `coins.json` registry from CoinGecko.
+> **SSOT**: `libs/assets/data/coins.json`
 
-## Scope
-- Генерация и загрузка метаданных монет (например, `coins.json`).
+## 1. Process
+1.  **Fetch**: `coins-metadata-generator.js` pulls coin list from CoinGecko.
+2.  **Filter**: Selects top N coins + specific watchlist.
+3.  **Map**: Associates symbols with icon URLs.
+4.  **Save**: Writes to `coins.json`.
 
-## Key Components
-- `core/api/coins-metadata-generator.js`
-- `core/api/coins-metadata-loader.js`
+## 2. Loader Logic
+`coins-metadata-loader.js` reads `coins.json` at runtime to hydrate the `IconManager`.
 
-## Key Rules
-- Источник метаданных централизован, UI не должен хранить собственные копии.
-- Обновление метаданных выполняется через генератор, загрузка — через loader.
+## 3. Hard Constraints
+- **Validation**: Generated JSON must match the schema expected by `IconManager`.
+- **No Stale Data**: Regeneration should happen periodically (via n8n or script).
 
-## Workflow
-1) Генерировать метаданные и публиковать файл.
-2) Загружать метаданные через loader в приложение.
-3) Проверять совместимость структуры.
-
-## References
-- `core/api/coins-metadata-generator.js`
-- `core/api/coins-metadata-loader.js`
+## 4. File Map
+- `@core/api/coins-metadata-generator.js`: The Generator.
+- `@core/api/coins-metadata-loader.js`: The Consumer.

@@ -1,31 +1,34 @@
 ---
-title: metrics-models
-tags:
-  - "#mbb-spec"
-  - "#metrics"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: metrics-models
+title: Metrics: Math Models
+scope: skills-mbb
+tags: [#metrics, #math, #models]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Metrics Models functionality and configuration.
+# Metrics: Math Models
 
-## When to Use
+> **Context**: The mathematical engines driving market analysis.
+> **SSOT**: `core/config/models-config.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Architecture
+- **Registry**: `ModelManager` loads classes.
+- **Contract**: `BaseModelCalculator` ensures input/output consistency.
+- **Inputs**: `NormalizedCoinData` (PVS, Market Cap).
+- **Outputs**: `Signal` (Direction, Confidence).
 
-# metrics-models
+## 2. Active Models
+1.  **Median AIR**: Uses median deviation from historical window.
+2.  **Volatility Guard**: Filters low-amplitude noise.
 
-> Источник: `docs/doc-metrics.md` (архитектура моделей)
+## 3. Extensibility
+New models must:
+1.  Extend `BaseModelCalculator`.
+2.  Implement `calculate(snapshot)`.
+3.  Register in `models-config.js`.
 
-## Архитектура
-
-- **BaseModelCalculator** — `core/metrics/base-model-calculator.js`
-- **ModelManager** — `core/metrics/model-manager.js`
-- **ModelsConfig** — `core/config/models-config.js`
-- Реализации модели «Медиана» — `mm/Median/AIR/...`
-
-## Принцип расширяемости
-
-Новые модели добавляются без изменения кода приложения: регистрация в ModelManager и конфиге.
+## 4. File Map
+- `@core/metrics/base-model-calculator.js`: Base Class.
+- `@core/metrics/model-manager.js`: Registry.

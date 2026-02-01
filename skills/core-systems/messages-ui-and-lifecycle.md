@@ -1,37 +1,35 @@
 ---
-title: messages-ui-and-lifecycle
-tags:
-  - "#mbb-spec"
-  - "#core-systems"
-  - "#messages"
-  - "#ui"
-dependencies: [messages-keys-and-config, messages-translator]
-mcp_resource: true
-updated_at: 2026-01-24
+id: messages-ui-and-lifecycle
+title: Core Systems: Messages UI & Lifecycle
+scope: skills-mbb
+tags: [#core-systems, #messages, #ui, #lifecycle]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# messages-ui-and-lifecycle
+# Core Systems: Messages UI & Lifecycle
 
-## Scope
-- `AppMessages` store, UI компоненты, жизненный цикл сообщений.
-- Критичные нюансы (spread, key, Vue 3 локальная регистрация).
+> **Context**: Global system for displaying notifications, errors, and status updates.
+> **SSOT**: `core/utils/messages-store.js` (AppMessages)
 
-## When to Use
-- При создании/отображении сообщений в UI.
-- При интеграции логгера и переводчика.
+## 1. Lifecycle
+1.  **Creation**: `messagesConfig.get(key, params)` -> Raw Message Object.
+2.  **Dispatch**: `AppMessages.push({ ...msg, scope: 'global' })`.
+3.  **Translation**: Async translation via `messagesTranslator` (if needed).
+4.  **Display**: Reactive list rendered by `cmp-system-messages`.
+5.  **Removal**: Auto-dismiss (TTL) or manual close.
 
-## Key Rules
-- **Всегда сохранять `key`** при создании сообщений.
-- **Использовать spread (`...msg`)** при пересоздании сообщений после перевода.
-- В Vue 3 использовать **локальную** регистрацию `cmp-system-message`.
+## 2. Hard Constraints
+1.  **Key Preservation**: Every message object MUST retain its `key` property. This allows re-translation if the user switches language while the message is visible.
+2.  **Spread Operator**: When modifying messages, use `{ ...msg }` to preserve internal properties (id, timestamp).
+3.  **Local Registration**: `cmp-system-message` is registered locally within `cmp-system-messages`, not globally.
 
-## Workflow
-1) Получить сообщение через `messagesConfig.get(key, params)`.
-2) Добавить в `AppMessages.push({ ...msg, scope })`.
-3) UI отображает `cmp-system-messages`.
-4) При смене языка — пересборка сообщений через `messagesTranslator`.
+## 3. UI Component Structure
+- **`cmp-system-messages`**: Container/List. Handles positioning (Top-Right/Center).
+- **`cmp-system-message`**: Individual Item. Handles animations and styling.
 
-## References
-- `core/api/app-messages.js`
-- `app/components/system-messages.js`
-- `app/components/system-message.js`
+## 4. File Map
+- `@core/utils/messages-store.js`: Reactive Store.
+- `@shared/components/system-messages.js`: List Component.
+- `@shared/components/system-message.js`: Item Component.

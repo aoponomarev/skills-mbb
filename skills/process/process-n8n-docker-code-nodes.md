@@ -1,102 +1,49 @@
 ---
 id: process-n8n-docker-code-nodes
-title: n8n Docker - Code Nodes и Execute Command
-category: process
-status: active
-created: 2026-01-31
-updated: 2026-01-31
-tags: [n8n, docker, code-nodes, child_process, troubleshooting]
+title: Process: n8n Code Nodes & Docker
+scope: skills-mbb
+tags: [#process, #n8n, #docker, #security, #troubleshooting]
+priority: high
+created_at: 2026-01-31
+updated_at: 2026-02-01
 ---
 
-# n8n Docker: Code Nodes и Execute Command
+# Process: n8n Code Nodes & Docker
 
-## Проблема
+> **Context**: Running custom Node.js logic inside n8n Code Nodes within a secured Docker environment.
+> **SSOT**: `docker-compose.yml` (n8n service)
 
-При запуске n8n в Docker возникают ошибки:
-- `Unrecognized node type: n8n-nodes-base.executeCommand`
-- `Module 'child_process' is disallowed`
-- `Module 'fs' is disallowed`
-- `fetch is not defined`
+## 1. Problem
+By default, n8n in Docker blocks access to native modules (`fs`, `child_process`) and prevents `Execute Command` nodes for security.
 
-## Причина
-
-n8n по умолчанию блокирует опасные модули Node.js в Code-нодах для безопасности. Также `Execute Command` может быть недоступен в некоторых конфигурациях.
-
-## Решение
-
-### 1. Настройка docker-compose.yml
+## 2. Configuration Fix
+In `docker-compose.yml`:
 
 ```yaml
-services:
-  n8n:
-    environment:
-      # Разрешить встроенные модули Node.js в Code-нодах
-      - NODE_FUNCTION_ALLOW_BUILTIN=child_process,fs,path,http,https,crypto,os,url,util
-      # Разрешить внешние модули (или конкретный список)
-      - NODE_FUNCTION_ALLOW_EXTERNAL=*
-      # ВАЖНО: отключить runners для работы в основном процессе
-      - N8N_RUNNERS_ENABLED=false
-      # Разрешить доступ к env-переменным
-      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
+environment:
+  # Allow Built-in Modules
+  - NODE_FUNCTION_ALLOW_BUILTIN=child_process,fs,path,http,https,crypto,os,url,util
+  # Allow External Modules (if needed)
+  - NODE_FUNCTION_ALLOW_EXTERNAL=*
+  # CRITICAL: Disable isolated runners to run code in main process
+  - N8N_RUNNERS_ENABLED=false
+  # Allow Env Var access
+  - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
 ```
 
-### 2. Альтернатива Execute Command — Code Node
-
-Вместо `n8n-nodes-base.executeCommand` использовать `n8n-nodes-base.code`:
+## 3. Usage Pattern
+Use `Code Node` instead of `Execute Command`.
 
 ```javascript
 const { execSync } = require('child_process');
-
-const stdout = execSync('node /path/to/script.js', {
-  encoding: 'utf8',
-  timeout: 120000
-});
-
+const stdout = execSync('node /home/node/mbb/scripts/myscript.js', { encoding: 'utf8' });
 return [{ json: { stdout } }];
 ```
 
-### 3. Для записи в файлы
+## 4. Hard Constraints
+1.  **Runners Disabled**: Must set `N8N_RUNNERS_ENABLED=false` or code nodes will fail to import modules.
+2.  **File Paths**: Use mapped paths (e.g., `/home/node/mbb/`) inside the container, not host paths (`D:/...`).
+3.  **Restart**: Changing env vars requires `docker compose up -d --force-recreate`.
 
-```javascript
-const fs = require('fs');
-
-const data = $input.first().json.data ?? '';
-const timestamp = new Date().toISOString();
-const entry = `[${timestamp}] ${data}\n`;
-
-fs.appendFileSync('/home/node/mbb/logs/output.log', entry, 'utf8');
-
-return $input.all();
-```
-
-## Важные замечания
-
-1. **N8N_RUNNERS_ENABLED=false** — критически важно! Без этого код выполняется в изолированном runner-процессе, где модули недоступны.
-
-2. **Sticky Notes не интерпретируют выражения** — `{{ $json.field }}` отображается как текст, а не значение.
-
-3. **После изменения env-переменных** — обязательно `docker compose up -d --force-recreate n8n`.
-
-## Дополнительно: замена Ollama на Continue CLI
-
-Если воркфлоу использует `n8n-nodes-base.ollamaChatModel` (community node), лучше заменить на HTTP-запрос к Continue CLI:
-
-```javascript
-// Вместо Ollama node — HTTP Request к Continue CLI
-{
-  "method": "POST",
-  "url": "http://continue-cli:3000/prompt",
-  "jsonBody": "={{ JSON.stringify({ prompt: $json.prompt }) }}",
-  "options": { "timeout": 120000 }
-}
-```
-
-**Преимущества Continue CLI:**
-- Облачные модели (Mistral, Groq, OpenRouter) — в 10 раз быстрее локальных
-- Не требует установки community nodes
-- Уже настроен в Docker-сети
-
-## Связанные навыки
-
-- [[process-n8n-browser-cache]]
-- [[docker-compose-n8n-config]]
+## 5. File Map
+- `@docker-compose.yml`: Env vars configuration.

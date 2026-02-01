@@ -1,31 +1,29 @@
 ---
-title: ux-principles
-tags:
-  - "#mbb-spec"
-  - "#ux"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: ux-principles
+title: UX: Design Principles
+scope: skills-mbb
+tags: [#ux, #principles, #consistency]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Ux Principles functionality and configuration.
+# UX: Design Principles
 
-## When to Use
+> **Context**: Rules for consistent user experience.
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Consistency
+- **Titles**: Modal title MUST match the button that opened it.
+- **Colors**: Green = Profit/Success, Red = Loss/Danger, Grey = Neutral.
+- **Feedback**: Every action (Save, Delete) implies a System Message (Toast).
 
-# ux-principles
+## 2. Interaction
+- **Non-Blocking**: Async operations show a spinner, not a frozen UI.
+- **Reversible**: Critical actions (Delete) require confirmation.
 
-> Источник: `docs/doc-comp-principles.md` (раздел "Единый источник правды для заголовков модальных окон")
+## 3. SSOT
+- **Titles**: `modalsConfig.getModalTitle(id)`.
+- **Messages**: `messagesConfig.get(key)`.
 
-## Единый заголовок для меню и модалки
-
-**Требование:** Заголовок модального окна должен совпадать с текстом пункта меню/кнопки, которая его открывает.
-
-**Обоснование:** Консистентность UX и отсутствие путаницы. Единый источник правды через `modals-config.js` синхронизирует заголовки во всех местах.
-
-## Реализация
-
-- Все заголовки берутся из `core/config/modals-config.js`
-- Использовать `modalsConfig.getModalTitle(modalId)` в модальном окне и в меню
+## 4. File Map
+- `@core/config/modals-config.js`: Modal metadata.

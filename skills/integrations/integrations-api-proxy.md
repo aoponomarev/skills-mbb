@@ -1,47 +1,40 @@
 ---
-title: integrations-api-proxy
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: integrations-api-proxy
+title: Integrations: API Proxy
+scope: skills-mbb
+tags: [#integrations, #proxy, #cors, #caching]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Integrations Api Proxy functionality and configuration.
+# Integrations: API Proxy
 
-## When to Use
+> **Context**: CORS bypass and response caching at the Edge.
+> **SSOT**: `cloud/cloudflare/workers/src/api-proxy.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Purpose
+Allows the `file://` frontend to access external APIs (CoinGecko) by routing requests through a Cloudflare Worker that adds CORS headers and hides API keys.
 
-# integrations-api-proxy
+## 2. Supported Routes
+- `GET /api/coingecko/*` -> `api.coingecko.com`
+- `GET /api/yahoo-finance/*` -> `query1.finance.yahoo.com`
+- `GET /api/stooq/*` -> `stooq.com`
 
-> Источник: `docs/doc-cloudflare.md` (раздел "API Proxy")
+## 3. Caching Strategy (KV)
+**Namespace**: `API_CACHE`
 
-## Назначение
+| Route | TTL |
+| :--- | :--- |
+| `/coins/markets` | 5 min |
+| `/coins/list` | 24 hours |
+| `/simple/price` | 1 min |
+| Yahoo/Stooq Charts | 1 hour |
 
-Cloudflare Worker проксирует внешние API для работы на `file://` и кэширует ответы в KV.
+## 4. Hard Constraints
+1.  **Whitelist Only**: The generic proxy (`/api/proxy`) must validate target URLs against a strict whitelist to prevent abuse.
+2.  **Header Stripping**: Sensitive headers (Cookies, Auth) from the client are stripped before forwarding.
 
-## Поддерживаемые API
-
-- CoinGecko: `/api/coingecko/*`
-- Yahoo Finance: `/api/yahoo-finance/*`
-- Stooq: `/api/stooq/*`
-
-## KV кэш
-
-Namespace: `API_CACHE`
-
-TTL по маршрутам:
-- CoinGecko `/coins/markets` — 5 мин
-- CoinGecko `/coins/list` — 24 часа
-- CoinGecko `/simple/price` — 1 мин
-- CoinGecko `/global` — 1 час
-- Yahoo `/v8/finance/chart` — 1 час
-- Stooq `/q/d/l/` — 1 час
-
-## Конфигурация
-
-- `core/config/cloudflare-config.js` → `getApiProxyEndpoint()`
-- `cloud/cloudflare/workers/src/api-proxy.js`
+## 5. File Map
+- `@cloud/cloudflare/workers/src/api-proxy.js`: Implementation.
+- `@core/config/cloudflare-config.js`: Client usage.

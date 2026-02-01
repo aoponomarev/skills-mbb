@@ -1,63 +1,37 @@
 ---
-title: architecture-ssot
-tags:
-  - "#mbb-spec"
-  - "#architecture"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: architecture-ssot
+title: Architecture: Single Source of Truth (SSOT)
+scope: skills-mbb
+tags: [#architecture, #ssot, #eeiipp, #config]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Architecture Ssot functionality and configuration.
+# Architecture: Single Source of Truth (SSOT)
 
-## When to Use
+> **Context**: Data normalization and configuration centralization.
+> **Command**: `ееиипп` (Verify SSOT).
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Core Principle
+**No Duplication**: If a value (text, config, setting) appears in two places, it must be extracted to a single source.
 
-# architecture-ssot
+## 2. Configuration Hubs
+- `core/config/app-config.js`: API, Limits, Feature Flags.
+- `core/config/messages-config.js`: System Messages, Error Codes.
+- `core/config/modals-config.js`: Modal Titles, Icons.
+- `core/config/tooltips-config.js`: Localization (RU/EN).
+- `core/cache/cache-config.js`: TTL, Keys.
 
-> Источник: `docs/doc-architect.md` (раздел "Единый источник правды")
+## 3. Rules of Engagement
+1.  **Getters**: Use accessor functions (`getConfig('key')`), not direct object access.
+2.  **Localization**: All UI text MUST come from `tooltips-config.js`. No hardcoded strings in templates.
+3.  **Shared Components**: Reusable UI logic lives in `shared/components/`.
 
-## Принцип единого источника правды (ееиипп)
+## 4. Hard Constraints
+1.  **Don't Repeat Yourself (DRY)**: Violations of SSOT are treated as architectural bugs.
+2.  **Reactive Config**: Changing a value in SSOT must update the UI immediately (Vue Reactivity).
 
-**КРИТИЧЕСКИ ВАЖНО:** При наличии дублирующихся значений (заголовки, тексты, конфигурации, настройки) используется единый источник правды — конфигурационные файлы в `core/config/` и `core/cache/` или переиспользуемые компоненты. 
-
-**Команда активации:** `ееиипп` (Единый Источник Правды). При ее использовании агент обязан проверить отсутствие хардкода и соответствие SSOT.
-
-**Обоснование:** Единый источник правды гарантирует единообразие данных, упрощает поддержку, устраняет риск рассинхронизации между компонентами и статическими примерами, обеспечивает консистентность UX.
-
-## Конфигурационные файлы
-
-Ключевые точки централизации:
-- `core/config/modals-config.js` — заголовки, иконки, метаданные модальных окон
-- `core/cache/cache-config.js` — TTL, версии схем, стратегии кэширования
-- `core/config/app-config.js` — API endpoints, лимиты, таймауты, feature flags
-- `core/modules-config.js` — порядок загрузки и зависимости модулей
-
-## Правила работы с конфигурацией
-
-1. Всегда использовать функции-геттеры из конфигурации вместо хардкода.
-2. Не дублировать значения в разных местах.
-3. Перед дублированием проверить наличие конфигурационных файлов.
-4. При необходимости создавать новые конфигурационные файлы для централизации значений.
-5. Статические примеры должны использовать ту же конфигурацию, что и рабочие компоненты.
-
-## Переиспользуемые компоненты
-
-Дублирующаяся разметка и логика выносятся в `shared/components/`. См. `docs/doc-comp-principles.md` (раздел "Единый источник правды").
-
-## Централизованная реактивная локализация
-
-**КРИТИЧЕСКИ ВАЖНО:** Все новые и редактируемые элементы интерфейса должны использовать централизованную систему реактивной локализации для мгновенного переключения между RU/EN без перезагрузки.
-
-**Ключевые элементы:**
-- `uiState.tooltips.currentLanguage` — реактивное состояние языка (`core/state/ui-state.js`)
-- `core/config/tooltips-config.js` — единый источник текстов (RU/EN)
-- `getTooltip(key)` — получение текста по ключу с учетом языка
-
-**Правила:**
-- Тексты и заголовки берутся через `tooltipsConfig.getTooltip()`
-- Ключи имеют префикс функциональной области (`ui.`, `metric.`, `modal.`)
-- RU/EN версии добавляются одновременно
-- `currentLanguage` используется только в `computed`, а не в `data()`
+## 5. File Map
+- `@core/config/`: Configuration directory.
+- `@shared/components/`: Reusable UI.

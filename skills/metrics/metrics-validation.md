@@ -1,31 +1,27 @@
 ---
-title: metrics-validation
-tags:
-  - "#mbb-spec"
-  - "#metrics"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: metrics-validation
+title: Metrics: Validation
+scope: skills-mbb
+tags: [#metrics, #validation, #schema]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Metrics Validation functionality and configuration.
+# Metrics: Validation
 
-## When to Use
+> **Context**: Ensuring data integrity before calculation.
+> **SSOT**: `core/validation/`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Layers
+1.  **Schema**: `validator.js` checks JSON structure (types, required fields).
+2.  **Math**: `math-validation.js` checks value ranges (e.g., price > 0, percent within 0-100).
+3.  **Sanity**: `normalizer.js` fixes common errors (string to float).
 
-# metrics-validation
+## 2. Hard Constraints
+- **No NaNs**: Any `NaN` in input throws an error or defaults to 0 (safely).
+- **Arrays**: `pvs` array must have exactly 6 elements.
 
-> Источник: `docs/doc-architect.md` (раздел "Валидация и схемы данных")
-
-## Схемы и валидация
-
-- Схемы: `core/validation/schemas.js`
-- Валидация: `core/validation/validator.js`
-- Нормализация: `core/validation/normalizer.js`
-- Проверка диапазонов: `core/validation/math-validation.js`
-
-## Назначение
-
-Единая проверка входных данных и расчетов для предотвращения ошибок в моделях и метриках.
+## 3. File Map
+- `@core/validation/validator.js`: Generic validator.
+- `@core/validation/math-validation.js`: Domain logic.

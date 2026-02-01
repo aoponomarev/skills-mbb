@@ -1,34 +1,39 @@
 ---
-title: components-icon-manager
-tags:
-  - "#mbb-spec"
-  - "#components"
-  - "#icons"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-25
+id: components-icon-manager
+title: Components: Icon Manager
+scope: skills-mbb
+tags: [#components, #icons, #assets, #cdn]
+priority: medium
+created_at: 2026-01-25
+updated_at: 2026-02-01
 ---
-## When to Use
 
-- При необходимости работы с данным компонентом или функционалом.
+# Components: Icon Manager
 
-# components-icon-manager
+> **Context**: Resolving coin URLs with caching and fallbacks.
+> **SSOT**: `core/api/icon-manager.js`
 
-## Scope
-- Единый источник URL иконок монет с приоритетом CDN и fallback.
+## 1. Logic
+1.  **Primary**: Local/Repo Assets (`libs/assets/coins/`).
+2.  **Fallback**: External CDN (CoinGecko).
+3.  **Alias**: Map weird symbols to known filenames (e.g. `WETH` -> `ETH`).
 
-## Key Components
-- `core/api/icon-manager.js`
+## 2. Versioning
+URLs include `?v={appVersionHash}` to bust browser cache on update.
 
-## Key Rules
-- Приоритет у собственного CDN, внешний источник используется только как fallback.
-- Конфликты имен решаются через alias map.
-- Cache busting зависит от версии приложения.
+## 3. API
+```javascript
+// Get URL
+const url = IconManager.getIconUrl('BTC');
 
-## Workflow
-1) Добавить/обновить иконку в CDN.
-2) Обновить alias map при необходимости.
-3) Проверить корректные URL и fallback.
+// Preload (Optional)
+IconManager.preload(['BTC', 'ETH']);
+```
 
-## References
-- `core/api/icon-manager.js`
+## 4. Hard Constraints
+1.  **No 404s**: Component `coin-block.js` must handle load errors and show a generic placeholder.
+2.  **Lowercase**: Files on disk are strictly lowercase (`btc.png`).
+
+## 5. File Map
+- `@core/api/icon-manager.js`: Resolution logic.
+- `@libs/assets/coins/`: Icon storage.

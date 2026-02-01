@@ -1,65 +1,28 @@
 ---
 id: process-n8n-browser-cache
-title: n8n - Очистка кеша браузера при ошибках 404
-category: troubleshooting
-status: active
-created: 2026-01-31
-updated: 2026-01-31
-tags: [n8n, browser, cache, troubleshooting, 404]
+title: Troubleshooting: n8n Browser Cache
+scope: skills-mbb
+tags: [#troubleshooting, #n8n, #browser, #404]
+priority: medium
+created_at: 2026-01-31
+updated_at: 2026-02-01
 ---
 
-# n8n: Очистка кеша браузера при ошибках 404
+# Troubleshooting: n8n Browser Cache
 
-## Проблема
+> **Context**: 404 errors in n8n UI after database reset.
 
-В консоли браузера появляются ошибки вида:
-```
-GET http://localhost:5678/rest/workflows/rw94BqUcqmDJW3QD 404 (Not Found)
-GET http://localhost:5678/rest/workflows/7tcW00IJDzHCEZ28 404 (Not Found)
-```
+## 1. Symptoms
+- `GET /rest/workflows/XYZ 404` in Console.
+- UI stuck or showing errors on load.
 
-Ошибки возникают при загрузке Overview или открытии n8n, хотя воркфлоу работают.
+## 2. Cause
+Browser `localStorage` caches IDs of workflows that no longer exist in the new DB.
 
-## Причина
+## 3. Fix
+1.  **F12** -> Application Tab.
+2.  **Storage** -> Clear Site Data.
+3.  **Reload**.
 
-Браузер хранит в **localStorage/IndexedDB** ID ранее открытых воркфлоу. При инициализации n8n пытается "восстановить" последние открытые воркфлоу, но они уже удалены из базы → 404.
-
-Типичные сценарии:
-- Пересоздание базы данных n8n (миграция SQLite ↔ Postgres)
-- Удаление/пересоздание воркфлоу
-- Импорт воркфлоу с новыми ID
-
-## Решение
-
-### Способ 1: Точечная очистка (рекомендуется)
-
-1. Открой `http://localhost:5678`
-2. **F12** → вкладка **Application**
-3. Слева: **Storage** → выбери `http://localhost:5678/`
-4. Нажми **«Clear site data»**
-5. Перезагрузи страницу (F5)
-
-### Способ 2: Через контекстное меню
-
-1. **F12** → **Application** → **Local Storage** → `http://localhost:5678`
-2. ПКМ → **Clear**
-3. То же для **Session Storage** и **IndexedDB**
-4. Перезагрузи страницу
-
-### Способ 3: Инкогнито
-
-Открыть n8n в режиме инкогнито — там нет сохранённого кеша.
-
-## Что НЕ нужно делать
-
-- Полная очистка всех данных браузера (затронет другие сайты)
-- Перезапуск Docker-контейнера n8n (проблема на стороне браузера)
-- Модификация базы данных n8n
-
-## Примечание
-
-После очистки может потребоваться повторный вход в n8n (если настроена авторизация), так как cookies тоже удаляются.
-
-## Связанные навыки
-
-- [[process-n8n-docker-code-nodes]]
+## 4. Prevention
+Use Incognito mode when testing DB migrations.

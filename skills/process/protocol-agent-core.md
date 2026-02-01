@@ -1,54 +1,42 @@
 ---
 id: protocol-agent-core
-title: "Базовый протокол ИИ-агента MBB"
-description_ru: "Фундаментальные правила поведения, ограничения и принципы работы ИИ-агента в проекте MBB."
-scope: "Общие правила взаимодействия агента с репозиторием, Git и пользователем."
-tags: [#protocol, #core, #git, #process]
+title: Protocol: Agent Core Constitution
+scope: skills-mbb
+tags: [#protocol, #core, #git, #safety]
 priority: emergency
 created_at: 2026-01-28
-updated_at: 2026-01-28
+updated_at: 2026-02-01
 ---
 
-# Базовый протокол ИИ-агента MBB
+# Protocol: Agent Core Constitution
 
-> **Контекст**: Этот протокол является «Конституцией» агента. Его соблюдение обязательно вне зависимости от текущей задачи.
+> **Context**: Fundamental rules of behavior. Non-negotiable.
+> **Priority**: 0 (Highest).
 
-## Русскоязычное описание
+## 1. Git Safety
+- **No Unsolicited Commits**: Do NOT `git commit`/`push` without explicit user command.
+- **Check Status**: Always run `git status` before action.
 
-1.  **Git Safety (Безопасность Git)**:
-    *   ЗАПРЕЩЕНО выполнять `git commit` и `git push` без явной команды пользователя (кодовые слова: "комить", "закомить", "пуш").
-    *   Перед коммитом всегда проверять `git status` и соответствие изменений `protocol-commit`.
+## 2. Docs Freeze
+- **Target**: Write to `skills/` or `skills-mbb/`.
+- **Forbidden**: Do NOT add files to old `docs/` (except `project-evolution.txt`).
 
-2.  **Docs Freeze (Заморозка docs/)**:
-    *   ЗАПРЕЩЕНО пополнять старую папку `docs/`. 
-    *   Новые знания — только в репозитории `skills/` или `skills-mbb/`.
-    *   Единственное исключение: `docs/project-evolution.txt` (Дневной лог), обновляется строго по команде.
+## 3. SSOT Compliance
+- **Check First**: Verify `core/config/` before hardcoding.
+- **Conform**: Use existing patterns and constants.
 
-3.  **Conflict Management (Управление конфликтами)**:
-    *   Если запрос пользователя противоречит Skills или `.cursorrules`, агент ОБЯЗАН остановиться и предупредить о конфликте.
-    *   Исполнение возможно только после осознанного изменения правил пользователем.
+## 4. External Integrations
+- **Documentation**: Verify vendor docs (Cloudflare, Yandex) via search if unsure.
+- **Strategy**: Follow `integrations-strategy` skill.
 
-4.  **SSOT & Versioning (ЕИП и Версионирование)**:
-    *   Всегда проверять наличие конфигураций в `core/config/` и `core/cache/`.
-    *   Запрещен хардкод значений, имеющихся в SSOT (Едином Источнике Правды).
-    *   Всегда проверять необходимость версионирования ключей кэша (см. `cache-versioning`).
+## 5. Secrets Hygiene
+- **Zero Tolerance**: Never output or commit secrets.
+- **Check**: Inspect `.env` usage.
 
-5.  **External Integrations (EI)**:
-    *   При проектировании внешних связей всегда опираться на `integrations-strategy`.
-    *   Всегда проверять актуальную документацию вендоров (Cloudflare, Yandex, etc.) через веб-поиск в режиме отладки.
+## 6. Communication
+- **Style**: Telegraphic Technical. Concise.
+- **No Fluff**: No "I'm ready", "Boosted". Just facts.
 
-6.  **Knowledge Bridge Awareness**:
-    *   Агент обязан мониторить `events/SKILL_CANDIDATES.json` и `events/USER_IDEAS.json`.
-    *   Наличие идей пользователя (`USER_IDEAS`) автоматически переключает агента в режим «Плана» (Step-by-step design).
-
-7.  **Secrets Hygiene**:
-    *   НИКОГДА не коммитить секреты. Всегда проверять `.env` и правила из `skill-secrets-hygiene`.
-
-8.  **Communication Hygiene (Стиль общения)**:
-    *   Быть лаконичным и профессиональным.
-    *   ЗАПРЕЩЕНО повторять одно и то же утверждение или закрывающую фразу несколько раз.
-    *   ЗАПРЕЩЕНО использовать эмодзи и декоративные фразы («ready for action», «system boosted»).
-    *   Завершать отчет сразу после последнего технического факта.
-
-## Приоритет применения
-Этот протокол имеет наивысший приоритет. При возникновении сомнений — этот документ является главным судьей.
+## 7. File Map
+- `@.cursorrules`: Routing logic.
+- `@skills-mbb/skills/`: Knowledge Base.

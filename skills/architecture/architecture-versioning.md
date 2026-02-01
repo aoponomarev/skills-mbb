@@ -1,64 +1,54 @@
 ---
-title: architecture-versioning
-tags:
-  - "#mbb-spec"
-  - "#architecture"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: architecture-versioning
+title: Architecture: App Versioning & Cache
+scope: skills-mbb
+tags: [#architecture, #versioning, #cache, #invalidation]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Architecture Versioning functionality and configuration.
+# Architecture: App Versioning & Cache
 
-## When to Use
+> **Context**: Cache invalidation strategy based on application version.
+> **SSOT**: `core/config/app-config.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Versioning Logic
+**Goal**: Automatically invalidate stale data structures when code changes.
 
-# architecture-versioning
+- **Mechanism**: `appVersionHash` (Git Commit Hash or Manual Version).
+- **Scope**: CSS classes, Cache Keys.
 
-> Источник: `docs/doc-architect.md` (раздел "Версионирование приложения")
+## 2. Implementation
+1.  **CSS**: Body class `app-version-{hash}` allows version-specific styling overrides.
+2.  **Cache Keys**: Prefix `v:{hash}:` ensures isolation.
+    - Example: `v:a1b2c3:market-metrics`
 
-## Версионирование приложения
+## 3. Cache Categorization
 
-**Назначение:** Привязка кэша и стилизации к версии приложения для автоматической инвалидации при обновлении.
+### Versioned (Auto-Clear)
+*Dependent on code structure.*
+- `icons-cache`
+- `coins-list`
+- `api-cache`
+- `market-metrics`
 
-**Реализация:**
-- CSS‑класс на body: `app-version-{hash}`
-- Версионирование ключей кэша: префикс `v:{hash}:`
-- Автоматическая очистка старых ключей при инициализации
+### Permanent (User Data)
+*Must survive updates.*
+- `settings` (Theme, Timezone).
+- `favorites`.
+- `auth-token`.
+- `portfolios` (Local Drafts).
 
-**Версионируемые ключи (автоматически):**
-- `icons-cache`, `coins-list`, `api-cache`, `market-metrics`, `crypto-news-state`
+## 4. API
+- `appConfig.getVersionHash()`
+- `cacheManager.getVersionedKey(key)`
+- `cacheManager.clearOldVersions()`
 
-**Неверсионируемые ключи (пользовательские данные):**
-- `settings`, `theme`, `timezone`, `favorites`, `ui-state`
-- `yandex-api-key`, `yandex-model`, `perplexity-api-key`, `perplexity-model`, `translation-language`, `ai-provider`
-- `portfolios`, `strategies`, `time-series`, `history`
+## 5. Hard Constraints
+1.  **Boot Cleanup**: App must scan and delete `v:{old_hash}:*` keys on startup to free space.
+2.  **User Data Safety**: Never version keys containing user preferences or secrets.
 
-## Критерии применения версионирования кэша
-
-**Версионировать, если:**
-- Данные из внешних API (структура может меняться)
-- Данные парсятся из ответов API
-- Структура зависит от версии приложения
-- Устаревшие данные могут вызвать ошибки
-
-**Не версионировать, если:**
-- Пользовательские данные и настройки
-- UI‑состояние
-- Данные с миграциями схем
-
-## API
-
-- `appConfig.getVersionHash()` — хэш версии
-- `appConfig.getVersionClass()` — CSS‑класс версии
-- `cacheManager.clearOldVersions()` — очистка старых ключей
-- `cacheManager.getVersionedKey(key, useVersioning)` — получение версионированного ключа
-
-## Файлы
-
-- `core/config/app-config.js` (CONFIG.version)
-- `app/app-ui-root.js` (установка класса версии)
-- `core/cache/cache-manager.js` (версионирование)
-- `shared/utils/hash-generator.js` (хэш)
+## 6. File Map
+- `@core/cache/cache-manager.js`: Logic.
+- `@core/config/app-config.js`: Version definition.

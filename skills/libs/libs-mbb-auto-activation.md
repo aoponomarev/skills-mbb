@@ -1,39 +1,26 @@
 ---
-title: libs-mbb-auto-activation
-tags:
-  - "#mbb-spec"
-  - "#libs"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: libs-mbb-auto-activation
+title: Libs: Auto Activation
+scope: skills-mbb
+tags: [#libs, #automation, #loader]
+priority: low
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Libs Mbb Auto Activation functionality and configuration.
+# Libs: Auto Activation
 
-## When to Use
+> **Context**: Dynamic dependency resolution logic.
+> **SSOT**: `core/lib-loader.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Logic
+1.  **Check Local**: Look for file in `libs/`.
+2.  **Fallback**: If missing, fetch from CDN (jsdelivr).
+3.  **Alert**: Notify developer to download the file to `libs/` for offline support.
 
-# libs-mbb-auto-activation
+## 2. Constraints
+- **Auto-Download**: The browser cannot write to disk. The user must run `download-libs.sh` manually.
+- **Version Lock**: `LIB_SOURCES` config in `lib-loader.js` is the SSOT for versions.
 
-> Источник: `docs/doc-lib-github.md` (автоматическая активация)
-
-## Триггеры
-
-- добавление библиотеки в `core/lib-loader.js` (`LIB_SOURCES`)
-- изменение версии в `LIB_SOURCES`
-- библиотека отсутствует в `libs`
-
-## Шаги автоматической активации
-
-1. Выявить новую/измененную библиотеку и версию.
-2. Проверить наличие файла в `libs/<name>/<version>/`.
-3. Если файла нет — загрузить UMD‑сборку из CDN.
-4. Обновить `docs/doc-lib-vue.md` (версия/источники).
-5. Уведомить пользователя о необходимости коммита в `libs`.
-
-## Ограничения
-
-- Коммиты только по явной команде пользователя.
-- Если UMD отсутствует — уведомить пользователя.
+## 3. File Map
+- `@core/lib-loader.js`: Activation logic.

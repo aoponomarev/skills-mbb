@@ -1,36 +1,30 @@
 ---
-title: libs-repo-setup
-tags:
-  - "#mbb-spec"
-  - "#libs"
-  - "#github-pages"
-  - "#cdn"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: libs-repo-setup
+title: Libs: Repository Setup
+scope: skills-mbb
+tags: [#libs, #git, #setup, #cdn]
+priority: low
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# libs-repo-setup
+# Libs: Repository Setup
 
-## Scope
-- Настройка отдельного репозитория `libs` для GitHub Pages CDN.
-- Структура папок и загрузка библиотек.
+> **Context**: How to initialize or restore the `libs` submodule.
 
-## When to Use
-- Когда обновляете/добавляете внешние библиотеки для MBB.
-- Когда нужно поднять/восстановить libs‑репозиторий.
+## 1. Architecture
+- **Type**: Standalone Git Repository.
+- **Role**: Serves as a CDN via GitHub Pages.
+- **Branch**: `main`.
 
-## Key Rules
-- Репозиторий публичный и развёрнут через GitHub Pages.
-- Структура `lib-name/version/file.js`.
-- В проекте загрузка идёт через `core/lib-loader.js` с fallback на внешние CDN.
+## 2. Workflow
+1.  **Clone**: `git clone https://github.com/aoponomarev/libs`.
+2.  **Populate**: Run `download-libs.sh`.
+3.  **Enable Pages**: Settings -> Pages -> Source: Deploy from branch `main` / `root`.
 
-## Workflow
-1) Создать репозиторий `https://github.com/aoponomarev/libs`.
-2) Развернуть структуру папок по версиям.
-3) Загрузить файлы вручную или скриптом `download-libs.sh`.
-4) Включить GitHub Pages: branch `main`, folder `/`.
-5) Проверить доступность через `curl`.
+## 3. Maintenance
+- **Update**: Add new version folder -> Commit -> Push.
+- **Clean**: Remove old unused versions to save space.
 
-## References
-- `core/lib-loader.js`
+## 4. File Map
+- `@libs/download-libs.sh`: Setup script.

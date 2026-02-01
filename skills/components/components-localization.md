@@ -1,38 +1,34 @@
 ---
-title: components-localization
-tags:
-  - "#mbb-spec"
-  - "#components"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: components-localization
+title: Components: Localization
+scope: skills-mbb
+tags: [#components, #localization, #i18n, #text]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Components Localization functionality and configuration.
+# Components: Localization
 
-## When to Use
+> **Context**: Reactive text switching (RU/EN).
+> **SSOT**: `core/config/tooltips-config.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Architecture
+- **State**: `uiState.tooltips.currentLanguage` (Reactive).
+- **Source**: `tooltips-config.js` (Dictionary).
+- **Access**: `tooltipsConfig.getTooltip(key)`.
 
-# components-localization
+## 2. Rules
+1.  **Computed Dependency**: Always reference `currentLanguage` in computed properties to trigger reactivity.
+    ```javascript
+    const label = computed(() => {
+      const lang = uiState.tooltips.currentLanguage; // Dependency
+      return tooltipsConfig.getTooltip('ui.save');
+    });
+    ```
+2.  **No Hardcode**: Templates MUST NOT contain text literals.
+3.  **Symmetry**: Adding a key requires both `ru` and `en` values.
 
-> Источник: `docs/doc-comp-principles.md` (раздел "Система централизованной реактивности текстов")
-
-## Базовый принцип
-
-Все текстовые элементы UI используют централизованную реактивную локализацию (RU/EN) без перезагрузки страницы.
-
-## Ключевые элементы
-
-- `uiState.tooltips.currentLanguage` — реактивное состояние языка
-- `core/config/tooltips-config.js` — единый источник текстов
-- `tooltipsConfig.getTooltip(key)` — доступ к текстам
-
-## Обязательные правила
-
-- `currentLanguage` только в `computed`, не в `data()`
-- В `computed` с текстом обязательно `const lang = this.currentLanguage;`
-- Нельзя использовать `TOOLTIPS_RU/TOOLTIPS_EN` напрямую
-- Нельзя кэшировать тексты в `data()`
-- Всегда добавлять ключи одновременно в RU и EN
+## 3. File Map
+- `@core/config/tooltips-config.js`: Dictionary.
+- `@core/state/ui-state.js`: Language state.

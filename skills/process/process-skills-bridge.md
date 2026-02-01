@@ -1,40 +1,30 @@
 ---
 id: process-skills-bridge
-title: "Skills UI Bridge: Управление очередями знаний"
-description_ru: "Механика взаимодействия агента с очередями кандидатов (SKILL_CANDIDATES) и идей пользователя (USER_IDEAS)."
-scope: "Процесс обработки, аппрува и публикации навыков через UI мост."
-tags: [#process, #mcp, #ui-bridge, #automation]
+title: Process: Skills UI Bridge
+scope: skills-mbb
+tags: [#process, #ui, #bridge, #curation]
 priority: high
 created_at: 2026-01-28
-updated_at: 2026-01-28
+updated_at: 2026-02-01
 ---
 
-# Skills UI Bridge: Управление очередями знаний
+# Process: Skills UI Bridge
 
-## Обзор
+> **Context**: The visual interface for Knowledge Management.
+> **SSOT**: `mcp/NEW_SKILLS.html`, `mcp/skills-ui.js`
 
-Skills UI Bridge — это интерфейс (`mcp/NEW_SKILLS.html`) и набор API-эндпоинтов, позволяющих пользователю и агенту управлять жизненным циклом навыков.
+## 1. Queues
+1.  **Candidates**: From Git History. Action: Approve/Reject.
+2.  **User Ideas**: From UI Input. Action: Plan & Execute.
+3.  **Drafts**: Generated Skills. Action: Publish (Move to `skills/`).
 
-## Очереди событий
+## 2. Agent Workflow
+- **Monitor**: Check `USER_IDEAS.json`. If not empty -> Priority Task.
+- **Suggest**: If `SKILL_CANDIDATES` has entries -> Suggest review.
 
-### 1. Кандидаты (SKILL_CANDIDATES.json)
-*   **Источник**: Фоновый процесс сканирования коммитов Git.
-*   **Действие агента**: При обнаружении новых записей агент должен предложить пользователю перейти в UI для их обзора и аппрува.
-*   **Цель**: Превращение «сырого» опыта из коммитов в структурированные черновики.
+## 3. Status Lifecycle
+`candidate` -> `draft` -> `promoted` (Published).
 
-### 2. Идеи пользователя (USER_IDEAS.json)
-*   **Источник**: Форма "+ Add" в Skills UI.
-*   **Действие агента**: ПРИОРИТЕТНАЯ ЗАДАЧА. При наличии идей в очереди агент должен:
-    1.  Автоматически активировать режим проектирования («План»).
-    2.  Проанализировать идею, задать уточняющие вопросы.
-    3.  Реализовать прототип или сформировать качественный черновик `.md` в `skills-mbb/drafts/`.
-
-## Статусы навыков
-*   `candidate` — найден в коммитах, ждет аппрува.
-*   `draft` — сформирован как файл `.md`, ждет публикации.
-*   `promoted` — опубликован в основную базу `skills-mbb/skills/`.
-
-## Инструментарий
-*   `mcp/NEW_SKILLS.html` — основная панель управления.
-*   `scripts/skill-watcher.js` — сканер коммитов.
-*   `mcp/skills-mcp/server.js` — API мост.
+## 4. File Map
+- `@mcp/NEW_SKILLS.html`: UI Frontend.
+- `@mcp/skills-mcp/server.js`: Backend API.

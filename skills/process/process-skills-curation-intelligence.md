@@ -1,70 +1,36 @@
 ---
 id: process-skills-curation-intelligence
-title: "Протокол интеллектуальной курации Skills"
-description_ru: "Мета-алгоритм для ИИ-агента по предотвращению дублирования, оптимизации структуры и поддержанию связности базы знаний Skills."
-scope: "Процесс принятия решений при создании, обновлении или рефакторинге навыков в репозиториях skills/ и skills-mbb/."
-tags: [#process, #skills, #curation, #refactoring, #meta]
+title: Process: Skills Curation Intelligence
+scope: skills-mbb
+tags: [#process, #curation, #meta, #refactoring]
 priority: high
 created_at: 2026-01-29
-updated_at: 2026-01-29
-source: "user-request:meta-skill-curation"
-dependencies: [protocol-agent-core, process-skill-pipeline]
+updated_at: 2026-02-01
 ---
 
-# Протокол интеллектуальной курации Skills
+# Process: Skills Curation Intelligence
 
-> **Skill ID:** `process-skills-curation-intelligence`
+> **Context**: Meta-protocol for deciding *how* to modify the knowledge base.
+> **Goal**: Prevent duplication and rot.
 
-## Scope
+## 1. The Algorithm
+**Before creating a skill:**
+1.  **Deep Search**: `list_skills(query)` with synonyms.
+2.  **Decision Matrix**:
+    - **Update**: Covers >60%? -> Edit existing.
+    - **Synthesize**: Overlaps multiple? -> Merge into one.
+    - **Decompose**: Too big (>150 lines)? -> Split.
+    - **Create**: Unique? -> New file.
 
-Данный протокол заменяет линейный процесс «увидел изменение — создал скилл» на цикл **Поиск → Анализ → Оптимизация**. Он обязателен для применения ИИ-агентами (особенно Continue-агентом в headless пайплайне) при любой попытке модификации базы знаний.
+## 2. Coherence Check
+- **Indices**: Update `index-mbb.md`.
+- **Cross-Links**: Add `[See also: ...]` references.
+- **Cleanup**: Delete obsolete files after synthesis.
 
-## Алгоритм работы агента
+## 3. Hard Constraints
+1.  **Search First**: Never create without searching.
+2.  **Reasoning**: Agent must state *why* it chose Update vs Create.
+3.  **Size Limit**: Skills > 150 lines are candidates for decomposition.
 
-### Фаза 1: Глубокий поиск (Deep Search)
-
-Перед созданием любого нового навыка агент ОБЯЗАН провести серию поисковых запросов через `list_skills`:
-1.  **По ключевым словам**: Прямые термины из коммита/задачи.
-2.  **По смысловым синонимам**: Например, если задача про «кэш», искать также «perf», «optimization», «latency».
-3.  **По тегам**: Искать в связанных категориях (`#architecture`, `#integrations`, etc.).
-
-### Фаза 2: Матрица принятия решений (Curation Matrix)
-
-Агент должен оценить найденные результаты и выбрать одно из четырех действий:
-
-| Действие | Условие (Критерий) | Результат |
-| :--- | :--- | :--- |
-| **Update (Модернизация)** | Существующий скилл покрывает >60% новой темы. | Добавление новых деталей в существующий файл. |
-| **Synthesize (Синтез)** | Новая тема пересекается с 2-3 мелкими разрозненными скиллами. | Объединение их в один мощный концептуальный скилл. Оригиналы удаляются или архивируются. |
-| **Decompose (Декомпозиция)** | Существующий скилл стал слишком громоздким (>150 строк) или смешивает разные уровни абстракции. | Выделение новой темы в отдельный специализированный скилл с кросс-ссылкой из родительского. |
-| **Replace (Замена)** | Новое решение полностью отменяет/инвалидирует старое (например, переход с n8n на Node.js скрипт). | Создание нового скилла, полное удаление старого (или перенос в `archive/`). |
-| **Create (Новый)** | Тема абсолютно уникальна и не имеет пересечений с существующей базой. | Создание нового уникального ID. |
-
-### Фаза 3: Проверка связности (Coherence Check)
-
-Любое изменение должно сопровождаться:
-1.  **Обновлением индексов**: Убедиться, что `index-mbb.md` или `index-operations.md` актуальны.
-2.  **Кросс-ссылками**: Если новый скилл дополняет старый, в обоих должны появиться ссылки `[see also: ID]`.
-3.  **Удалением "хвостов"**: Если скилл удален, агент обязан найти все упоминания его ID в других скиллах и обновить их.
-
-## Правила для Continue-агента (Headless Mode)
-
-При работе в составе `skill-processor.js`, агент должен:
-1.  **Прочитать этот протокол** первым делом.
-2.  Выполнить `list_skills` ДО генерации контента.
-3.  В итоговом ответе/черновике явно указывать причину выбора действия (например: *"Обновляю существующий skill-id, так как тема кэширования уже частично описана"*).
-
-## Пример логики
-
-*   **Ввод**: Коммит "fix: update docker ports for better stability".
-*   **Поиск**: Находит `docker-container-networking-debug`.
-*   **Анализ**: Тема портов уже там есть.
-*   **Действие**: Вместо нового скилла `docker-port-fix`, агент предлагает UPDATE для `docker-container-networking-debug`.
-
-## Валидация
-
-Скилл считается "здоровым", если:
-- [ ] Он не дублирует информацию из другого скилла более чем на 20%.
-- [ ] Он имеет четкие ссылки на зависимости.
-- [ ] Его ID уникален и семантически точен.
-- [ ] Он соответствует лимиту в 150 строк (иначе — декомпозиция).
+## 4. File Map
+- `@skills-mbb/skills/index/index-mbb.md`: The Index.

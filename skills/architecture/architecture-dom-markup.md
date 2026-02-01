@@ -1,48 +1,45 @@
 ---
-title: architecture-dom-markup
-tags:
-  - "#mbb-spec"
-  - "#architecture"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: architecture-dom-markup
+title: Architecture: DOM Markup & Hashing
+scope: skills-mbb
+tags: [#architecture, #dom, #css, #hashing]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Architecture Dom Markup functionality and configuration.
+# Architecture: DOM Markup & Hashing
 
-## When to Use
+> **Context**: Automated identification of DOM elements for debugging, styling, and AI context awareness.
+> **SSOT**: `shared/utils/auto-markup.js`
 
-- При необходимости работы с данным компонентом или функционалом.
+## 1. Automated Container Markup
+**Goal**: Mark significant containers with `avto-{hash}` for DevTools navigation and Agent visibility.
 
-# architecture-dom-markup
+- **Format**: `avto-{Base58_8char}` (e.g., `avto-Xy7z9A2b`).
+- **Logic**: Deterministic hash based on DOM path. Stable across reloads.
+- **Scope**: Major sections, headers, wrappers.
+- **Exclusion**: Inside Vue components, minor wrappers, elements with IDs.
 
-> Источник: `docs/doc-architect.md` (раздел "Маркировка элементов DOM")
+## 2. Component Instance Hashing
+**Goal**: Unique ID for Vue component instances to enable scoped styling without SFC.
 
-## Автоматическая маркировка контейнеров
+- **Implementation**: `computed: { instanceHash }`.
+- **Generator**: `shared/utils/hash-generator.js`.
+- **Usage**: `<div :class="['my-component', instanceHash]">`.
 
-**Назначение:** Автоматическая маркировка значимых контейнеров через CSS классы `avto-{hash}` для навигации в DevTools и указания агенту места в разметке.
+## 3. Layout Synchronization
+**Goal**: Auto-adjust `body` padding to match fixed Header/Footer height.
 
-**Формат:** префикс `avto-`, формат `avto-{Base58_8символов}`. Классы `avto-*` используются только для маркировки, не используются в JS/CSS.
+- **Implementation**: `shared/utils/layout-sync.js`.
+- **Mechanism**: `ResizeObserver` + `MutationObserver`.
+- **API**: `window.layoutSync.start()`, `.stop()`, `.update()`.
 
-**Реализация:** `shared/utils/auto-markup.js` с использованием `MutationObserver`.
+## 4. Hard Constraints
+1.  **No CSS Dependency**: Classes `avto-*` are for identification ONLY. Do not bind functional CSS to them.
+2.  **Deterministic**: Hashing algorithm must produce the same hash for the same DOM structure.
 
-**Принципы:** Маркируются основные секции, заголовки, контейнеры; не маркируются элементы внутри Vue компонентов, мелкие обертки, элементы с ID. Детерминированные хэши на основе пути в DOM обеспечивают стабильность между сессиями.
-
-## Детерминированные хэши компонентов
-
-**Назначение:** Уникальная идентификация экземпляров Vue-компонентов для кастомной стилизации конкретных экземпляров.
-
-**Реализация:** computed `instanceHash` в каждом компоненте на основе контекста и идентификатора экземпляра.
-
-**Формат:** `avto-{Base58_8символов}`.
-
-**Утилита:** `shared/utils/hash-generator.js`.
-
-## Утилита синхронизации layout
-
-**Назначение:** Автоматическая синхронизация `padding-top`/`padding-bottom` body с высотой header/footer.
-
-**Реализация:** `shared/utils/layout-sync.js` с `ResizeObserver` и `MutationObserver`.
-
-**Инициализация:** запускается автоматически при загрузке DOM, доступно управление через `window.layoutSync.start()`, `stop()`, `update()`.
+## 5. File Map
+- `@shared/utils/auto-markup.js`: DOM Observer.
+- `@shared/utils/hash-generator.js`: Hashing logic.
+- `@shared/utils/layout-sync.js`: Layout engine.

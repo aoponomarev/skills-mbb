@@ -1,46 +1,39 @@
 ---
-title: integrations-auth-worker-restore
-tags:
-  - "#mbb-spec"
-  - "#integrations"
-  - "#cloudflare"
-  - "#auth"
-dependencies: [integrations-cloudflare-core, integrations-api-proxy]
-mcp_resource: true
-updated_at: 2026-01-24
+id: integrations-auth-worker-restore
+title: Integrations: Auth Worker Deployment
+scope: skills-mbb
+tags: [#integrations, #auth, #cloudflare, #deployment]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# integrations-auth-worker-restore
+# Integrations: Auth Worker Deployment
 
-## Scope
-- Полный процесс восстановления Cloudflare Worker и Google OAuth авторизации.
-- Без хранения секретов в коде.
-- Базовые bindings и маршруты Worker (D1, KV cache, proxy, datasets).
+> **Context**: Protocol for deploying or restoring the Cloudflare Worker responsible for OAuth.
+> **Scope**: Secrets management, bindings verification, and deployment.
 
-## When to Use
-- При восстановлении окружения (Cloudflare Worker + D1 + OAuth).
-- При миграции или повторном деплое авторизации.
+## 1. Prerequisites
+- **Wrangler CLI**: Installed and authenticated (`wrangler login`).
+- **Account ID**: Cloudflare Account ID available.
+- **Secrets**: `GOOGLE_CLIENT_SECRET` and `JWT_SECRET` ready.
 
-## Key Rules
-- **Секреты никогда не хранятся в репозитории**. Только через `wrangler secret`.
-- **API токены и Client Secret** должны быть в защищенном хранилище.
-- Все значения идентификаторов (Account ID, Database ID, Client ID) берутся из вашего аккаунта, не из кода.
-- **KV `API_CACHE` обязателен** для прокси‑кеша внешних API (CoinGecko/Yahoo/Stooq).
-- **Секреты** для восстановления брать из `MBB/secrets-backup.txt` (локально, без коммита).
+## 2. Deployment Steps
+1.  **Verify Bindings**: Check `wrangler.toml` for `DB` (D1) and `API_CACHE` (KV).
+2.  **Upload Secrets**:
+    ```bash
+    wrangler secret put GOOGLE_CLIENT_SECRET
+    wrangler secret put JWT_SECRET
+    ```
+3.  **Deploy**:
+    ```bash
+    wrangler deploy
+    ```
+4.  **Health Check**: Visit `https://mbb-api.ponomarev-ux.workers.dev/health`.
 
-## Workflow
-1) **Cloudflare**: убедиться, что аккаунт и Worker созданы.
-2) **D1**: проверить наличие базы и биндинга `DB`.
-3) **KV Cache**: проверить биндинг `API_CACHE` в `wrangler.toml`.
-4) **Wrangler**: настроить `wrangler.toml` и окружение.
-5) **Secrets**: добавить секреты через `wrangler secret put`.
-6) **Deploy**: `wrangler deploy`, затем health‑check.
-7) **Client**: проверить настройки OAuth в `core/config/auth-config.js` и базовые endpoints.
+## 3. Client Config
+Update `core/config/auth-config.js` with the correct `clientId` and `redirectUri`.
 
-## References
-- `cloud/cloudflare/workers/wrangler.toml`
-- `cloud/cloudflare/workers/src/index.js`
-- `cloud/cloudflare/workers/src/api-proxy.js`
-- `core/config/auth-config.js`
-- `core/config/cloudflare-config.js`
-- `docs/doc-file-protocol-oauth.md`
+## 4. File Map
+- `@cloud/cloudflare/workers/wrangler.toml`: Infrastructure config.
+- `@cloud/cloudflare/workers/src/auth.js`: Auth logic.

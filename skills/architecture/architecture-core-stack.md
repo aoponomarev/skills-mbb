@@ -1,52 +1,55 @@
 ---
 id: architecture-core-stack
-title: "Ядро архитектуры и технологический стек MBB"
-description_ru: "Актуальное описание технологического стека проекта MBB, включая Docker, MCP, Node.js и фронтенд."
-scope: "Фундаментальный стек технологий, среда исполнения и принципы взаимодействия компонентов."
+title: Architecture: Core Tech Stack
+scope: skills-mbb
 tags: [#architecture, #stack, #docker, #mcp, #frontend]
 priority: emergency
 created_at: 2026-01-28
-updated_at: 2026-01-28
+updated_at: 2026-02-01
 ---
 
-# Ядро архитектуры и технологический стек MBB (ааиисс)
+# Architecture: Core Tech Stack (ааиисс)
 
-**Команда активации:** `ааиисс` (Архитектура / ИнфраСтруктура). При ее использовании агент проводит полный анализ архитектурных связей, инфраструктуры Docker, MCP и облачных сервисов.
+> **Context**: The foundational technology choices and execution environment.
+> **Command**: `ааиисс` (Architecture/Infrastructure Analysis).
 
-## Среда исполнения (Hybrid Environment)
+## 1. Execution Environment (Hybrid)
 
-Проект MBB использует гибридную среду исполнения для обеспечения максимальной автономности и гибкости:
+1.  **Frontend**: Static SPA (Vanilla JS + Vue 3 Reactivity). Runs on `file://` or GitHub Pages.
+2.  **Local Backend (Docker)**:
+    - `continue-cli`: Node.js Express wrapper for LLM.
+    - `skills-mcp`: Knowledge base server (Model Context Protocol).
+    - `n8n`: Workflow automation (Legacy/Support).
+3.  **Edge (Cloudflare)**:
+    - API Proxy (CORS Bypass).
+    - Auth (Google OAuth).
+    - State (D1/KV).
 
-1.  **Frontend**: Статическое приложение (GitHub Pages или `file://`), работающее в браузере.
-2.  **Local Backend (Docker)**: Набор контейнеров для обслуживания ИИ-инструментария:
-    *   `continue-cli`: Контейнер с Node.js Express сервером (`continue-wrapper`) и Continue CLI.
-    *   `skills-mcp`: MCP-сервер для доступа к базе знаний проекта.
-3.  **Cloud (Cloudflare & Yandex)**: Внешние воркеры и функции для проксирования API (обход CORS на `file://`) и тяжелых вычислений.
+## 2. Tech Stack
 
-## Технологический Стек
-
-### Backend & AI Infrastructure
-*   **Runtime**: Node.js (v20+) внутри Docker.
-*   **API Wrapper**: Express.js сервер для проброса команд CLI в HTTP.
-*   **Knowledge Management**: MCP (Model Context Protocol) сервер для интеграции Skills в контекст ИИ-агентов.
-*   **AI Engines**: Mistral Small (Cloud), Ollama Qwen (Local Fallback).
+### Backend & AI
+- **Runtime**: Node.js v20+ (Dockerized).
+- **API**: Express.js (Wrapper), Hono (Cloudflare Workers).
+- **Protocol**: MCP (Stdio/SSE) for Agent Tools.
+- **LLM**: Mistral Small (Primary), Ollama (Local), Groq (Fast).
 
 ### Frontend (MBB Core)
-*   **Vanilla JS + Custom Components**: Проект отошел от Vue.js в сторону кастомной компонентной модели (см. `shared/components/`).
-*   **Styling**: Bootstrap 5 (CSS/JS) — приоритет утилитных классов.
-*   **Storage**: Браузерное `localStorage` с системой версионированного кэширования (см. `cache-versioning`).
-*   **Proxying**: Обязательное проксирование внешних API через Cloudflare Worker при работе на `file://`.
+- **Framework**: No-Build Vue 3 (Reactivity Only).
+- **Components**: Custom `cmp-*` system (No SFCs).
+- **Styling**: Bootstrap 5 (Utility-first).
+- **Storage**: `localStorage` (Versioned).
+- **Network**: `fetch` via `Cloudflare Proxy`.
 
 ### Data & Events
-*   **JSON-based SSOT**: Все очереди (кандидаты, идеи, реестры сканирования) хранятся в `.json` файлах в папке `events/`.
-*   **Logging**: Единый лог событий `logs/skills-events.log`.
+- **SSOT**: JSON files in `events/` (Queues, Logs).
+- **Logging**: `logs/skills-events.log` (Unified).
 
-## Критические Принципы
-1.  **SSOT (Single Source of Truth)**: Конфиги в `core/config/` — единственный источник правды для UI и логики.
-2.  **Secrets Hygiene**: Секреты только в `.env` (не попадают в Docker/Git).
-3.  **Skills-First**: Любое архитектурное решение должно быть согласовано с базой Skills.
+## 3. Hard Constraints
+1.  **No NPM Build**: The frontend MUST run without `npm install/build`. Dependencies are pre-downloaded in `libs/`.
+2.  **Secrets Hygiene**: No API keys in client code. Use `env-subst.js` for Docker and Wrangler Secrets for Cloud.
+3.  **Skills-First**: Code changes must be preceded by Skill updates.
 
-## Документация
-*   `docker-compose.yml` — описание инфраструктуры.
-*   `mcp/skills-mcp/server.js` — реализация MCP.
-*   `docs/CONTINUE_SKILLS_INTEGRATION.md` — детали интеграции Continue.
+## 4. File Map
+- `@docker-compose.yml`: Infrastructure definition.
+- `@mcp/skills-mcp/server.js`: Knowledge server.
+- `@docs/A_MASTER.md`: Architecture Root.

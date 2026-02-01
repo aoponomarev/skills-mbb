@@ -1,47 +1,38 @@
 ---
-title: libs-mbb-config
-tags:
-  - "#mbb-spec"
-  - "#libs"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: libs-mbb-config
+title: Libs: Configuration & Structure
+scope: skills-mbb
+tags: [#libs, #config, #structure]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Libs Mbb Config functionality and configuration.
+# Libs: Configuration & Structure
 
-## When to Use
+> **Context**: Layout of the vendor repository.
+> **Repo**: `github.com/aoponomarev/libs`
 
-- При необходимости работы с данным компонентом или функционалом.
-
-# libs-mbb-config
-
-> Источник: `docs/doc-lib-vue.md` (схема хранения и загрузка)
-
-## Структура libs
-
-Repo: `https://github.com/aoponomarev/libs`
-
-```
+## 1. Directory Structure
+```text
 libs/
-├── vue/3.4.0/vue.global.js
-├── chartjs/4.4.0/chart.umd.js
-├── numeral/2.0.6/numeral.min.js
-├── vuedraggable/4.1.0/vuedraggable.umd.js
+├── vue/
+│   └── 3.4.0/vue.global.js
+├── chartjs/
+│   └── 4.4.0/chart.umd.js
+└── assets/
+    └── coins/ (Images)
 ```
 
-## Источники загрузки (приоритет)
+## 2. Load Priority
+1.  **GitHub Pages**: `https://aoponomarev.github.io/libs/` (Primary for Web).
+2.  **CDN**: `cdn.jsdelivr.net` (Backup).
+3.  **Local**: `file://.../libs/` (Primary for Dev/Offline).
 
-1. GitHub Pages CDN: `https://aoponomarev.github.io/libs/`
-2. jsdelivr / cdnjs
-3. локальные файлы `./libs/`
-
-## Механизм загрузки
-
-Через `core/lib-loader.js` с автоматическим fallback.
-
-Пример:
+## 3. Usage
 ```javascript
 await window.libLoader.load('vue', '3.4.0');
 ```
+
+## 4. File Map
+- `@libs/`: Root directory.

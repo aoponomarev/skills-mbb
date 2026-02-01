@@ -1,44 +1,41 @@
 ---
-title: metrics-portfolio-structure
-tags:
-  - "#mbb-spec"
-  - "#metrics"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: metrics-portfolio-structure
+title: Metrics: Portfolio Structure
+scope: skills-mbb
+tags: [#metrics, #portfolio, #structure]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
-## Scope
 
-- Metrics Portfolio Structure functionality and configuration.
+# Metrics: Portfolio Structure
 
-## When to Use
+> **Context**: Data shape for portfolio objects.
+> **SSOT**: `core/api/cloudflare/portfolios-client.js`
 
-- При необходимости работы с данным компонентом или функционалом.
-
-# metrics-portfolio-structure
-
-> Источник: `docs/doc-architect.md` (раздел "Портфельная система")
-
-## Структура портфеля
-
+## 1. Schema
 ```javascript
 {
-    id: 'YYMMDD-hhmm',
-    name: 'Portfolio Name',
-    coins: [
-        {
-            coinId, ticker, name, rank,
-            currentPrice, pvs, metrics,
-            portfolioPercent,
-            delegatedBy: { modelId, modelName, agrAtDelegation, timestamp }
-        }
-    ],
-    marketMetrics: { fgi, btcDominance },
-    settings: { horizonDays, mdnHours, agrMethod, mode },
-    modelMix: { modelId: { coinsCount, totalPercent, modelName } }
+  id: "YYMMDD-hhmm",
+  name: "Mixed Alpha",
+  coins: [
+    {
+      coinId: "bitcoin",
+      ticker: "BTC",
+      portfolioPercent: 50,
+      delegatedBy: { modelId: "median-air" }
+    }
+  ],
+  settings: { horizon: 30 }
 }
 ```
 
-## Хранение
+## 2. Storage
+- **Local**: `localStorage` key `mbb-portfolios`.
+- **Cloud**: Cloudflare D1 table `portfolios`.
 
-`localStorage` с ключом `mbb-portfolios`. Интеграция с Cloudflare D1 — перспектива.
+## 3. Invariant
+- **Delegation**: Every coin MUST have a `delegatedBy` field pointing to a valid Model ID.
+
+## 4. File Map
+- `@core/api/cloudflare/portfolios-client.js`: Data Access Object.

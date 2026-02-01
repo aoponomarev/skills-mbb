@@ -1,29 +1,28 @@
 ---
-title: ux-interface-terms
-tags:
-  - "#mbb-spec"
-  - "#ux"
-  - "#glossary"
-dependencies: []
-mcp_resource: true
-updated_at: 2026-01-24
+id: ux-interface-terms
+title: UX: Interface Terms
+scope: skills-mbb
+tags: [#ux, #glossary, #terms]
+priority: medium
+created_at: 2026-01-24
+updated_at: 2026-02-01
 ---
 
-# ux-interface-terms
+# UX: Interface Terms
 
-## Scope
-- Термины для UI/UX: interface, interaction.
-- Маркировка контейнеров и детерминированные хэши компонентов.
+> **Context**: Standardized terminology for UI elements.
+> **SSOT**: `core/config/tooltips-config.js`
 
-## When to Use
-- Когда описываете интерфейсные требования.
-- Когда нужно ссылаться на принципы маркировки DOM.
+## 1. Glossary
+- **Interface**: Visual styling and static components.
+- **Interaction**: Dynamic behavior and user flows.
+- **Container**: Structural wrapper (`avto-*`).
+- **Signal**: Visual indicator of data status (Color/Icon).
 
-## Key Rules
-- **Interface** — визуальные стили и компоненты.
-- **Interaction** — UX‑паттерны и сценарии взаимодействия.
-- **Маркировка контейнеров**: только классы `avto-*` для навигации, не для CSS/JS.
-- **Детерминированный хэш**: `instanceHash` на основе props для точечной стилизации.
+## 2. Naming Conventions
+- **Action**: Verb-Noun (`savePortfolio`).
+- **State**: Adjective (`isActive`).
+- **Event**: Past Tense (`saved`).
 
-## References
-- `docs/doc-architect.md`
+## 3. File Map
+- `@core/config/tooltips-config.js`: Dictionary.

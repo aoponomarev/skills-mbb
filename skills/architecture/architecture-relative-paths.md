@@ -1,47 +1,51 @@
 ---
 id: architecture-relative-paths
-title: "Architecture: Relative Paths (EEIIPP)"
-description_ru: "Принцип использования относительных путей для переносимости инфраструктуры и соблюдения ееиипп."
-scope: "Enforce relative paths across documentation, scripts, and infrastructure configs to ensure system portability."
+title: Architecture: Relative Paths (EEIIPP)
+scope: skills-mbb
 tags: [#architecture, #eeiipp, #ssot, #infrastructure]
 priority: high
 created_at: 2026-01-30
-updated_at: 2026-01-30
-source: "agent:eeiipp-path-standard"
+updated_at: 2026-02-01
 ---
 
 # Architecture: Relative Paths (EEIIPP)
 
-## Core Principle (ееиипп)
-Все пути в проекте должны быть **относительными** относительно корня проекта или текущего файла. Использование абсолютных путей (начинающихся с `C:\`, `D:\`, `/Users/...`) строго запрещено, так как это нарушает принцип переносимости и "Единого Источника Правды" (ееиипп).
+> **Context**: Portability principle ensuring the project runs on any machine (Home/Office) without config changes.
+> **Rule**: "EEIIPP" (Single Source of Truth / Portable Paths).
 
-## Implementation Rules
+## 1. Core Principle
+All paths MUST be **relative** to the project root or the current file.
+**FORBIDDEN**: Absolute paths (`C:\`, `D:\`, `/Users/...`) in configs or code.
 
-### 1. Infrastructure Configs (`INFRASTRUCTURE_CONFIG.yaml`, `.env`)
-- Используйте `.` для текущей директории и `..` для родительской.
-- Вместо `D:\...\Statistics\MBB` используйте `./` (если конфиг в корне MBB).
-- Вместо `D:\...\Statistics\libs` используйте `../libs`.
+## 2. Implementation Rules
 
-### 2. Automation Scripts (`scripts/*.js`, `*.py`, `*.sh`)
-- Используйте динамическое определение корня проекта через `__dirname` (Node.js) или `os.path` (Python).
-- Все пути внутри скриптов должны строиться от вычисленного корня.
+### Infrastructure (`INFRASTRUCTURE_CONFIG.yaml`, `.env`)
+- Use `.` for current dir, `..` for parent.
+- Bad: `D:\Projects\MBB`
+- Good: `./MBB` (relative to root).
 
-### 3. Documentation (`*.md`)
-- Ссылки на файлы проекта должны быть относительными: `[README](../README.md)`.
-- Избегайте упоминания полных путей в примерах команд, используйте переменные окружения или относительные указатели.
+### Scripts (`*.js`, `*.py`)
+- Resolve root dynamically:
+  ```javascript
+  const root = path.resolve(__dirname, '..');
+  ```
+- Do not hardcode drive letters.
 
-### 4. Docker & Containers
-- Маппинг томов в `docker-compose.yml` всегда должен быть относительным:
+### Documentation (`*.md`)
+- Links must be relative: `[Link](../folder/file.md)`.
+- Runnable examples should use env vars (`$PROJECT_ROOT`).
+
+### Docker
+- Volume mappings must be relative:
   ```yaml
   volumes:
     - ../skills:/workspace/skills
   ```
 
-## Why this matters
-Соблюдение этого правила позволяет:
-1. Запускать проект на любом диске и в любой папке без правок конфигов.
-2. Бесшовно переходить между домашним и рабочим окружением.
-3. Избегать ошибок при переименовании родительских папок (как в случае с `Portfolio - CV` -> `Portfolio-CV`).
+## 3. Why?
+1.  **Portability**: Works on any drive/OS.
+2.  **Sync**: Seamless OneDrive sync between devices.
+3.  **Safety**: Prevents accidental writes to wrong absolute paths.
 
-## Verification
-При использовании команды `ееиипп`, агент обязан просканировать изменения на наличие абсолютных путей и заменить их на относительные.
+## 4. Verification
+Command `ееиипп` triggers a scan for absolute paths in the codebase.

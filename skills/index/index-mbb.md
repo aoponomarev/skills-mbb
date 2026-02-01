@@ -1,81 +1,79 @@
-# Index: MBB-specific Skills
+---
+id: index-mbb
+title: MBB Skills Index
+scope: skills-mbb
+tags: [#index, #map, #navigation]
+priority: high
+created_at: 2026-01-24
+updated_at: 2026-02-01
+---
 
-> Навигационный индекс по MBB-специфичным skills
+# MBB Skills Index
+
+> **Context**: The Master Index of all skills in the project.
+> **Usage**: Agents must use this to discover relevant skills.
 
 ## Architecture
-
-- [`architecture-client-vs-cloud`](../architecture/architecture-client-vs-cloud.md)
-- [`Ядро архитектуры и технологический стек MBB (ааиисс)`](../architecture/architecture-core-stack.md)
-- [`architecture-dom-markup`](../architecture/architecture-dom-markup.md)
-- [`architecture-loading`](../architecture/architecture-loading.md)
-- [`Architecture: Relative Paths (EEIIPP)`](../architecture/architecture-relative-paths.md)
-- [`architecture-ssot`](../architecture/architecture-ssot.md)
-- [`architecture-versioning`](../architecture/architecture-versioning.md)
-
-## Components
-
-- [`components-bootstrap`](../components/components-bootstrap.md)
-- [`components-boundaries`](../components/components-boundaries.md)
-- [`components-class-manager`](../components/components-class-manager.md)
-- [`components-column-visibility`](../components/components-column-visibility.md)
-- [`components-icon-manager`](../components/components-icon-manager.md)
-- [`components-layout-alignment`](../components/components-layout-alignment.md)
-- [`components-localization`](../components/components-localization.md)
-- [`components-modal-buttons`](../components/components-modal-buttons.md)
-- [`components-overview`](../components/components-overview.md)
-- [`components-responsive-visibility`](../components/components-responsive-visibility.md)
-- [`components-ssot`](../components/components-ssot.md)
-- [`components-styling-principles`](../components/components-styling-principles.md)
-- [`components-template-split`](../components/components-template-split.md)
-- [`components-tooltips`](../components/components-tooltips.md)
-
-## UX
-
-- [`ux-interface-terms`](../ux/ux-interface-terms.md)
-- [`ux-principles`](../ux/ux-principles.md)
-
-## Cache
-
-- [`cache-keys`](../cache/cache-keys.md)
-- [`cache-strategy`](../cache/cache-strategy.md)
-- [`cache-versioning`](../cache/cache-versioning.md)
-
-## Metrics
-
-- [`metrics-models`](../metrics/metrics-models.md)
-- [`metrics-portfolio-structure`](../metrics/metrics-portfolio-structure.md)
-- [`metrics-validation`](../metrics/metrics-validation.md)
+- [A_MASTER (Root)](../../../../docs/A_MASTER.md)
+- [Client vs Cloud](./../architecture/architecture-client-vs-cloud.md)
+- [Core Stack](./../architecture/architecture-core-stack.md)
+- [DOM Markup](./../architecture/architecture-dom-markup.md)
+- [Loading](./../architecture/architecture-loading.md)
+- [Relative Paths](./../architecture/architecture-relative-paths.md)
+- [SSOT](./../architecture/architecture-ssot.md)
+- [Versioning](./../architecture/architecture-versioning.md)
 
 ## Integrations
+- [API Proxy](./../integrations/integrations-api-proxy.md)
+- [Auth Worker](./../integrations/integrations-auth-worker-restore.md)
+- [Cloudflare Core](./../integrations/integrations-cloudflare-core.md)
+- [Continue MCP](./../integrations/integrations-continue-mcp-setup.md)
+- [Data Providers](./../integrations/integrations-data-providers.md)
+- [Rate Limiting](./../integrations/integrations-rate-limiting.md)
 
-- [`Continue CLI: Активация инструментов и интеграция с MCP`](../integrations/continue-cli-mcp-integration-nuances.md)
-- [`integrations-ai-core`](../integrations/integrations-ai-core.md)
-- [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
-- [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
-- [`integrations-cloudflare-core`](../integrations/integrations-cloudflare-core.md)
-- [`integrations-cloudflare-plan`](../integrations/integrations-cloudflare-plan.md)
-- [`integrations-cloudflare-testing`](../integrations/integrations-cloudflare-testing.md)
-- [`Continue CLI + Mistral Integration`](../integrations/integrations-continue-cli-mistral.md)
-- [`Continue CLI & MCP Integration Setup`](../integrations/integrations-continue-mcp-setup.md)
-- [`integrations-data-providers`](../integrations/integrations-data-providers.md)
-- [`Подключение LLM провайдеров к Continue`](../integrations/integrations-llm-providers-config.md)
-- [`n8n API Access & JWT Key Generation`](../integrations/integrations-n8n-api-access.md)
-- [`n8n Code Node v2: Gotchas & Patterns`](../integrations/integrations-n8n-code-node-v2.md)
-- [`n8n Docker Internals & Database Management`](../integrations/integrations-n8n-docker-internals.md)
-- [`n8n Local Setup (Docker)`](../integrations/integrations-n8n-local-setup.md)
-- [`integrations-oauth-file-protocol`](../integrations/integrations-oauth-file-protocol.md)
-- [`External Integrations Overview`](../integrations/integrations-overview.md)
-- [`integrations-postgres`](../integrations/integrations-postgres.md)
-- [`integrations-rate-limiting`](../integrations/integrations-rate-limiting.md)
-- [`integrations-perplexity-connect`](../integrations/perplexity-connect.md)
+## Process
+- [Automated Pipeline](./../process/process-skill-pipeline.md)
+- [Disaster Recovery](./../process/process-disaster-recovery.md)
+- [Infrastructure](./../process/process-infrastructure-maintenance.md)
+- [Logging](./../process/process-logging-strategy.md)
+- [Model Registry](./../process/process-model-registry-maintenance.md)
+- [n8n Docker Code](./../process/process-n8n-docker-code-nodes.md)
+- [Skill Watcher](./../process/process-skill-watcher.md)
+- [Skills Bridge](./../process/process-skills-bridge.md)
+- [Skills Curation](./../process/process-skills-curation-intelligence.md)
+- [WSL Optimization](./../process/process-wsl-optimization.md)
+- [Agent Protocol](./../process/protocol-agent-core.md)
+- [Playbooks](./../process/skill-based-playbooks.md)
 
-## Libraries
+## Core Systems
+- [Messages UI](./../core-systems/messages-ui-and-lifecycle.md)
 
-- [`libs-mbb-auto-activation`](../libs/libs-mbb-auto-activation.md)
-- [`libs-mbb-config`](../libs/libs-mbb-config.md)
-- [`libs-metadata-generation`](../libs/libs-metadata-generation.md)
-- [`libs-repo-setup`](../libs/libs-repo-setup.md)
+## Components
+- [Class Manager](./../components/components-class-manager.md)
+- [Icon Manager](./../components/components-icon-manager.md)
+- [Localization](./../components/components-localization.md)
+- [Responsive](./../components/components-responsive-visibility.md)
+- [Styling](./../components/components-styling-principles.md)
+- [Unified Library](./../components/ui-components-unified.md)
 
-## Related
+## Metrics
+- [Models](./../metrics/metrics-models.md)
+- [Portfolio Structure](./../metrics/metrics-portfolio-structure.md)
+- [Validation](./../metrics/metrics-validation.md)
 
-- Общие skills: [`../skills/`](../../skills/)
+## Libs
+- [Auto Activation](./../libs/libs-mbb-auto-activation.md)
+- [Config](./../libs/libs-mbb-config.md)
+- [Metadata](./../libs/libs-metadata-generation.md)
+- [Repo Setup](./../libs/libs-repo-setup.md)
+
+## UX
+- [Interface Terms](./../ux/ux-interface-terms.md)
+- [Principles](./../ux/ux-principles.md)
+
+## Troubleshooting
+- [Docker Network](./../troubleshooting/docker-container-networking-debug.md)
+- [n8n Browser Cache](./../troubleshooting/process-n8n-browser-cache.md)
+- [Continue API Keys](./../troubleshooting/troubleshoot-continue-cli-api-keys.md)
+- [Yandex IAM](./../troubleshooting/yandex-access-binding-issue.md)
+- [Yandex CORS](./../troubleshooting/yandex-cors-troubleshooting.md)

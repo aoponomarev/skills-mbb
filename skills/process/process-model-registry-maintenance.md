@@ -1,65 +1,36 @@
 ---
 id: process-model-registry-maintenance
-title: "Поддержка реестра моделей (Model Registry Sync)"
-description_ru: "Протокол синхронизации конфигурации Continue (config.yaml) и реестра моделей (logs/llm-models-registry.md)."
-scope: "Процесс актуализации данных о моделях, их лимитах, силе кодинга и статусе работоспособности."
-tags: [#process, #maintenance, #llm, #registry, #ssot]
+title: Process: Model Registry Sync
+scope: skills-mbb
+tags: [#process, #maintenance, #llm, #ssot]
 priority: high
 created_at: 2026-01-30
-updated_at: 2026-01-30
-dependencies: ["integrations-llm-providers-config", "architecture-ssot"]
+updated_at: 2026-02-01
 ---
 
-# Поддержка реестра моделей (Model Registry Sync)
+# Process: Model Registry Sync
 
-## Scope
-Этот навык обязывает агента поддерживать Single Source of Truth (SSOT) между техническим конфигом и человекочитаемым реестром моделей.
+> **Context**: Synchronization between technical config and human-readable registry.
+> **SSOT**: `.continue/config.yaml` (Tech), `logs/llm-models-registry.md` (Human).
 
-## When to Use
-1.  **Добавление новой модели** в `config.yaml`.
-2.  **Изменение провайдера** или API-ключа.
-3.  **Обнаружение проблем** (ошибки 401, 404, 429) или таймаутов.
-4.  **Получение фидбека от пользователя** о качестве ответов конкретной модели (изменение рейтинга).
-5.  **Еженедельная ревизия** инфраструктуры.
+## 1. Sync Rule
+**Config <-> Registry**: Every change in `config.yaml` (new model, key change, comment out) MUST be reflected in `logs/llm-models-registry.md`.
 
-## Key Rules
+## 2. Maintenance Tasks
+1.  **Field Data**: Record speed (tok/s) and error rates.
+2.  **Tier Updates**: Downgrade models that start failing (e.g. rate limits).
+3.  **New Models**: Add promising models to "Candidates" section.
 
-### 1. Правило синхронизации (Registry-Config Sync)
-Любое изменение в `config.yaml` **ОБЯЗАТЕЛЬНО** должно сопровождаться обновлением `MBB/logs/llm-models-registry.md`.
-- Нельзя оставить модель в конфиге, если её нет в реестре.
-- Закомментированные модели в конфиге должны быть помечены в реестре как "Кандидаты" или "Отключены".
+## 3. Tier Structure
+- **Tier 1 (Premium)**: Proven paid models (Mistral).
+- **Tier 2 (Advanced Free)**: High-speed daily drivers (Groq).
+- **Tier 3 (Specialized)**: Coding/Reasoning specific (DeepSeek).
+- **Tier 4 (Standard)**: Backup/Slow models.
 
-### 2. Сбор "Полевых данных"
-При работе с моделями агент должен фиксировать:
-- **Скорость (tok/s)**: Если модель выдает ответ мгновенно (Groq) или очень медленно (Mistral/Reasoning).
-- **Ошибки**: Если модель часто «отваливается» или имеет низкие лимиты TPM (как Llama 8B).
-- **Качество**: Если модель галлюцинирует или не понимает инструкции по инструментам.
+## 4. Hard Constraints
+1.  **No Ghost Models**: If it's in config, it must be in registry.
+2.  **Fallback Awareness**: Update the "Fallback Algorithm" diagram in registry if logic changes in `server.js`.
 
-### 3. Обновление рейтингов
-Рейтинг "Сила кодинга" в `logs/llm-models-registry.md` не является статичным.
-- Если модель `or-deepseek-chat` начала выдавать ошибки в 2026 году — понизить ранг.
-- Если появилась новая бесплатная модель (например, Llama 4) — провести экспертизу и вписать в топ.
-
-## Workflow обслуживания
-
-### Шаг 1: Идентификация изменений
-Если агент добавил модель или сменил провайдера:
-1. Выполнить `read_file` для `logs/llm-models-registry.md`.
-2. Найти соответствующий Tier или создать новый.
-
-### Шаг 2: Обновление Tier-структуры
-- **Tier 1 (Premium)**: Только проверенные платные флагманы.
-- **Tier 2 (Advanced Free)**: Основные рабочие лошадки.
-- **Tier 3 (Specialized)**: Reasoning, Qwen для кода, и т.д.
-- **Tier 4 (Standard)**: Медленные или слабые бесплатные варианты.
-
-### Шаг 3: Обновление Fallback Chain
-Если структура Tier изменилась, агент должен обновить схему `Алгоритм Fallback` в реестре, чтобы пользователь понимал текущую логику переключения.
-
-### Шаг 4: Фиксация нюансов в Skill
-Если при подключении возникли технические "костыли" (как сегодня с `:free` и `-instruct` на OpenRouter), агент должен обновить `integrations-llm-providers-config.md`.
-
-## Metadata
-- created_at: 2026-01-30
-- priority: high
-- maintenance_role: MBB Orchestrator
+## 5. File Map
+- `@.continue/config.yaml`: The Source.
+- `@logs/llm-models-registry.md`: The Documentation.
