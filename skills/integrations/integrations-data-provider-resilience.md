@@ -23,19 +23,26 @@ External APIs (e.g., CoinGecko, DexScreener) are critical for system operation. 
 ## Resilience Steps
 
 ### 1. Health Tracking
-- Store successes/failures per provider in a registry (e.g., `llm-model-stats.json` pattern).
-- Log latency for every call to detect degradation before a total outage.
+- Store successes/failures per provider in a registry (e.g., `llm-model-stats.json`).
+- Log latency for every call to detect degradation:
+  ```javascript
+  const startTime = Date.now();
+  const output = await callAPI(provider);
+  const latency = Date.now() - startTime;
+  
+  health.totalCalls++;
+  health.totalSuccesses++;
+  health.totalLatency += latency;
+  health.avgLatency = Math.round(health.totalLatency / health.totalSuccesses);
+  ```
 
 ### 2. Fallback Logic
-- Implement a fallback chain:
-  ```javascript
-  const PROVIDER_CHAIN = ['coingecko', 'dexscreener', 'binance'];
-  ```
-- Use the healthiest provider first based on recent metrics.
+- Implement a fallback chain that sorts by health and priority.
+- Use a recovery window (e.g., 5 mins) to re-test degraded providers.
 
 ### 3. Graceful Degradation
-- If all providers are down, serve cached data from `LLM_MODELS_CACHE.json` or local SQLite.
-- Notify the UI with a "Stale Data" warning.
+- If all providers in the chain fail, serve cached data or a minimal response.
+- Use log rotation to keep monitoring history under control (e.g., 5MB per file).
 
 ## Validation Criteria
 - API uptime should be maintained at >99.5%.

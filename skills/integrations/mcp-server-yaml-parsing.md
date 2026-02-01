@@ -18,20 +18,46 @@ This skill is designed for processing YAML configuration files for MCP servers. 
 
 ### 1. Load YAML File
 ```javascript
-const yaml = require('js-yaml');
+const yaml = require('js-yaml'); // Use js-yaml for reliable parsing
 const fs = require('fs');
 
-try {
-    const config = yaml.load(fs.readFileSync('config.yaml', 'utf8'));
-    console.log(config);
-} catch (e) {
-    console.error(e);
+function loadConfig(path) {
+    try {
+        const content = fs.readFileSync(path, 'utf8');
+        // Handle environment variable substitution if needed
+        const substituted = content.replace(/\${(\w+)}/g, (m, key) => process.env[key] || m);
+        return yaml.load(substituted);
+    } catch (e) {
+        console.error(`[Config] Failed to load ${path}:`, e.message);
+        return null;
+    }
 }
 ```
 
-### 2. Validate Mandatory Sections
-- Check for required top-level keys like `models`, `mcpServers`, `rules`.
-- Ensure appropriate data types (e.g., `models` must be an array).
+### 2. Manual Line-by-Line Parsing (Bypassing CLI Bugs)
+For critical components like `continue-cli` where official parsers might fail due to empty arrays or specific flags, a robust line-by-line parser is preferred:
+```javascript
+function loadModelsFromConfig(content) {
+    const models = [];
+    const lines = content.split('\n');
+    let currentModel = null;
+    let inModelsSection = false;
+    
+    for (const line of lines) {
+        if (line.match(/^models:\s*$/)) { inModelsSection = true; continue; }
+        if (inModelsSection && line.match(/^[a-zA-Z]/) && !line.startsWith(' ')) { inModelsSection = false; }
+        if (!inModelsSection) continue;
+        
+        if (line.match(/^\s*- name:\s*/)) {
+            if (currentModel) models.push(currentModel);
+            currentModel = { name: line.replace(/^\s*- name:\s*/, '').trim() };
+            continue;
+        }
+        // ... parse properties like model:, provider:, apiBase:
+    }
+    return models;
+}
+```
 
 ### 3. Extract Server Parameters
 - Parse `apiBase`, `apiKey`, and `model` identifiers.

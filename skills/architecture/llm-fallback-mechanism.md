@@ -26,26 +26,35 @@ The mechanism ensures graceful degradation of service while maintaining user exp
 ### 1. Error Detection
 - Implement real-time monitoring of LLM responses with these checks:
   ```javascript
-  function detectFailure(response) {
-      return (
-          response.timeout ||
-          response.errorCode !== 0 ||
-          response.contentFiltered ||
-          response.qualityScore < threshold ||
-          response.length > maxLength
-      );
+  function handleAPIResponse(body) {
+      try {
+          const json = JSON.parse(body);
+          if (json.error) {
+              throw new Error(json.error.message || JSON.stringify(json.error));
+          }
+          if (json.choices && json.choices[0]) {
+              return json.choices[0].message.content;
+          }
+          throw new Error('Invalid API response format');
+      } catch (e) {
+          throw new Error(`Failed to parse response: ${e.message}`);
+      }
   }
   ```
 
 ### 2. Fallback Strategy Selection
-- Use a tiered fallback approach:
+- Use a tiered fallback approach based on model health:
   ```javascript
-  function selectFallback(error) {
-      if (error.timeout) return "retry_with_longer_timeout";
-      if (error.rateLimit) return "switch_to_next_tier_provider";
-      if (error.contentFiltered) return "rephrase_request";
-      return "default_fallback";
-  }
+  // Healthy models first, then by priority
+  const sortedModels = [...MODEL_FALLBACK_CHAIN].sort((a, b) => {
+    const healthA = modelHealth.get(a.name);
+    const healthB = modelHealth.get(b.name);
+    // Prefer models with recent success
+    if (healthA.lastSuccess > now - RECOVERY_TIME && healthB.lastSuccess <= now - RECOVERY_TIME) return -1;
+    // ... then fewer failures
+    if (healthA.failures !== healthB.failures) return healthA.failures - healthB.failures;
+    return MODEL_FALLBACK_CHAIN.indexOf(a) - MODEL_FALLBACK_CHAIN.indexOf(b);
+  });
   ```
 
 ### 3. Fallback Execution
