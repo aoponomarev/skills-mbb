@@ -30,7 +30,7 @@ D:\Clouds\AO\OneDrive\AI\
 │   └── envs\           # .env files
 ├── _Distrib\           # Installers (archived)
 ├── Docker\             # Docker Desktop settings
-└── MBB\datasets\       # n8n data, etc.
+└── Projects\MBB\datasets\  # n8n data (via docker volume)
 ```
 
 ## 2. What Gets Synced

@@ -27,7 +27,7 @@ Sync ONLY the following configuration files:
 
 ## 3. Maintenance
 When updating models:
-1.  Edit `[OneDrive]\AI\.continue\config.yaml`.
+1.  Edit `[OneDrive]\AI\Global\Continue\config.yaml`.
 2.  Restart Cursor/Continue.
 3.  Update `logs/llm-models-registry.md`.
 

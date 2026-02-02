@@ -17,8 +17,8 @@ updated_at: 2026-02-01
 
 ### External Data (OneDrive)
 Ensure the Datasets folder is synced:
-- **Path**: `D:\Clouds\AO\OneDrive\AI\MBB\Datasets` (See `INFRASTRUCTURE_CONFIG.yaml`).
-- **Content**: `/n8n` (DB), `/continue` (Logs/State).
+- **Path**: `D:\Clouds\AO\OneDrive\AI\Projects\MBB\datasets` (See `INFRASTRUCTURE_CONFIG.yaml`).
+- **Content**: `/n8n` (DB, workflows, logs).
 
 ### Secrets
 - `MISTRAL_API_KEY`, `CONTINUE_API_KEY`, `N8N_ENCRYPTION_KEY` must be available in Password Manager.
