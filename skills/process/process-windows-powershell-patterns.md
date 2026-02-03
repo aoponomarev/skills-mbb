@@ -5,12 +5,53 @@ scope: skills-mbb
 tags: [#process, #powershell, #windows, #bash, #onedrive, #cursor, #troubleshooting]
 priority: critical
 created_at: 2026-02-02
-updated_at: 2026-02-02
+updated_at: 2026-02-03
 ---
 
 # Process: Windows PowerShell Patterns for AI Agents
 
 > **Context**: AI agents (Cursor, Continue) running on Windows frequently encounter shell errors when executing file operations. This skill provides patterns to avoid common pitfalls.
+
+---
+
+## ⛔ HARD BAN: NO BASH IN CURSOR
+
+**CRITICAL RULE — VIOLATING THIS CAUSES SYSTEM FAILURES**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  NEVER use Bash shell when executing commands in Cursor IDE.   │
+│  Git Bash + Cursor = "Win32 error 5" (Access Denied)           │
+│  This is a KNOWN BUG with NO FIX.                              │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### What Happens If You Use Bash:
+```
+bash (XXXXX) C:\Program Files\Git\bin\..\usr\bin\bash.exe: 
+*** fatal error - couldn't create signal pipe, Win32 error 5
+```
+
+### Root Cause:
+- Windows Defender blocks Unix pipe creation
+- Cursor spawns bash in a way that triggers this
+- OneDrive file locks compound the issue
+- **Bash itself is NOT broken** — only Cursor→Bash integration
+
+### MANDATORY ALTERNATIVES:
+
+| Instead of... | Use... |
+|---------------|--------|
+| `bash -c "command"` | `powershell -Command "command"` |
+| Shell tool default | Explicit `powershell -Command` wrapper |
+| Unix commands (`ls`, `cat`, `mkdir`) | PowerShell equivalents (see table below) |
+
+### Quick Check Before Any Shell Command:
+1. Does command start with `bash`? → **STOP. Rewrite for PowerShell.**
+2. Using Unix syntax (`&&`, `|`, `>`)? → **Wrap in `powershell -Command`**
+3. Path uses forward slashes? → **Convert to backslashes for PowerShell**
+
+---
 
 ## 1. Trigger Conditions
 
