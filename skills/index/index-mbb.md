@@ -122,6 +122,8 @@
 - [`process-skills-bridge`](../process/process-skills-bridge.md)
 - [`process-skills-curation-intelligence`](../process/process-skills-curation-intelligence.md)
 - [`process-unified-mcp-orchestration`](../process/process-unified-mcp-orchestration.md)
+- [`process-wf-ui-v2-bootstrap`](../process/process-wf-ui-v2-bootstrap.md)
+- [`process-wf-ui-v2-standards`](../process/process-wf-ui-v2-standards.md)
 - [`process-windows-powershell-patterns`](../process/process-windows-powershell-patterns.md)
 - [`process-workflow-ui`](../process/process-workflow-ui.md)
 - [`process-wsl-optimization`](../process/process-wsl-optimization.md)
