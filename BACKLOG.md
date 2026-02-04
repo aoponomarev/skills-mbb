@@ -58,7 +58,7 @@ _Очищено после Batch Review 2026-01-27. Все кандидаты п
 
 - [action=merge] [status=approved] title="UI_COMPONENTS_UNIFIED" | scope="Единая система UI: dropdowns, modals, search, favorites" | context="Merged 6 commits: c5aed93, 314264d, e98dac7, 1dbf516, 224f52f, 6abb12f. 2334 lines." | priority="medium" | timestamp=2026-01-27T23:00:00Z
 
-- [action=create] [status=drafted] title="SKILLS_UI_BRIDGE" | scope="Веб-интерфейс для управления скиллами" | context="Commit 5106ad5. HTML UI, API endpoints, automated tests." | priority="high" | timestamp=2026-01-27T23:00:00Z
+- [action=create] [status=drafted] title="WORKFLOW_UI" | scope="Веб-интерфейс WorkFlow UI для управления процессами" | context="Commit 5106ad5. HTML UI, API endpoints, automated tests." | priority="high" | timestamp=2026-01-27T23:00:00Z
 
 ### Rejected as Non-Skills (16 items)
 
@@ -69,7 +69,7 @@ _Промежуточные коммиты, тривиальные измене�
 - d7a65bb: Протокол Взаимодействия Агентов (перекрыт 7c8cc90)
 - 1ef3775: Remove n8n runtime files (чистка мусора)
 - 7fca700: n8n migration status (устаревшая документация)
-- 4c3f49d: Local n8n Setup + Backlog Watcher (перекрыт UI Bridge)
+- 4c3f49d: Local n8n Setup + Backlog Watcher (перекрыт WorkFlow UI)
 - b430f54: Docker and n8n Community (промежуточный)
 - 4877f81: n8n Community prepare #2 (промежуточный)
 - 6cd6467: Correcting links of Skills (массовый рефакторинг ссылок)

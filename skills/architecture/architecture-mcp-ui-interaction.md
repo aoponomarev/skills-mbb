@@ -12,7 +12,7 @@ updated_at: 2026-02-01
 # MCP-UI Interaction Architecture
 
 ## Overview
-This skill defines the interaction protocol between the frontend (Skills Management Bridge) and the backend MCP services. It ensures a reactive, state-aware interface for complex AI-driven tasks like commit scanning and skill curation.
+This skill defines the interaction protocol between the frontend (WorkFlow UI) and the backend MCP services. It ensures a reactive, state-aware interface for complex AI-driven tasks like commit scanning and skill curation.
 
 ## Core Interactions
 
