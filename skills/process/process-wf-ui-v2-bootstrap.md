@@ -31,3 +31,6 @@ If a design requirement isn't met by a standard Bootstrap class:
 1.  **Re-evaluate the design**: Can it be achieved using a combination of existing classes (e.g., `border-start border-4 border-info`)?
 2.  **Use CSS Variables**: Only via Bootstrap's own variable overrides if absolutely necessary, but **NEVER** via custom CSS selectors in V2.
 3.  **Accept standard look**: Prioritize architectural simplicity over pixel-perfect custom design.
+
+## 5. Standard Component Exceptions
+1.  **`.table-v2`**: Encapsulates first/last column anchoring, centered middle columns, and muted headers. This is the ONLY allowed custom CSS class for structural elements in V2 to ensure 50/50 split and centering logic.
