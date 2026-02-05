@@ -8,23 +8,23 @@ created_at: 2026-01-28
 updated_at: 2026-02-01
 ---
 
-# Process: WorkFlow UI
+# Process: WorkFlow UI (V2)
 
-> **Context**: The visual interface for Knowledge Management.
-> **SSOT**: `mcp/NEW_SKILLS.html`, `mcp/skills-ui.js`
+> **Context**: The visual interface for Knowledge Management and Source Monitoring.
+> **SSOT**: `mcp/V2_DASHBOARD.html`, `mcp/V2_logic.js`
 
-## 1. Queues
-1.  **Candidates**: From Git History. Action: Approve/Reject.
-2.  **User Ideas**: From UI Input. Action: Plan & Execute.
-3.  **Drafts**: Generated Skills. Action: Publish (Move to `skills/`).
+## 1. Queues (V2)
+1.  **Tasks/Candidates**: From External Sources (Releases/Commits). Action: Confirm/Reject.
+2.  **Agents**: Reputation tracking and scoring. Action: Monitor performance.
+3.  **Rejected**: Archive of filtered-out proposals. Action: Restore if needed.
 
-## 2. Agent Workflow
-- **Monitor**: Check `USER_IDEAS.json`. If not empty -> Priority Task.
-- **Suggest**: If `SKILL_CANDIDATES` has entries -> Suggest review.
+## 2. Agent Workflow (V2)
+- **Monitor**: Check `SKILL_CANDIDATES.json` via Dashboard API.
+- **Suggest**: If new high-score tasks appear -> Notify user for review.
 
-## 3. Status Lifecycle
-`candidate` -> `draft` -> `promoted` (Published).
+## 3. Status Lifecycle (V2)
+`candidate` -> `confirmed` (Ready for manual move) -> `published` (In skills repo).
 
-## 4. File Map
-- `@mcp/NEW_SKILLS.html`: UI Frontend.
-- `@mcp/skills-mcp/server.js`: Backend API.
+## 4. File Map (V2)
+- `@mcp/V2_DASHBOARD.html`: UI Frontend.
+- `n8n/workflows/V2_DASHBOARD_API.json`: Backend API Orchestrator.

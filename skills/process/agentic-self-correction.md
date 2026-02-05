@@ -24,7 +24,8 @@ updated_at: 2026-02-01
 
 ## 3. Hard Constraints
 1.  **No Silent Fixes**: Do NOT edit a Skill file directly to fix a logic error without notifying the user.
-2.  **Backlog First**: All corrections MUST pass through `BACKLOG.md`.
+2.  **V2 Protocol**: All corrections must be logged via the V2 Dashboard or proposed as new tasks in `drafts/tasks/`.
 
-## 4. File Map
-- `@BACKLOG.md`: The correction queue.
+## 4. File Map (V2)
+- `skills-mbb/drafts/tasks/`: The correction queue.
+- `@events/AGENT_REGISTRY.json`: Reputation tracking for self-correcting agents.

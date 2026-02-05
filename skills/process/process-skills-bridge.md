@@ -8,23 +8,25 @@ created_at: 2026-01-28
 updated_at: 2026-02-01
 ---
 
-# Process: WorkFlow UI
+# Process: Skills Bridge (V2)
 
-> **Context**: The visual interface for Knowledge Management.
-> **SSOT**: `mcp/NEW_SKILLS.html`, `mcp/skills-ui.js`
+> **Context**: The bridge between AI agents and the Knowledge Management UI.
+> **SSOT**: `mcp/V2_DASHBOARD.html`, `mcp/V2_logic.js`
 
-## 1. Queues
-1.  **Candidates**: From Git History. Action: Approve/Reject.
-2.  **User Ideas**: From UI Input. Action: Plan & Execute.
-3.  **Drafts**: Generated Skills. Action: Publish (Move to `skills/`).
+## 1. Interaction Protocol (V2)
+1.  **Fetch**: Agent calls `v2/tasks` to see what's in the queue.
+2.  **Analyze**: Agent reads the Markdown draft from `drafts/tasks/`.
+3.  **Act**: Agent performs the task or suggests a refinement.
 
-## 2. Agent Workflow
-- **Monitor**: Check `USER_IDEAS.json`. If not empty -> Priority Task.
-- **Suggest**: If `SKILL_CANDIDATES` has entries -> Suggest review.
+## 2. UI Synchronization (V2)
+- **Real-time**: The Dashboard polls `v2/tasks` to show the latest Swarm output.
+- **Feedback**: Agent actions (Confirm/Reject) are immediately reflected in `AGENT_REGISTRY.json`.
 
-## 3. Status Lifecycle
-`candidate` -> `draft` -> `promoted` (Published).
+## 3. Hard Constraints
+1.  **No Direct File Edits**: Agents must not edit `SKILL_CANDIDATES.json` directly; use the Dashboard API.
+2.  **Reputation First**: Agents with low ratings in `AGENT_REGISTRY.json` are restricted from critical synthesis tasks.
 
-## 4. File Map
-- `@mcp/NEW_SKILLS.html`: UI Frontend.
-- `@mcp/skills-mcp/server.js`: Backend API.
+## 4. File Map (V2)
+- `@mcp/V2_DASHBOARD.html`: UI Frontend.
+- `n8n/workflows/V2_DASHBOARD_API.json`: API Orchestrator.
+- `@events/AGENT_REGISTRY.json`: Reputation SSOT.
