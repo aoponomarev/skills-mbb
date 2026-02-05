@@ -27,16 +27,16 @@ Every extracted skill MUST have:
 
 ## 2. Quality Signals (Good)
 
-✅ **Actionable verbs**: "Configure X", "Add Y to Z", "Run command..."  
-✅ **Specific references**: File paths, config keys, API endpoints  
-✅ **Clear scope**: "When deploying to Docker...", "For PostgreSQL migrations..."  
+✅ **Actionable verbs**: "Configure X", "Add Y to Z", "Run command..."
+✅ **Specific references**: File paths, config keys, API endpoints
+✅ **Clear scope**: "When deploying to Docker...", "For PostgreSQL migrations..."
 ✅ **Measurable outcome**: "Results in X", "Enables Y"
 
 ## 3. Quality Signals (Bad)
 
-❌ **Abstract nouns**: "resilience", "scalability", "modularity"  
-❌ **Philosophy**: "This pattern demonstrates...", "The value lies in..."  
-❌ **Vague benefits**: "improves maintainability", "enhances flexibility"  
+❌ **Abstract nouns**: "resilience", "scalability", "modularity"
+❌ **Philosophy**: "This pattern demonstrates...", "The value lies in..."
+❌ **Vague benefits**: "improves maintainability", "enhances flexibility"
 ❌ **Missing HOW**: Explains WHAT but not HOW to apply
 
 ## 4. Validation Algorithm
@@ -47,23 +47,23 @@ function validateExtraction(parsed) {
   if (!parsed.skillId || !parsed.category || !parsed.description) {
     return { valid: false, reason: 'incomplete_extraction' };
   }
-  
+
   // 2. Category check
-  const validCategories = ['architecture', 'integration', 'automation', 
+  const validCategories = ['architecture', 'integration', 'automation',
                           'security', 'debugging', 'process'];
   if (!validCategories.includes(parsed.category)) {
     return { valid: false, reason: 'invalid_category' };
   }
-  
+
   // 3. Description quality check
-  const abstractWords = ['resilience', 'scalability', 'modularity', 
+  const abstractWords = ['resilience', 'scalability', 'modularity',
                         'flexibility', 'maintainability'];
-  const hasAbstract = abstractWords.some(w => 
+  const hasAbstract = abstractWords.some(w =>
     parsed.description.toLowerCase().includes(w));
   if (hasAbstract && parsed.description.length < 100) {
     return { valid: false, reason: 'too_abstract' };
   }
-  
+
   return { valid: true };
 }
 ```
@@ -82,7 +82,8 @@ Flag for manual review when:
 - Description contains `UPDATE [skill-id]:` (potential skill update)
 - Category is `security` (sensitive patterns)
 
-## 7. File Map
+## 7. File Map (V2)
 
-- `@scripts/skill-watcher.js`: `parseLLMResponse()`, validation logic
-- `@logs/skills-events.log`: Rejection audit trail
+- `n8n/workflows/V2_NEWS_Swarm.json`: Logic for parsing and validating LLM output
+- `@logs/skills-events.log`: Rejection audit trail (via n8n)
+- `events/REJECTED_CANDIDATES.json`: Archive of low-quality proposals

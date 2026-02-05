@@ -8,83 +8,49 @@ created_at: 2026-01-31
 updated_at: 2026-02-02
 ---
 
-# Process: Skill Watcher (Git)
+# Process: Skill Watcher (V2 / n8n)
 
-> **Context**: Analyzing Git history to discover hidden knowledge.
-> **SSOT**: `scripts/skill-watcher.js`
+> **Context**: Analyzing external updates and internal commits to discover hidden knowledge.
+> **SSOT**: `n8n/workflows/V2_SOURCES_MANAGER.json`
 
-## 1. Architecture
+## 1. Architecture (V2)
 
 ```
-git log ──► isSkillWorthy() ──► generateExplanationLLM() ──► SKILL_CANDIDATES.json
-              │                        │
-              │                        └──► mcpRelevanceCheck() ──► MCP_SERVER_CANDIDATES.json
-              ▼
-        [Heuristics]
-        See: process-commit-
-        analysis-heuristics
+Check Updates ──► V2_SOURCES_MANAGER ──► V2_NEWS_Swarm ──► SKILL_CANDIDATES.json
+(manual/timer)          (n8n)                (n8n)
 ```
 
-## 2. Pipeline Stages
+## 2. Pipeline Stages (V2)
 
 | Stage | Input | Output | Skill Reference |
 |-------|-------|--------|-----------------|
-| 1. Scan | `git log` | Commit list | — |
-| 2. Filter | Commit | worthy/reject | `process-commit-analysis-heuristics` |
-| 3. Extract | Diff | Structured response | `process-commit-skill-extraction` |
-| 4. Validate | LLM output | Valid skill or reject | `process-skill-quality-validation` |
-| 5. Store | Valid skill | JSON entry | — |
-| 6. MCP Reflect | Commit + LLM summary | MCP candidates | `process-unified-mcp-orchestration` |
+| 1. Scan | Release/Git | Release Notes/Diff | — |
+| 2. Filter | Content | Worthy/None | `process-commit-analysis-heuristics` |
+| 3. Extract | Text | Structured JSON | `process-commit-skill-extraction` |
+| 4. Validate | JSON | Valid skill/task | `process-skill-quality-validation` |
+| 5. Store | MD/JSON | File/Registry | — |
 
-## 3. MCP Reflection (Catalog)
+## 3. Legacy (Removed)
+The standalone script `scripts/skill-watcher.js` has been decommissioned. All discovery logic is now centralized in n8n for better observability and agentic control.
 
-**Goal**: from each commit summary decide whether a Docker MCP Catalog server could reduce effort, increase automation, or improve observability.
+## 4. Hard Constraints (V2)
 
-**Sources**:
-- Official catalog: https://hub.docker.com/mcp/explore
-- Docs: https://docs.docker.com/ai/mcp-catalog-and-toolkit/catalog/
-
-**Triggers** (non-exhaustive):
-1. **Repo automation**: GitHub, Git, CI/CD, release tasks
-2. **Docs/KB**: Notion, Confluence, Google Docs, wiki tasks
-3. **Observability**: Grafana, Datadog, New Relic, logs/metrics
-4. **Search/Research**: web search, docs search, data discovery
-5. **Browser automation**: Playwright, scraping, QA
-6. **Data/DB**: MongoDB, Postgres/Neon, Elasticsearch
-
-**Output schema** (`events/MCP_SERVER_CANDIDATES.json`):
-```
-[
-  {
-    "commit": "<sha>",
-    "title": "<subject>",
-    "reason": "<why MCP helps>",
-    "category": "<catalog category>",
-    "suggested_servers": ["<server-name>"],
-    "links": ["https://hub.docker.com/mcp/explore"]
-  }
-]
-```
-
-## 4. Hard Constraints
-
-1. **Size Limits**: MAX 1500 lines, MAX 15 files per commit
-2. **No Duplicates**: `SCAN_REGISTRY.json` prevents re-scanning
-3. **Structured Output**: LLM must follow exact response format
-4. **Quality Gate**: Abstract/philosophical responses rejected
+1. **Size Limits**: MAX 1500 tokens for analysis pass.
+2. **Registry**: `V2_RELEASE_REGISTRY.json` tracks processed versions.
+3. **Structured Output**: Swarm must return strictly defined JSON schema.
+4. **Reputation**: Agents are scored based on the usefulness of their findings.
 
 ## 5. Related Skills
 
-- `process-commit-analysis-heuristics` — Filtering rules
-- `process-commit-skill-extraction` — LLM prompt protocol
-- `process-skill-quality-validation` — Output validation
-- `process-skills-curation-intelligence` — Meta-decisions
-- `process-unified-mcp-orchestration` — MCP selection & routing rules
+- `process-commit-analysis-heuristics` — Worthiness rules
+- `process-commit-skill-extraction` — LLM Prompting
+- `process-skill-quality-validation` — Output Gate
+- `process-wf-ui-v2-standards` — Dashboard interaction
 
-## 6. File Map
+## 6. File Map (V2)
 
-- `@scripts/skill-watcher.js`: Main logic
-- `@mcp/continue-wrapper/server.js`: LLM API
+- `n8n/workflows/V2_SOURCES_MANAGER.json`: Discovery Orchestrator
+- `n8n/workflows/V2_NEWS_Swarm.json`: Analysis Engine
 - `@events/SKILL_CANDIDATES.json`: Output queue
-- `@events/SCAN_REGISTRY.json`: Processed commits
-- `@events/MCP_SERVER_CANDIDATES.json`: MCP opportunities backlog
+- `@events/V2_RELEASE_REGISTRY.json`: State tracking
+- `@events/AGENT_REGISTRY.json`: Agent reputations

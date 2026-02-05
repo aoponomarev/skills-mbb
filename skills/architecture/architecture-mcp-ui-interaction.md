@@ -16,16 +16,16 @@ This skill defines the interaction protocol between the frontend (WorkFlow UI) a
 
 ## Core Interactions
 
-### 1. The Scan Flow
-- **Request**: UI sends a commit hash to `/api/skills/scan`.
-- **Backend**: Runs `skill-watcher.js` which performs LLM analysis.
-- **Response**: Returns structured insight or rejection.
-- **UI Update**: Dynamically updates the commit card status without full page refresh.
+### 1. The Scan Flow (V2)
+- **Request**: UI triggers `/webhook/v2/check-updates` (or specific commit scan).
+- **Backend**: n8n `V2_SOURCES_MANAGER` orchestrates the scan.
+- **Response**: Returns summary of findings.
+- **UI Update**: Dynamically updates the sources or task list.
 
-### 2. The Approve/Curation Flow
-- **User Action**: Clicking "Approve" triggers `/api/skills/approve`.
-- **Backend**: Moves candidate to `BACKLOG.md` with status `approved`.
-- **Processor**: `skill-processor.js` detects the entry and generates a draft.
+### 2. The Approve/Curation Flow (V2)
+- **User Action**: Clicking "OK" on Dashboard triggers `v2/confirm`.
+- **Backend**: API updates agent reputation and status.
+- **Drafter**: Drafting is now part of the `V2_NEWS_Swarm` initial pass.
 
 ### 3. The Log Synchronization
 - **Polling**: UI fetches `/api/logs` to show real-time events.
