@@ -49,17 +49,17 @@ D:\Clouds\AO\OneDrive\AI\
 
 | Action | Description | When to Use |
 |--------|-------------|-------------|
-| `restore` | OneDrive → Local | Session START |
+| `restore` | OneDrive → Local | ONLY IF REQUESTED |
 | `backup` | Local → OneDrive | Session END |
 | `diff` | Compare hashes | Check before sync |
 | `status` | Show timestamps | Debugging |
 
 ## 4. Agent Protocol
 
-### 4.1. Session Start (Auto-Restore)
-Agent MUST execute at the beginning of every session:
+### 4.1. Session Start (Manual Restore)
+Agent should NOT execute restore automatically at the beginning of every session unless explicitly requested by the user.
 ```
-1. Run: powershell .\scripts\sync-cursor-settings.ps1 restore
+1. Run: powershell .\scripts\sync-cursor-settings.ps1 restore (ONLY IF REQUESTED)
 2. Restart Cursor if config.yaml or settings.json changed
 3. Confirm: "✅ Settings restored from OneDrive"
 ```
