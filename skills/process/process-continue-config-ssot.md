@@ -25,11 +25,12 @@ Sync ONLY the following configuration files:
 
 **DO NOT** sync the `index/` or `cache/` directories (heavy SQLite databases).
 
-## 3. Maintenance
+## 3. Maintenance & Automation
 When updating models:
-1.  Edit `[OneDrive]\AI\Global\Continue\config.yaml`.
-2.  Restart Cursor/Continue.
-3.  Update `logs/llm-models-registry.md`.
+1.  Use `node scripts/llm-manager.js --add` to update the technical source.
+2.  The `llm-manager.js` automatically handles the sync with the registry and stats.
+3.  The `server.js` wrapper reloads the configuration on restart or via API.
+4.  For cross-device sync, use `scripts/sync-cursor-settings.ps1 backup` to push changes to OneDrive.
 
 ## 4. Hard Constraints
 1.  **No Direct Edits**: Never edit the file in `%USERPROFILE%` directly; always use the OneDrive source.
