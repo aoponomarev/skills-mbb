@@ -27,4 +27,5 @@ updated_at: 2026-02-01
 
 ## 4. File Map (V2)
 - `@mcp/V2_DASHBOARD.html`: UI Frontend.
-- `n8n/workflows/V2_DASHBOARD_API.json`: Backend API Orchestrator.
+- `@mcp/continue-wrapper/server.js`: Backend API Proxy.
+- `OneDrive/AI/Global/LLM/infra-registry.json`: Data SSOT.

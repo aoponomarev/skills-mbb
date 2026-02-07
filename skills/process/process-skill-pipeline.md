@@ -35,5 +35,5 @@ The standalone `skill-processor.js` was replaced by n8n to:
 
 ## 5. File Map (V2)
 - `n8n/workflows/V2_NEWS_Swarm.json`: The Engine.
-- `@events/AGENT_REGISTRY.json`: Reputation SSOT.
+- `OneDrive/AI/Global/LLM/infra-registry.json`: Reputation & Agent SSOT.
 - `skills-mbb/drafts/tasks/`: Markdown Output.
