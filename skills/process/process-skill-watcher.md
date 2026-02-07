@@ -52,5 +52,5 @@ The standalone script `scripts/skill-watcher.js` has been decommissioned. All di
 - `n8n/workflows/V2_SOURCES_MANAGER.json`: Discovery Orchestrator
 - `n8n/workflows/V2_NEWS_Swarm.json`: Analysis Engine
 - `@events/SKILL_CANDIDATES.json`: Output queue
-- `@events/V2_RELEASE_REGISTRY.json`: State tracking
-- `@events/AGENT_REGISTRY.json`: Agent reputations
+- `OneDrive/AI/Global/n8n/processed_registry.json`: State tracking (globalized)
+- `OneDrive/AI/Global/LLM/infra-registry.json`: Agent reputations (SSOT)
