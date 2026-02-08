@@ -28,4 +28,4 @@ updated_at: 2026-02-01
 
 ## 4. File Map
 - `@skills-mbb/skills/index/index-mbb.md`: The Map.
-- `@events/AGENT_REGISTRY.json`: Source of truth for agent performance during review.
+- `global/LLM/infra-registry.json`: Source of truth for agent performance during review.

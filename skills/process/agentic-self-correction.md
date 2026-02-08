@@ -28,4 +28,4 @@ updated_at: 2026-02-01
 
 ## 4. File Map (V2)
 - `skills-mbb/drafts/tasks/`: The correction queue.
-- `@events/AGENT_REGISTRY.json`: Reputation tracking for self-correcting agents.
+- `global/LLM/infra-registry.json`: Reputation tracking for self-correcting agents.

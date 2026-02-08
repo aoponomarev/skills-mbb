@@ -20,13 +20,13 @@ updated_at: 2026-02-01
 
 ## 2. UI Synchronization (V2)
 - **Real-time**: The Dashboard polls `v2/tasks` to show the latest Swarm output.
-- **Feedback**: Agent actions (Confirm/Reject) are immediately reflected in `AGENT_REGISTRY.json`.
+- **Feedback**: Agent actions (Confirm/Reject) are immediately reflected in `global/LLM/infra-registry.json`.
 
 ## 3. Hard Constraints
 1.  **No Direct File Edits**: Agents must not edit `SKILL_CANDIDATES.json` directly; use the Dashboard API.
-2.  **Reputation First**: Agents with low ratings in `AGENT_REGISTRY.json` are restricted from critical synthesis tasks.
+2.  **Reputation First**: Agents with low ratings in `infra-registry.json` are restricted from critical synthesis tasks.
 
 ## 4. File Map (V2)
 - `@mcp/V2_DASHBOARD.html`: UI Frontend.
 - `n8n/workflows/V2_DASHBOARD_API.json`: API Orchestrator.
-- `@events/AGENT_REGISTRY.json`: Reputation SSOT.
+- `global/LLM/infra-registry.json`: Reputation & Agent SSOT.
