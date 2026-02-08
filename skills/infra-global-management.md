@@ -18,11 +18,10 @@ The project uses a "Total Globalization" strategy where all critical registries,
 ## Implementation Patterns
 
 ### 1. Accessing Global Data in Node.js
-Always resolve the global root dynamically:
+Use the `scripts/path-resolver.js` utility (or env var `GLOBAL_ROOT`):
 ```javascript
-const GLOBAL_ROOT = fs.existsSync('/workspace/global')
-  ? '/workspace/global'
-  : path.resolve(PROJECT_ROOT, '..', '..', '..', '..', '..', 'AI', 'Global');
+const pathResolver = require('./scripts/path-resolver');
+const GLOBAL_ROOT = pathResolver.resolveGlobalRoot();
 ```
 
 ### 2. Atomic Writes
@@ -36,10 +35,10 @@ await registryService.writeJSON(PATH, data);
 Use `fs.watch` to react to changes in the global registry without restarting the process.
 
 ### 4. Docker Configuration
-Ensure the global zone is mounted in `docker-compose.yml`:
+Ensure the global zone is mounted using the `GLOBAL_ROOT` environment variable:
 ```yaml
 volumes:
-  - ../../../../../AI/Global:/workspace/global:rw
+  - ${GLOBAL_ROOT}:/workspace/global:rw
 ```
 
 ## Maintenance

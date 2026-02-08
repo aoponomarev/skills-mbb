@@ -25,27 +25,30 @@ All paths MUST be **relative** to the project root or the current file.
 - Good: `./MBB` (relative to root).
 
 ### Scripts (`*.js`, `*.py`)
-- Resolve root dynamically:
+- **Standard**: Use `scripts/path-resolver.js` to resolve project and global roots.
+- Resolve project root dynamically:
   ```javascript
-  const root = path.resolve(__dirname, '..');
+  const pathResolver = require('./scripts/path-resolver');
+  const root = pathResolver.getProjectRoot();
   ```
 - Do not hardcode drive letters.
 
 ### Documentation (`*.md`)
 - Links must be relative: `[Link](../folder/file.md)`.
-- Runnable examples should use env vars (`$PROJECT_ROOT`).
+- Runnable examples should use env vars (`$PROJECT_ROOT`, `$GLOBAL_ROOT`) or `path-resolver.js`.
 
 ### Docker
-- Volume mappings must be relative:
+- Volume mappings must use environment variables resolved via `path-resolver.js`:
   ```yaml
   volumes:
-    - ../skills:/workspace/skills
+    - ${SKILLS_ROOT}:/workspace/skills
+    - ${GLOBAL_ROOT}:/workspace/global
   ```
 
 ## 3. Why?
-1.  **Portability**: Works on any drive/OS.
+1.  **Portability**: Works on any drive/OS (Windows/Docker/WSL).
 2.  **Sync**: Seamless OneDrive sync between devices.
 3.  **Safety**: Prevents accidental writes to wrong absolute paths.
 
 ## 4. Verification
-Command `ЕИП` triggers a scan for absolute paths in the codebase.
+Command `ЕИП` triggers a scan for absolute paths in the codebase. `path-resolver.js` is the primary tool for maintaining this principle.
