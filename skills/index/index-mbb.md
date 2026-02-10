@@ -141,6 +141,7 @@
 - [`process-n8n-browser-cache`](../troubleshooting/process-n8n-browser-cache.md)
 - [`troubleshoot-continue-cli-api-keys`](../troubleshooting/troubleshoot-continue-cli-api-keys.md)
 - [`troubleshoot-continue-cli-response-mismatch`](../troubleshooting/troubleshoot-continue-cli-response-mismatch.md)
+- [`file-protocol-cors-guard`](../troubleshooting/file-protocol-cors-guard.md)
 - [`yandex-access-binding-issue`](../troubleshooting/yandex-access-binding-issue.md)
 - [`yandex-cors-troubleshooting`](../troubleshooting/yandex-cors-troubleshooting.md)
 
