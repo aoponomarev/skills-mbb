@@ -86,4 +86,4 @@ Flag for manual review when:
 
 - `n8n/workflows/V2_NEWS_Swarm.json`: Logic for parsing and validating LLM output
 - `@logs/skills-events.log`: Rejection audit trail (via n8n)
-- `events/REJECTED_CANDIDATES.json`: Archive of low-quality proposals
+- `events/SKILL_CANDIDATES.json`: Current queue for skill proposals under review
