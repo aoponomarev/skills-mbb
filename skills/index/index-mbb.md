@@ -59,6 +59,7 @@
 ## Integrations
 
 - [`continue-cli-mcp-integration-nuances`](../integrations/continue-cli-mcp-integration-nuances.md)
+- [`integration-mcp-sdk-security-rollout`](../integrations/integration-mcp-sdk-security-rollout.md)
 - [`integrations-ai-core`](../integrations/integrations-ai-core.md)
 - [`integrations-api-proxy`](../integrations/integrations-api-proxy.md)
 - [`integrations-auth-worker-restore`](../integrations/integrations-auth-worker-restore.md)
@@ -99,6 +100,7 @@
 - [`agentic-self-correction`](../process/agentic-self-correction.md)
 - [`autonomous-skill-synthesis`](../process/autonomous-skill-synthesis.md)
 - [`process-autonomous-quality-gate`](../process/process-autonomous-quality-gate.md)
+- [`process-better-sqlite3-node-abi-gate`](../process/process-better-sqlite3-node-abi-gate.md)
 - [`process-batch-skills-review`](../process/process-batch-skills-review.md)
 - [`process-bug-resolution-protocol`](../process/process-bug-resolution-protocol.md)
 - [`process-commit-analysis-heuristics`](../process/process-commit-analysis-heuristics.md)
@@ -106,6 +108,7 @@
 - [`process-continue-config-ssot`](../process/process-continue-config-ssot.md)
 - [`process-cursor-settings-management`](../process/process-cursor-settings-management.md)
 - [`process-disaster-recovery`](../process/process-disaster-recovery.md)
+- [`process-docker-compose-release-validation`](../process/process-docker-compose-release-validation.md)
 - [`process-dynamic-context-management`](../process/process-dynamic-context-management.md)
 - [`process-future-skill-impact-analysis`](../process/process-future-skill-impact-analysis.md)
 - [`process-infrastructure-maintenance`](../process/process-infrastructure-maintenance.md)
@@ -116,6 +119,7 @@
 - [`process-orchestrator-evolution`](../process/process-orchestrator-evolution.md)
 - [`process-project-secretary-agent`](../process/process-project-secretary-agent.md)
 - [`process-settings-sync`](../process/process-settings-sync.md)
+- [`process-sqlite-runtime-compatibility`](../process/process-sqlite-runtime-compatibility.md)
 - [`process-skill-pipeline`](../process/process-skill-pipeline.md)
 - [`process-skill-quality-validation`](../process/process-skill-quality-validation.md)
 - [`process-skill-watcher`](../process/process-skill-watcher.md)
