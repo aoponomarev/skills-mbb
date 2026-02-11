@@ -1,5 +1,11 @@
 # Recipe: Portfolio Engine MVP Hardening (MBB)
 
+> **References**:
+> - Doc: `MBB/docs/A_PORTFOLIO_SYSTEM.md`
+> - Engine: `MBB/core/domain/portfolio-engine.js`
+> - Validation: `MBB/core/domain/portfolio-validation.js`
+> - General skill: `skills/recipe-portfolio-engine-mvp-hardening.md`
+
 ## Problem
 
 Refactor portfolio logic without inheriting legacy bugs from UI-centric implementation.
