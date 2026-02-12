@@ -5,7 +5,7 @@ scope: skills-mbb
 tags: [#integrations, #rate-limit, #api, #throttling]
 priority: high
 created_at: 2026-01-25
-updated_at: 2026-02-01
+updated_at: 2026-02-12
 ---
 
 # Integrations: Rate Limiting
@@ -37,3 +37,26 @@ try {
 ## 4. File Map
 - `@core/api/rate-limiter.js`: Logic.
 - `@core/config/data-providers-config.js`: Limits definition.
+
+## 5. 429 Recovery Protocol (file:// + CoinGecko)
+Use this protocol for large top-list loads where `429` can happen in bursts.
+
+1. **Honor server delay first**  
+   - If response has `Retry-After`, wait exactly that value (bounded by sane min/max guardrails).
+
+2. **Fallback delay if header missing**  
+   - Apply bounded exponential backoff (`attempt -> delay`) plus a small inter-request gap.
+
+3. **Adaptive success feedback**  
+   - On successful chunk/page responses, reduce penalty gradually (`decreaseTimeout`/equivalent logic).
+
+4. **Status propagation is mandatory**  
+   - Provider-level HTTP errors must preserve `error.status`.
+   - Manager/request registry must record real status (`429`, `500`, etc.), not only parse message text.
+
+5. **UI-level transparency**  
+   - Emit progress states (`retrying`, `waiting`, `chunk_done`) so user sees why loading takes longer.
+
+## 6. Code Anchor Policy
+When changing this skill, ensure inline anchors exist in runtime retry/status branches.
+See: `skills-mbb/skills/process/process-skill-code-loop-anchors.md`

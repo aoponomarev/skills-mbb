@@ -76,6 +76,10 @@
 - [`MCP Server YAML Parsing`](../integrations/mcp-server-yaml-parsing.md)
 - [`Integrations: Perplexity AI`](../integrations/perplexity-connect.md)
 
+## Process
+
+- [`Process: Skill-to-Code Loop Anchors`](../process/process-skill-code-loop-anchors.md)
+
 ## Libraries
 
 - [`Libs: Auto Activation`](../libs/libs-mbb-auto-activation.md)
